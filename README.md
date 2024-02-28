@@ -42,7 +42,7 @@ Demo it here: https://gptdoc-summarizer.streamlit.app/
 - `doc_to_final_summary()`: Generates the final summary for a given document
 - `summary_prompt_creator()`: Creates a summary prompt list for the langchain summarize chain
 - `pdf_to_text()`: Converts a PDF file to a text string
-- 'image_to_text()': Converts a Image file (JPEG, PNG) to a text string
+- `image_to_text()`: Converts a Image file (JPEG, PNG) to a text string
 - `check_gpt_4()`: Checks if the user has access to GPT-4
 - `token_limit()`: Checks if a document has more tokens than a specified maximum
 - `token_minimum()`: Checks if a document has more tokens than a specified minimum
