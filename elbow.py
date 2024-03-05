@@ -15,7 +15,9 @@ def calculate_inertia(vectors, max_clusters=12):
     :return: A list of inertia values.
     """
     inertia_values = []
-    for num_clusters in range(1, max_clusters + 1):
+    n_samples = len(vectors)
+
+    for num_clusters in range(1, min(max_clusters, n_samples) + 1):
         kmeans = KMeans(n_clusters=num_clusters, random_state=42).fit(vectors)
         inertia_values.append(kmeans.inertia_)
     return inertia_values

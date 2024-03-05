@@ -100,11 +100,14 @@ def kmeans_clustering(vectors, num_clusters=None):
 
     :return: A K-Means clustering object.
     """
-    if num_clusters is None:
+    n_samples = len(vectors)
+    if num_clusters is None or num_clusters >= n_samples:
         inertia_values = calculate_inertia(vectors)
+
         num_clusters = determine_optimal_clusters(inertia_values)
         print(f'Optimal number of clusters: {num_clusters}')
 
+    num_clusters = min(num_clusters, n_samples - 1)
     kmeans = KMeans(n_clusters=num_clusters, random_state=42).fit(vectors)
     return kmeans
 

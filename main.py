@@ -7,7 +7,7 @@ from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_fil
     token_limit, token_minimum
 
 from utils import transcript_loader
-
+ #OPEN_AI_KEI = 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
 
 def main():
     """
@@ -17,13 +17,11 @@ def main():
     """
     st.title("Document Summarizer")
 
-    input_method = st.radio("Select input method", ('Upload a document', 'Enter a YouTube URL'))
+    input_method = st.radio("Select input method", ('Upload a document', 'Upload a picture'))
 
     if input_method == 'Upload a document':
-        uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpg'])
-    if input_method == 'Enter a YouTube URL':
-        youtube_url = st.text_input("Enter a YouTube URL to summarize")
-
+        uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+        
     api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
     st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
     use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
@@ -35,7 +33,6 @@ def main():
 
 
     if st.button('Summarize (click once and wait)'):
-        st.markdown(uploaded_file)
         if input_method == 'Upload a document':
             process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
 
@@ -64,7 +61,6 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
     with st.spinner("Summarizing... please wait..."):
         if file:
             temp_file_path = create_temp_file(file_or_transcript)
-            st.markdown(temp_file_path)
             doc = doc_loader(temp_file_path)
             map_prompt = file_map
             combine_prompt = file_combine

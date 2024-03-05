@@ -12,6 +12,9 @@ from utils import doc_to_text, token_counter
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+from PIL import Image
+
+
 def image_to_text(image):
     # Use Tesseract OCR to extract text from the image
     text = pytesseract.image_to_string(image)
@@ -101,22 +104,25 @@ def check_key_validity(api_key):
         return False
 
 
+
 def create_temp_file(uploaded_file):
-    st.markdown(uploaded_file)
-    """
-    Create a temporary file from an uploaded file.
 
-    :param uploaded_file: The uploaded file to create a temporary file from.
-
-    :return: The path to the temporary file.
-    """
+    # Create a temporary file with a '.txt' suffix
     with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_file:
         if uploaded_file.type == 'application/pdf':
+            # If it's a PDF, write the text content to the temporary file
             temp_file.write(pdf_to_text(uploaded_file))
         else:
-            temp_file.write(image_to_text(uploaded_file))
-    return temp_file.name
+            # If it's an image, open it using Pillow
+            pil_image = Image.open(uploaded_file)
+            # st.image(pil_image, caption='Uploaded Image', use_column_width=True)
 
+            # Extract text using Tesseract OCR
+            text = pytesseract.image_to_string(pil_image)
+            temp_file.write(text.encode('utf-8'))
+
+    # Return the path to the temporary file
+    return temp_file.name
 
 def create_chat_model(api_key, use_gpt_4):
     """
