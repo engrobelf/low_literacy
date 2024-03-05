@@ -9,6 +9,7 @@ from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_fil
 from utils import transcript_loader
  #OPEN_AI_KEI = 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
 
+find_clusters = False
 def main():
     """
     The main function for the Streamlit app.
