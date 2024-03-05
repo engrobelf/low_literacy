@@ -17,7 +17,7 @@ def main():
     """
     st.title("Document Summarizer")
 
-    input_method = st.radio("Select input method", ('Upload a document', 'Upload a picture'))
+    input_method = st.radio("Select input method", ('Upload a document', 'another potential feature '))
 
     if input_method == 'Upload a document':
         uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
@@ -25,9 +25,8 @@ def main():
     api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
     st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
     use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
-    find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
     st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
-    st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/e-johnstonn/docsummarizer)') ## will bemodify in the future
+    st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
     st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
                         This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
 
