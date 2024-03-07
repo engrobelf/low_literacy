@@ -14,8 +14,8 @@ Read all the provided summaries from a larger document. They will be enclosed in
 Summarize the document focusing on the following structure:
  
 1. State the organization or sender with an emoji.
-2. Summary: Summarize the document in a couple sentence that can be understood by people with low literacy level. I prefer the
-summary to be very straightforward, with each action point and piece of information separated clearly and presented with minimal words for clarity.
+2. Summary: Summarize the document in a three sentence that can be understood by people with low literacy level. I prefer the
+summary to be very straightforward, with piece of information separated clearly and presented with minimal words for clarity.
 Preceding the synopsis, write a short, bullet form list of key action with the corresponding deadlines associated if applicable.
 Format in HTML. Text should be divided into paragraphs. Paragraphs should be indented.
 

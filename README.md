@@ -1,10 +1,30 @@
+<<<<<<< HEAD
+
 # **GPT 3.5/4 Powered Document Summarizer**
 
+=======
+
+# Machine learning courses
+
+> > > > > > > Incoming
+
+<<<<<<< HEAD
 This is a tool that takes a document (PDF, JPG, JPEG) and generates a concise summary tailored for people with low-literacy using GPT-4 or GPT-3.5-turbo. It can accurately summarize hundreds of pages of text. It's built with Python and Streamlit and leverages the langchain library for text processing.
 While the final output is generated with either GPT3.5 or GPT4 (the LLM's that power ChatGPT), only a small portion of the overall document is used in the prompts. Before any call is made to either LLM, the document is separated into
-small sections that contain the majority of the meaning of the document. 
+small sections that contain the majority of the meaning of the document.
+=======
+Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
 
+> > > > > > > Incoming
+
+<<<<<<< HEAD
 Demo it here: https://gptdoc-summarizer.streamlit.app/
+=======
+To preview and run the project on your device:
+
+> > > > > > > Incoming
+
+<<<<<<< HEAD
 
 ## Features
 
@@ -44,9 +64,10 @@ Demo it here: https://gptdoc-summarizer.streamlit.app/
 - `image_to_text()`: Converts a Image file (JPEG, PNG) to a text string
 - `check_gpt_4()`: Checks if the user has access to GPT-4
 - `token_limit()`: Checks if a document has more tokens than a specified maximum
-- `token_minimum()`: Checks if a document has more tokens than a specified minimum
+- # `token_minimum()`: Checks if a document has more tokens than a specified minimum
 
+1. Open project folder in <a href="https://code.visualstudio.com/download">Visual Studio Code</a>
+2. In the terminal, run `npm install`
+3. Run `npm start` to view project in browser
 
-
-
-
+> > > > > > > Incoming

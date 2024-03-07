@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Font+Awesome+6+Pro:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=SF+Pro:wght@400&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-sf-pro: "SF Pro";
+  --font-font-awesome-6-pro: "Font Awesome 6 Pro";
+
+  /* font sizes */
+  --font-size-5xl: 24px;
+  --font-size-13xl: 32px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* Gaps */
+  --gap-3xs: 10px;
+
+  /* Paddings */
+  --padding-8xs: 5px;
+  --padding-23xl: 42px;
+
+  /* Border radiuses */
+  --br-xs: 12px;
+}

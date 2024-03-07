@@ -1,0 +1,70 @@
+.div {
+  position: relative;
+  font-weight: 300;
+}
+.upload {
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-sf-pro);
+}
+.scan1 {
+  position: absolute;
+  top: 772px;
+  left: 84px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  width: 225px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-23xl);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+}
+.camera {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  width: 363px;
+  height: 616px;
+}
+.scan2 {
+  position: absolute;
+  top: 638px;
+  left: 69px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  width: 225px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-23xl);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+}
+.frame {
+  position: absolute;
+  top: 62px;
+  left: 15px;
+  width: 363px;
+  height: 680px;
+  overflow: hidden;
+}
+.scan {
+  position: relative;
+  background-color: #f1f4ff;
+  width: 100%;
+  height: 852px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--font-font-awesome-6-pro);
+}
