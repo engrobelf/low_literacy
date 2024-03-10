@@ -9,20 +9,20 @@ FULL SUMMARY:
 """
 
 
-file_combine = """
-Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
-Summarize the document focusing on the following structure:
+# file_combine = """
+# Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
+# Summarize the document focusing on the following structure:
  
-1. State the organization or sender with an emoji.
-2. Summary: Summarize the document in a three sentence that can be understood by people with low literacy level. I prefer the
-summary to be very straightforward, with piece of information separated clearly and presented with minimal words for clarity.
-Preceding the synopsis, write a short, bullet form list of key action with the corresponding deadlines associated if applicable.
-Format in HTML. Text should be divided into paragraphs. Paragraphs should be indented.
+# 1. State the organization or sender with an emoji.
+# 2. Summary: Summarize the document in a three sentence that can be understood by people with low literacy level. I prefer the
+# summary to be very straightforward, with piece of information separated clearly and presented with minimal words for clarity.
+# Preceding the synopsis, write a short, bullet form list of key action with the corresponding deadlines associated if applicable.
+# Format in HTML. Text should be divided into paragraphs. Paragraphs should be indented.
 
-3. Key actions: List the key actions briefly with emojis for each point, tailored for a primary school understanding level.
-If applicable add the deadlines associated with the expected actions.
-3. Concisely provide the contact information and location if applicable
-4. If there is no contact information then you can say " there is no contact information"
+# 3. Key actions: List the key actions briefly with emojis for each point, tailored for a primary school understanding level.
+# If applicable add the deadlines associated with the expected actions.
+# 3. Concisely provide the contact information and location if applicable
+# 4. If there is no contact information then you can say " there is no contact information"
  
 
 '''{text}'''
