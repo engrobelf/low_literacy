@@ -9,20 +9,28 @@ FULL SUMMARY:
 """
 
 
-# file_combine = """
-# Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
-# Summarize the document focusing on the following structure:
+file_combine = """
+Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
+Summarize the document focusing on the following structure:
  
-# 1. State the organization or sender with an emoji.
-# 2. Summary: Summarize the document in a three sentence that can be understood by people with low literacy level. I prefer the
-# summary to be very straightforward, with piece of information separated clearly and presented with minimal words for clarity.
-# Preceding the synopsis, write a short, bullet form list of key action with the corresponding deadlines associated if applicable.
-# Format in HTML. Text should be divided into paragraphs. Paragraphs should be indented.
+🌐 Language Adjustment: Summarize in Dutch if the   original letter is in Dutch, and in English if the letter is in   English.
 
-# 3. Key actions: List the key actions briefly with emojis for each point, tailored for a primary school understanding level.
-# If applicable add the deadlines associated with the expected actions.
-# 3. Concisely provide the contact information and location if applicable
-# 4. If there is no contact information then you can say " there is no contact information"
+     📩 Sender: Use an emoji to visually represent the sender for quick   understanding. Provide the name or organization of the sender in this section   separately.
+
+     🎯 Purpose: Briefly describe the main purpose or topic of the letter   in a simple sentence or phrase, using an emoji if possible for visual   emphasis.
+
+     🔑 Core Message or Actions Required:
+
+     For specific actions needed from the recipient, label these as   "🎯 Action Points" and use emojis for each. Keep   explanations concise, aiming for a maximum of 6 words per action point for   simplicity.
+     For informative content without required actions, refer to these as   "💡 Highlights," following the same brevity and emoji   usage.
+
+     📞 Contact Information: Provide a brief summary of given contact   details. If absent, clearly state "🚫 No contact details   provided." If specific actions such as vaccination are mentioned or   advice is needed, suggest contacting healthcare providers, local health   departments (GGD in the Netherlands), or another relevant organization for   the most current advice and instructions.
+
+     📍 Call to Action & Address:
+
+     Summarize specific call to action in 6 words (excluding links and phone   numbers).
+     Include relevant dates, deadlines, or addresses succinctly.
+     📌 Approach: Maintain a focus on the essentials, using minimal   wording and excluding unrelated information for clarity and brevity.
  
 
 '''{text}'''
