@@ -10,28 +10,35 @@ FULL SUMMARY:
 
 
 file_combine = """
-Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
-Language Adjustment: Summarize in Dutch if the original letter is in Dutch, and in English if the letter is in English.
-Summarize the document focusing on the following structure:
+Summarize the document strictly in its original language, if it is Dutch, give the results in Dutch, bur if the content is English then give the reults in English. Carefully review the document to determine if there are specific actions required from the recipient.Focusing on clarity for readers with low literacy. Keep the summaries concise, aiming for no more than 5 points in total, with each point not exceeding 5 words, excluding numbers, addresses, and websites. Prioritize "🔑 Action Points" if specific actions are required; otherwise, provide "💡 Highlights" for general information. Include a "Call to Action" for inquiries, using the document's original language. Ensure summaries adhere to this structure and conditions:
+
+📩 Sender:
+- [Emoji] [Sender's Name/Organization]
+
+🎯 Purpose:
+- [Brief Purpose]
+
+🔑 Action Points (only if applicable):
+- [Emoji] [Action 1]
+- [Emoji] [Action 2]
+(Note: Limit to the most critical actions, up to 5 points.)
+
+💡 Highlights (only if no Action Points):
+- [Emoji] [Highlight 1]
+- [Emoji] [Highlight 2]
+(Note: Provide highlights only when there are no specific actions required, up to 5 points in total including Action Points and Highlights.)
+
+📞 Contact Information:
+- [Concise Contact Details or "🚫 Not provided"]
+
+📢 Call to Action:
+- If you have questions, contact us at [Phone Number] or visit [Website].
+- [Address] (if applicable)
+
+Summaries must not mix Action Points and Highlights; use Highlights only if there are zero Action Points. The total number of points (Action Points and/or Highlights) must not exceed 5. Remember to summarize in the document's original language to maintain consistency.
 
 
-    📩 Sender: Use an emoji to visually represent the sender for quick understanding. Provide the name or organization of the sender in this section separately.
 
-    🎯 Purpose: Briefly describe the main purpose or topic of the letter in a simple sentence or phrase, using an emoji if possible for visual emphasis.
-
-    🔑 Core Message or Actions Required:
-
-        For specific actions needed from the recipient, label these as "🎯 Action Points" and use emojis for each. Keep explanations concise, aiming for a maximum of 6 words per action point for simplicity.
-        For informative content without required actions, refer to these as "💡 Highlights," following the same brevity and emoji usage.
-
-    📞 Contact Information: Provide a brief summary of given contact details. If absent, clearly state "🚫 No contact details provided." If specific actions such as vaccination are mentioned or advice is needed, suggest contacting healthcare providers, local health departments (GGD in the Netherlands), or another relevant organization for the most current advice and instructions.
-
-    📍 Call to Action & Address:
-
-        Summarize specific call to action in 6 words (excluding links and phone numbers).
-        Include relevant dates, deadlines, or addresses succinctly.
-
-    📌 Approach: Maintain a focus on the essentials, using minimal wording and excluding unrelated information for clarity and brevity.
  
 
 '''{text}'''
