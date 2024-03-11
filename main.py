@@ -1,6 +1,6 @@
 """
 These are the meta data and instructions
-Author: François Leborgne
+Author: François Leborgne & Guoze
 
 Instructions:
 1. Pip install streamlit, oocsi, streamlit_extras in your python environment
@@ -46,7 +46,7 @@ st.set_page_config(page_title="Low literacy research", layout="wide")
 
 # Initialize OOCSI
 if 'oocsi' not in st.session_state:
-    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
+    st.session_state.oocsi = OOCSI('', 'oo00csi.id.tue.nl')
 
 # Record start time for each page
 def record_page_start_time():
