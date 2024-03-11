@@ -10,19 +10,33 @@ FULL SUMMARY:
 
 
 file_combine = """
-Read all the provided summaries from a larger document. They will be enclosed in triple backticks. 
-Summarize the document focusing on the following structure:
- 
-1. State the organization or sender with an emoji.
-2. Summary: Summarize the document in a three sentence that can be understood by people with low literacy level. I prefer the
-summary to be very straightforward, with piece of information separated clearly and presented with minimal words for clarity.
-Preceding the synopsis, write a short, bullet form list of key action with the corresponding deadlines associated if applicable.
-Format in HTML. Text should be divided into paragraphs. Paragraphs should be indented.
+Summarize the document strictly in its original language, if it is Dutch, give the results in Dutch, bur if the content is English then give the reults in English. Carefully review the document to determine if there are specific actions required from the recipient.Focusing on clarity for readers with low literacy. Keep the summaries concise, aiming for no more than 5 points in total, with each point not exceeding 5 words, excluding numbers, addresses, and websites. Prioritize "🔑 Action Points" if specific actions are required; otherwise, provide "💡 Highlights" for general information. Include a "Call to Action" for inquiries, using the document's original language. Ensure summaries adhere to this structure and conditions:
 
-3. Key actions: List the key actions briefly with emojis for each point, tailored for a primary school understanding level.
-If applicable add the deadlines associated with the expected actions.
-3. Concisely provide the contact information and location if applicable
-4. If there is no contact information then you can say " there is no contact information"
+📩 Sender:
+- [Emoji] [Sender's Name/Organization]
+
+🎯 Purpose:
+- [Brief Purpose]
+
+🔑 Action Points (only if applicable):
+- [Emoji] [Action 1]
+- [Emoji] [Action 2]
+(Note: Limit to the most critical actions, up to 5 points.)
+
+💡 Highlights (only if no Action Points):
+- [Emoji] [Highlight 1]
+- [Emoji] [Highlight 2]
+(Note: Provide highlights only when there are no specific actions required, up to 5 points in total including Action Points and Highlights.)
+
+📞 Contact Information:
+- [Concise Contact Details or "🚫 Not provided"]
+
+📢 Call to Action:
+- If you have questions, contact us at [Phone Number] or visit [Website].
+- [Address] (if applicable)
+
+Summaries must not mix Action Points and Highlights; use Highlights only if there are zero Action Points. The total number of points (Action Points and/or Highlights) must not exceed 5. Remember to summarize in the document's original language to maintain consistency.
+
  
 
 '''{text}'''
