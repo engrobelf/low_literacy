@@ -1,6 +1,13 @@
 import os
 import streamlit as st
-
+import datetime
+from datetime import datetime
+import pandas as pd
+from oocsi_source import OOCSI
+from uuid import uuid4
+from streamlit_extras.switch_page_button import switch_page
+# import requests
+# import json
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
 from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, \
@@ -10,6 +17,26 @@ from utils import transcript_loader
  #OPEN_AI_KEI = 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
 
 find_clusters = False
+
+def record_page_start_time():
+    global page_start_time
+    page_start_time = datetime.now()
+
+def record_page_duration_and_send():
+    current_page_title = st.session_state.current_page_title
+    if page_start_time:
+        page_end_time = datetime.now()
+        page_duration = page_end_time - page_start_time
+        st.write(f"Time spent on {current_page_title}: {page_duration}")
+
+        # Send data to Data Foundry via OOCSI
+        data = {
+            "page_name": current_page_title,
+            "duration_seconds": page_duration.total_seconds(), 
+            'participant_ID': st.session_state.participantID
+        }
+        st.session_state.oocsi.send('Time_XAI', data)
+
 
 def main():
     """
