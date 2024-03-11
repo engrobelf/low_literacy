@@ -1,3 +1,21 @@
+"""
+These are the meta data and instructions
+Author: François Leborgne
+
+Instructions:
+1. Pip install streamlit, oocsi, streamlit_extras in your python environment
+2. Save this file somewhere on your computer
+3. In the command line, cd to where your file is: "cd/...../folder
+
+4. To run it: streamlit run app.py 
+5. Click on the link it provides you
+6. You need to click sometimes rerun in the website
+
+To hide menu: copy paste this in config.toml
+[ui]
+hideSidebarNav = true
+"""
+
 import os
 import streamlit as st
 import datetime
@@ -14,6 +32,8 @@ from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_fil
     token_limit, token_minimum
 
 from utils import transcript_loader
+
+
  #OPEN_AI_KEI = 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
 
 find_clusters = False
@@ -38,129 +58,128 @@ def record_page_duration_and_send():
         st.session_state.oocsi.send('Time_XAI', data)
 
 
-def main():
-    """
-    The main function for the Streamlit app.
-
-    :return: None.
-    """
-    st.title("Document Summarizer")
-
-    input_method = st.radio("Select input method", ('Upload a document', 'another potential feature '))
-
-    if input_method == 'Upload a document':
-        uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-        
-    api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
-    st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
-    use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
-    st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
-    st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
-    st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
-                        This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
+st.session_state.current_page_title = "Introduction - Document Summarizer"
+st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
+st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
+st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
+                    This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
+page_start_time = None
+record_page_start_time()
+# st.title("Document Summarizer")
 
 
-    if st.button('Summarize (click once and wait)'):
-        if input_method == 'Upload a document':
-            process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
-
-        else:
-            doc = transcript_loader(youtube_url)
-            process_summarize_button(doc, api_key, use_gpt_4, find_clusters, file=False)
+st.session_state.pages = ['Baseline','AI_tool' ]
 
 
-def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_clusters, file=True):
-    """
-    Processes the summarize button, and displays the summary if input and doc size are valid
-
-    :param file_or_transcript: The file uploaded by the user or the transcript from the YouTube URL
-
-    :param api_key: The API key entered by the user
-
-    :param use_gpt_4: Whether to use GPT-4 or not
-
-    :param find_clusters: Whether to find optimal clusters or not, experimental
-
-    :return: None
-    """
-    if not validate_input(file_or_transcript, api_key, use_gpt_4):
-        return
-
-    with st.spinner("Summarizing... please wait..."):
-        if file:
-            temp_file_path = create_temp_file(file_or_transcript)
-            doc = doc_loader(temp_file_path)
-            map_prompt = file_map
-            combine_prompt = file_combine
-        else:
-            doc = file_or_transcript
-            map_prompt = youtube_map
-            combine_prompt = youtube_combine
-        llm = create_chat_model(api_key, use_gpt_4)
-        initial_prompt_list = summary_prompt_creator(map_prompt, 'text', llm)
-        final_prompt_list = summary_prompt_creator(combine_prompt, 'text', llm)
-
-        if not validate_doc_size(doc):
-            if file:
-                os.unlink(temp_file_path)
-            return
-
-        if find_clusters:
-            summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4, find_clusters)
-
-        else:
-            summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
-
-        st.markdown(summary, unsafe_allow_html=True)
-        if file:
-            os.unlink(temp_file_path)
+if 'oocsi' not in st.session_state:
+    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
 
 
-def validate_doc_size(doc):
-    """
-    Validates the size of the document
+# st.set_page_config(page_title="Low literacy research", layout="wide")
 
-    :param doc: doc to validate
-
-    :return: True if the doc is valid, False otherwise
-    """
-    if not token_limit(doc, 800000):
-        st.warning('File or transcript too big!')
-        return False
-
-    if not token_minimum(doc, 500):
-        st.warning('File or transcript too small!')
-        return False
-    return True
+header1, header2, header3 = st.columns([1, 2, 1])
+consent_form1, consent_form2, consent_form3 = st.columns([1, 4, 1])
 
 
-def validate_input(file_or_transcript, api_key, use_gpt_4):
-    """
-    Validates the user input, and displays warnings if the input is invalid
+with consent_form2:
+    st.header('Information form for participants')
+    st.write(
+        '''Hello and thank you for taking the time to participate in this survey.''')
+    st.write('''This document gives you information about the study Comparing Explainable AI (XAI) methods. Before the study begins, it is important that you learn about the procedure followed in this study and that you give your informed consent for voluntary participation. Please read this document carefully.  ''')
 
-    :param file_or_transcript: The file uploaded by the user or the YouTube URL entered by the user
+    st.subheader('Aim and benefit of the study')
+    st.write('''The aim of this study is to measure the satisfaction of users with different types of XAI methods. 
+    This information is used to have better understandable/ more satisfying type of explanations in future applications.  ''')
+    st.write('''This study is performed by Rachel Wang, François Leborgne and Anniek Jansen, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Chao Zhang of the Human-Technology Interaction group.''')
 
-    :param api_key: The API key entered by the user
+    st.subheader('Procedure')
+    st.markdown('''During this project we ask you to: 
+-	Look at different predictions from an AI model (predicting the survival of passengers of the Titanic)
+-	Complete a short survey (9 questions) for each of the four types of explanation method
+-	Complete a survey at the end of the study with demographic information
+-	Complete a second survey at the end to compare the explanation methods and explain why certain methods had your preference.
+''')
 
-    :param use_gpt_4: Whether the user wants to use GPT-4
+    st.subheader('Risks')
+    st.markdown(
+        "The study does not involve any risks, detrimental side effects, or cause discomfort.")
 
-    :return: True if the input is valid, False otherwise
-    """
-    if file_or_transcript == None:
-        st.warning("Please upload a file or enter a YouTube URL.")
-        return False
+    st.subheader("Duration")
+    st.markdown(
+        "The instructions, measurements and debriefing will take approximately 30 minutes.")
 
-    if not check_key_validity(api_key):
-        st.warning('Key not valid or API is down.')
-        return False
+    st.subheader("Voluntary")
+    st.markdown('''Your participation is completely voluntary. You can refuse to participate without giving any reasons and you can stop your participation at any time during the study. You can also withdraw your permission to use your data immediately after completing the study. None of this will have any negative consequences for you whatsoever.''')
 
-    if use_gpt_4 and not check_gpt_4(api_key):
-        st.warning('Key not valid for GPT-4.')
-        return False
+    st.subheader("Confidentiality and use, storage, and sharing of data")
+    st.markdown('''
+     All research conducted at the Human-Technology Interaction Group adheres to the Code of Ethics of the NIP (Nederlands Instituut voor Psychologen – Dutch Institute for Psychologists), and this study has been approved by the Ethical Review Board of the department. 
 
-    return True
+    In this study demographic data (gender, age, education level, highest level of education, data literacy, AI expertise), and experimental data (response to questionnaires and duration of experiment) will be recorded, analyzed, and stored. 
+    The goal of collecting, analyzing, and storing this data is to answer the research question and publish the results in the scientific literature. 
+    Next to the research data, we ask you to leave your email address if you are willing to participate in a follow-up interview and we might need to store your name and bank account in order to compensate you for your participation. 
+    This data will be stored separately from the research data and deleted after the interview/ payment.
+                To protect your privacy, all data that can be used to personally identify you will be stored on an encrypted server of the Human Technology Interaction group for at least 10 years that is only accessible by selected HTI staff members. No information that can be used to personally identify you will be shared with others. 
 
+    During the study, the data will be stored on encrypted laptops and DataFoundry  - a platform developed by the Department of Industrial Design at TU/e and is GDPR compliant. After the analyses, the data will also be made available on OSF (open science framework, a place to share research data open source).  
 
-if __name__ == '__main__':
-    main()
+    The data collected in this study might also be of relevance for future research projects within the Human Technology Interaction group as well as for other researchers. The aim of those studies might be unrelated to the goals of this study. 
+    The collected data will therefore also be made available to the general public in an online data repository.
+    The coded data collected in this study and that will be released to the public will (to the best of our knowledge and ability) not contain information that can identify you. It will include all answers you provide during the study, including demographic variables (e.g., age and gender) if you choose to provide these during the study. 
+
+    At the bottom of this consent form, you can indicate whether or not you agree with participation in this study. You can also indicate whether you agree with the distribution of your data by means of a secured online data repository with open access for the general public and the distribution of your data by means of a secured online data repository with open access for the general public. You are not obliged to let us use and share your data. If you are not willing to share your data in this way, you can still participate in this study. Your data will be used in the scientific article but not shared with other researchers.
+
+    No video or audio recordings are made that could identify you.
+    
+    ''')
+
+    st.subheader("Further information")
+    st.markdown('''If you want more information about this study, the study design, or the results, you can contact François Leborgne (contact email: f.m.g.leborgne@tue.nl ) or Sichen Guo (contact email: s.guo3@tue.nl). 
+    If you have any complaints about this study, please contact the supervisor, Chao Zhang (C.Zhang.5@tue.nl)  You can report irregularities related to scientific integrity to confidential advisors of the TU/e.
+    ''')
+
+    st.subheader("Informed consent form")
+    st.markdown('''
+    -   I am 18 years or older
+    -	I have read and understood the information of the corresponding information form for participants. 
+    -	I have been given the opportunity to ask questions. My questions are sufficiently answered, and I had sufficient time to decide whether I participate. 
+    -	I know that my participation is completely voluntary. I know that I can refuse to participate and that I can stop my participation at any time during the study, without giving any reasons. I know that I can withdraw permission to use my data directly after the experiment.
+    -	I agree to voluntarily participate in this study carried out by the research group Human Technology Interaction and Industrial Design of the Eindhoven University of Technology.
+    -	I know that no information that can be used to personally identify me or my responses in this study will be shared with anyone outside of the research team.
+    ''')
+    OSF = st.radio("I ... (please select below) give permission to make my anonymized recorded data available to others in a public online data repository, and allow others to use this data for future research projects unrelated to this study.",
+                    ('do',
+                        'do not'), index=1)
+
+    st.subheader("Consent")
+    agree = st.radio(
+        'I consent to processing my personal data gathered during the research in the way described in the information sheet.',
+        ('do',
+        'do not'), index=1)
+
+    consentforOSF = ""
+    if OSF == 'do':
+        consentforOSF = 'yes'
+    else:
+        consentforOSF = 'no'
+
+    if agree == "do":
+            st.write(
+                'Thank you! Please continue to the next page to start the experiment')
+            if st.button("Next page"):
+                # if page_start_time:
+                    # record_page_duration_and_send()
+                # record_page_start_time()
+                # st.session_state.oocsi.send('XAI_consent', {
+                #     'participant_ID': st.session_state.participantID,
+                #     'expert': "yes",
+                #     'consent': 'yes',
+                #     'consentForOSF': consentforOSF
+                # })
+                switch_page("explanationpage")
+
+    else:
+        if st.button("Next page"):
+
+            switch_page('noconsent')
 
