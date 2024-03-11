@@ -53,7 +53,7 @@ with header2:
 with body2:
     st.header("Overview")
     st.markdown("here it ould be nice to have some sort of explanaiton of the LL problem that is faced by a large number of people ")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_picture.jfif')
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
 
     st.header('Explanation experiment')
     st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
