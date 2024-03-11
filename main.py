@@ -46,7 +46,7 @@ st.set_page_config(page_title="Low literacy research", layout="wide")
 
 # Initialize OOCSI
 if 'oocsi' not in st.session_state:
-    st.session_state.oocsi = OOCSI('', 'oo00csi.id.tue.nl')
+    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
 
 # Record start time for each page
 def record_page_start_time():
@@ -157,10 +157,26 @@ with st.container():
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
 
+    nameID = st.text_input(
+        "Please enter/paste here your name")
+    st.session_state.name = nameID
+
     if agree == "do":
         st.write('Thank you! Please continue to the next page to start the experiment')
         if st.button("Next page"):
+            st.session_state.oocsi.send('Lowl_consent', {
+                'participant_ID': st.session_state.name,
+                'expert': "yes",
+                'consent': 'no',
+                'consentForOSF': consent_for_osf
+            })
             switch_page("explanationpage")
     else:
         if st.button("Next page"):
+            st.session_state.oocsi.send('Lowl_consent', {
+                'participant_ID': st.session_state.name,
+                'expert': "yes",
+                'consent': 'no',
+                'consentForOSF': consent_for_osf
+            })
             switch_page('noconsent')
