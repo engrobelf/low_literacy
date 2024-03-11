@@ -15,33 +15,45 @@ To hide menu: copy paste this in config.toml
 [ui]
 hideSidebarNav = true
 """
+#  #OPEN_AI_KEI = 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
 
 import os
-import streamlit as st
-import datetime
 from datetime import datetime
-import pandas as pd
+import streamlit as st
 from oocsi_source import OOCSI
-from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
-# import requests
-# import json
-from utils import doc_loader, summary_prompt_creator, doc_to_final_summary
+from utils import (
+    doc_loader,
+    summary_prompt_creator,
+    doc_to_final_summary,
+    transcript_loader
+)
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
-from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, \
-    token_limit, token_minimum
+from streamlit_app_utils import (
+    check_gpt_4,
+    check_key_validity,
+    create_temp_file,
+    create_chat_model,
+    token_limit,
+    token_minimum
+)
 
-from utils import transcript_loader
-
-
- #OPEN_AI_KEI = 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
-
+# Constants
 find_clusters = False
 
+st.set_page_config(page_title="Low literacy research", layout="wide")
+
+
+# Initialize OOCSI
+if 'oocsi' not in st.session_state:
+    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
+
+# Record start time for each page
 def record_page_start_time():
     global page_start_time
     page_start_time = datetime.now()
 
+# Record page duration and send data via OOCSI
 def record_page_duration_and_send():
     current_page_title = st.session_state.current_page_title
     if page_start_time:
@@ -52,40 +64,26 @@ def record_page_duration_and_send():
         # Send data to Data Foundry via OOCSI
         data = {
             "page_name": current_page_title,
-            "duration_seconds": page_duration.total_seconds(), 
+            "duration_seconds": page_duration.total_seconds(),
             'participant_ID': st.session_state.participantID
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-
-st.session_state.current_page_title = "Introduction - Document Summarizer"
+# Set up page configuration
 st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
-st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
-st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
+st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
+st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key.
                     This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
+
 page_start_time = None
 record_page_start_time()
-# st.title("Document Summarizer")
 
+with st.container():
+    st.title("Low literacy research - Document Summarizer")
 
-st.session_state.pages = ['Baseline','AI_tool' ]
-
-
-if 'oocsi' not in st.session_state:
-    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
-
-
-# st.set_page_config(page_title="Low literacy research", layout="wide")
-
-header1, header2, header3 = st.columns([1, 2, 1])
-consent_form1, consent_form2, consent_form3 = st.columns([1, 4, 1])
-
-
-with consent_form2:
+with st.container():
     st.header('Information form for participants')
-    st.write(
-        '''Hello and thank you for taking the time to participate in this survey.''')
-    st.write('''This document gives you information about the study Comparing Explainable AI (XAI) methods. Before the study begins, it is important that you learn about the procedure followed in this study and that you give your informed consent for voluntary participation. Please read this document carefully.  ''')
+    st.write('''Hello and thank you for taking the time to participate in this survey. This document gives you information about the study Comparing Explainable AI (XAI) methods. Before the study begins, it is important that you learn about the procedure followed in this study and that you give your informed consent for voluntary participation. Please read this document carefully.''')
 
     st.subheader('Aim and benefit of the study')
     st.write('''The aim of this study is to measure the satisfaction of users with different types of XAI methods. 
@@ -147,39 +145,22 @@ with consent_form2:
     -	I agree to voluntarily participate in this study carried out by the research group Human Technology Interaction and Industrial Design of the Eindhoven University of Technology.
     -	I know that no information that can be used to personally identify me or my responses in this study will be shared with anyone outside of the research team.
     ''')
+
+    # Consent form
     OSF = st.radio("I ... (please select below) give permission to make my anonymized recorded data available to others in a public online data repository, and allow others to use this data for future research projects unrelated to this study.",
-                    ('do',
-                        'do not'), index=1)
+                    ('do', 'do not'), index=1)
 
     st.subheader("Consent")
     agree = st.radio(
         'I consent to processing my personal data gathered during the research in the way described in the information sheet.',
-        ('do',
-        'do not'), index=1)
+        ('do', 'do not'), index=1)
 
-    consentforOSF = ""
-    if OSF == 'do':
-        consentforOSF = 'yes'
-    else:
-        consentforOSF = 'no'
+    consent_for_osf = "yes" if OSF == 'do' else 'no'
 
     if agree == "do":
-            st.write(
-                'Thank you! Please continue to the next page to start the experiment')
-            if st.button("Next page"):
-                # if page_start_time:
-                    # record_page_duration_and_send()
-                # record_page_start_time()
-                # st.session_state.oocsi.send('XAI_consent', {
-                #     'participant_ID': st.session_state.participantID,
-                #     'expert': "yes",
-                #     'consent': 'yes',
-                #     'consentForOSF': consentforOSF
-                # })
-                switch_page("explanationpage")
-
+        st.write('Thank you! Please continue to the next page to start the experiment')
+        if st.button("Next page"):
+            switch_page("explanationpage")
     else:
         if st.button("Next page"):
-
             switch_page('noconsent')
-
