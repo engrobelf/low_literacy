@@ -59,7 +59,7 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
     if not validate_input(file_or_transcript, api_key, use_gpt_4):
         return
 
-    with st.spinner("Summarizing... please wait..."):
+    with st.spinner("📃 Summarizing... please wait..."):
         if file:
             temp_file_path = create_temp_file(file_or_transcript)
             doc = doc_loader(temp_file_path)
@@ -84,7 +84,23 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
         else:
             summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
 
-        st.markdown(summary, unsafe_allow_html=True)
+        # important_part = "Sender :Purpose:Core Message or Actions Required:Contact Information: Call to Action & Address:Approach:"
+        # if important_part in summary:
+        # # 使用Markdown语法加粗
+        #     bold_part = f"**{important_part}**"
+        #     summary = summary.replace(important_part, bold_part)
+        def format_sentences(text):
+            # 使用句号分割文本，得到单句列表
+            sentences = text.split(". ")
+            # 移除空句子并在每句后面加上换行符
+            formatted_text = "\n".join(sentence for sentence in sentences if sentence)
+            return formatted_text
+
+            # 假设`summary`是从GPT获取的总结文本
+        formatted_summary = format_sentences(summary)
+        st.markdown(formatted_summary, unsafe_allow_html=True)
+        
+        # st.markdown(summary, unsafe_allow_html=True)
         if file:
             os.unlink(temp_file_path)
 
