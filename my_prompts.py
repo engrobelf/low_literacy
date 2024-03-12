@@ -37,8 +37,6 @@ Summarize the document strictly in its original language, if it is Dutch, give t
 
 Summaries must not mix Action Points and Highlights; use Highlights only if there are zero Action Points. The total number of points (Action Points and/or Highlights) must not exceed 5. Remember to summarize in the document's original language to maintain consistency.
 
-
-
  
 
 '''{text}'''
