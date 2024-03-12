@@ -160,10 +160,26 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
 
+    nameID = st.text_input(
+        "Please enter/paste here your name")
+    st.session_state.name = nameID
+
     if agree == "do":
         st.write('Thank you! Please continue to the next page to start the experiment')
         if st.button("Next page"):
+            st.session_state.oocsi.send('Lowl_consent', {
+                'participant_ID': st.session_state.name,
+                'expert': "yes",
+                'consent': 'no',
+                'consentForOSF': consent_for_osf
+            })
             switch_page("explanationpage")
     else:
         if st.button("Next page"):
+            st.session_state.oocsi.send('Lowl_consent', {
+                'participant_ID': st.session_state.name,
+                'expert': "yes",
+                'consent': 'no',
+                'consentForOSF': consent_for_osf
+            })
             switch_page('noconsent')
