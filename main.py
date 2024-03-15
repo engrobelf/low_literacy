@@ -82,19 +82,19 @@ with st.container():
     st.title("Low literacy research - Document Summarizer")
 
 with st.container():
-    st.header('Information form for participants')
+    st.header(' 📄 Information form for participants')
     st.write('''Hello and thank you for considering participation in our research project at Eindhoven University of Techonology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
 
 Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo or feel free to consult with trusted individuals.''')
 
-    st.subheader('Aim and benefit of the study')
+    st.subheader('🎯 Aim and benefit of the study')
     st.write('''The aim of this research project is to invite the participants to engage with our designed tool, experience
             real-time interaction, and receive immediate outcomes. We will evaluate the effectiveness of these
             interactions by measuring both the duration of validated engagement and the overall user experience via
             questionnaires, and interviews.  ''')
     st.write('''This study is performed by François Leborgne and Sichen Guo, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
 
-    st.subheader('Procedure')
+    st.subheader('🧗 Procedure')
     st.markdown('''During this project we ask you to: 
     -	Choose one letter to upload
     -	wirite down the action points or high light points you know from this letter
@@ -105,18 +105,18 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
    
 ''')
 
-    st.subheader('Risks')
+    st.subheader('⚠️ Risks')
     st.markdown(
         "The study does not involve any risks, detrimental side effects, or cause discomfort.")
 
-    st.subheader("Duration")
+    st.subheader("🕙 Duration")
     st.markdown(
         "The instructions, measurements and debriefing will take approximately 30 minutes.")
 
-    st.subheader("Voluntary")
+    st.subheader("🧑‍💼 Voluntary")
     st.markdown('''Your participation is completely voluntary. You can refuse to participate without giving any reasons and you can stop your participation at any time during the study. You can also withdraw your permission to use your data immediately after completing the study. None of this will have any negative consequences for you whatsoever.''')
 
-    st.subheader("Confidentiality and use, storage, and sharing of data")
+    st.subheader("📊 Confidentiality and use, storage, and sharing of data")
     st.markdown('''
                     The collected data will be stored on TU/e supported storage facilities.
                     
@@ -138,12 +138,12 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     
     ''')
 
-    st.subheader("Further information")
+    st.subheader("📰 Further information")
     st.markdown('''If you want more information about this study, the study design, or the results, you can contact François Leborgne (contact email: f.m.g.leborgne@tue.nl ) or Sichen Guo (contact email: s.guo3@tue.nl). 
     If you have any complaints about this study, please contact the supervisor, Jun Hu (j.hu@tue.nl)  You can report irregularities related to scientific integrity to confidential advisors of the TU/e.
     ''')
 
-    st.subheader("Informed consent form")
+    st.subheader("📝 Informed consent form")
     st.markdown('''
         1. I have enough information about the research project from the separate information sheet. I
         have read it, and I have had the chance to ask questions, which have been answered to my
@@ -158,7 +158,7 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     # Consent form
     OSF = st.radio
 
-    st.subheader("Consent")
+    st.subheader("✍️ Consent")
     agree = st.radio(
         'I consent to my answers being used for quotes in the research publications – without including my name.',
         ('do', 'do not'), index=1)

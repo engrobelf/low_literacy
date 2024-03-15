@@ -42,7 +42,6 @@ with header2:
 
 with body2:
     with st.form("my_form"):
-
         gender = st.radio("How do you identify your gender", ('Female',
                           'Male', 'Non-binary', 'Other', 'Prefer not to say'))
         age = st.number_input("How old are you?", step=1)
