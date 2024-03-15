@@ -88,16 +88,21 @@ with st.container():
 Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo or feel free to consult with trusted individuals.''')
 
     st.subheader('Aim and benefit of the study')
-    st.write('''The aim of this study is to measure the satisfaction of users with different types of XAI methods. 
-    This information is used to have better understandable/ more satisfying type of explanations in future applications.  ''')
-    st.write('''This study is performed by Rachel Wang, François Leborgne and Anniek Jansen, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Chao Zhang of the Human-Technology Interaction group.''')
+    st.write('''The aim of this research project is to invite the participants to engage with our designed tool, experience
+            real-time interaction, and receive immediate outcomes. We will evaluate the effectiveness of these
+            interactions by measuring both the duration of validated engagement and the overall user experience via
+            questionnaires, and interviews.  ''')
+    st.write('''This study is performed by François Leborgne and Sichen Guo, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
 
     st.subheader('Procedure')
     st.markdown('''During this project we ask you to: 
--	Look at different predictions from an AI model (predicting the survival of passengers of the Titanic)
--	Complete a short survey (9 questions) for each of the four types of explanation method
--	Complete a survey at the end of the study with demographic information
--	Complete a second survey at the end to compare the explanation methods and explain why certain methods had your preference.
+    -	Choose one letter to upload
+    -	wirite down the action points or high light points you know from this letter
+    -	put the chosen letter in the new designed summrized system 
+    -	wirite down the action points or high light points you know from this letter
+    -   fill in a survey with 12 questions 
+    -   In the end, you will be invited to do a semi-structure interview 
+   
 ''')
 
     st.subheader('Risks')
@@ -113,49 +118,55 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
 
     st.subheader("Confidentiality and use, storage, and sharing of data")
     st.markdown('''
-     All research conducted at the Human-Technology Interaction Group adheres to the Code of Ethics of the NIP (Nederlands Instituut voor Psychologen – Dutch Institute for Psychologists), and this study has been approved by the Ethical Review Board of the department. 
-
-    In this study demographic data (gender, age, education level, highest level of education, data literacy, AI expertise), and experimental data (response to questionnaires and duration of experiment) will be recorded, analyzed, and stored. 
-    The goal of collecting, analyzing, and storing this data is to answer the research question and publish the results in the scientific literature. 
-    Next to the research data, we ask you to leave your email address if you are willing to participate in a follow-up interview and we might need to store your name and bank account in order to compensate you for your participation. 
-    This data will be stored separately from the research data and deleted after the interview/ payment.
-                To protect your privacy, all data that can be used to personally identify you will be stored on an encrypted server of the Human Technology Interaction group for at least 10 years that is only accessible by selected HTI staff members. No information that can be used to personally identify you will be shared with others. 
-
-    During the study, the data will be stored on encrypted laptops and DataFoundry  - a platform developed by the Department of Industrial Design at TU/e and is GDPR compliant. After the analyses, the data will also be made available on OSF (open science framework, a place to share research data open source).  
-
-    The data collected in this study might also be of relevance for future research projects within the Human Technology Interaction group as well as for other researchers. The aim of those studies might be unrelated to the goals of this study. 
-    The collected data will therefore also be made available to the general public in an online data repository.
-    The coded data collected in this study and that will be released to the public will (to the best of our knowledge and ability) not contain information that can identify you. It will include all answers you provide during the study, including demographic variables (e.g., age and gender) if you choose to provide these during the study. 
-
-    At the bottom of this consent form, you can indicate whether or not you agree with participation in this study. You can also indicate whether you agree with the distribution of your data by means of a secured online data repository with open access for the general public and the distribution of your data by means of a secured online data repository with open access for the general public. You are not obliged to let us use and share your data. If you are not willing to share your data in this way, you can still participate in this study. Your data will be used in the scientific article but not shared with other researchers.
-
-    No video or audio recordings are made that could identify you.
+                    The collected data will be stored on TU/e supported storage facilities.
+                    
+                    We will make sure that any published research results will not include confidential or identifiable
+                    information about you unless you explicitly agree to it, for example, if you want your name to be
+                    mentioned in publications.
+                    
+                    Your personal data might be used for future research, but only if your data is truly necessary if the
+                    recognized ethical standards for scientific research are followed, and if the new research objectives align
+                    with the current research objectives. If your personal data is used in future research, we will take all
+                    reasonable steps to inform you about this. You can object to the use of your data for new research.
+                    
+                    We might use anonymized data for new purposes such as research or education. We will ensure the data
+                    cannot be linked to you and we will not disclose anything that makes you identifiable.
+                    This research has been assessed and approved by the ethical committee of Eindhoven University of
+                    Technology.
+                                
+                    The screen and time will be recorded during the interacting process, and the interview script will be recorded by audio recording.
     
     ''')
 
     st.subheader("Further information")
     st.markdown('''If you want more information about this study, the study design, or the results, you can contact François Leborgne (contact email: f.m.g.leborgne@tue.nl ) or Sichen Guo (contact email: s.guo3@tue.nl). 
-    If you have any complaints about this study, please contact the supervisor, Chao Zhang (C.Zhang.5@tue.nl)  You can report irregularities related to scientific integrity to confidential advisors of the TU/e.
+    If you have any complaints about this study, please contact the supervisor, Jun Hu (j.hu@tue.nl)  You can report irregularities related to scientific integrity to confidential advisors of the TU/e.
     ''')
 
     st.subheader("Informed consent form")
     st.markdown('''
-    -   I am 18 years or older
-    -	I have read and understood the information of the corresponding information form for participants. 
-    -	I have been given the opportunity to ask questions. My questions are sufficiently answered, and I had sufficient time to decide whether I participate. 
-    -	I know that my participation is completely voluntary. I know that I can refuse to participate and that I can stop my participation at any time during the study, without giving any reasons. I know that I can withdraw permission to use my data directly after the experiment.
-    -	I agree to voluntarily participate in this study carried out by the research group Human Technology Interaction and Industrial Design of the Eindhoven University of Technology.
-    -	I know that no information that can be used to personally identify me or my responses in this study will be shared with anyone outside of the research team.
+        1. I have enough information about the research project from the separate information sheet. I
+        have read it, and I have had the chance to ask questions, which have been answered to my
+        satisfaction.
+        2. I take part in this research project voluntarily. There is no explicit or implicit pressure for me to
+        take part in this research project, and I understand I can stop my participation at any moment
+        without explaining why. I do not have to answer any question I do not want to answer.
+        3. I know my personal data will be collected and used for the research, as explained to me in the
+        information sheet.
     ''')
 
     # Consent form
-    OSF = st.radio("I ... (please select below) give permission to make my anonymized recorded data available to others in a public online data repository, and allow others to use this data for future research projects unrelated to this study.",
-                    ('do', 'do not'), index=1)
+    OSF = st.radio
 
     st.subheader("Consent")
     agree = st.radio(
-        'I consent to processing my personal data gathered during the research in the way described in the information sheet.',
+        'I consent to my answers being used for quotes in the research publications – without including my name.',
         ('do', 'do not'), index=1)
+
+    consent_for_osf = "yes" if OSF == 'do' else 'no'
+    agree = st.radio(
+            'I consent to my real name being mentioned in the quotes as described under 4',
+            ('do', 'do not'), index=1)
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
 
