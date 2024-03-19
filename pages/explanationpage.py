@@ -104,4 +104,4 @@ with footer2:
                         #     'consent': 'yes',
                         #     'consentForOSF': consentforOSF
                         # })
-            switch_page("baseline")
+            switch_page("Baseline")
