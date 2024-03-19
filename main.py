@@ -83,9 +83,7 @@ with st.container():
 
 with st.container():
     st.header('Information form for participants')
-    st.write('''Hello and thank you for considering participation in our research project at Eindhoven University of Techonology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
-
-Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo or feel free to consult with trusted individuals.''')
+    st.write('''Hello and thank you for taking the time to participate in this survey. This document gives you information about the study Comparing Explainable AI (XAI) methods. Before the study begins, it is important that you learn about the procedure followed in this study and that you give your informed consent for voluntary participation. Please read this document carefully.''')
 
     st.subheader('Aim and benefit of the study')
     st.write('''The aim of this study is to measure the satisfaction of users with different types of XAI methods. 
