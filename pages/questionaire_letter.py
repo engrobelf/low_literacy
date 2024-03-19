@@ -1,43 +1,23 @@
+
 import streamlit as st
-import streamlit.components.v1 as components
+from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
-from oocsi_source import OOCSI
+import random
+import pandas as pd
 import datetime
-from datetime import datetime
+import xgboost as xgb
+import copy
+from PIL import Image
+from datetime import datetime, timedelta
+import numpy as np
 
-header1, header2, header3 = st.columns([1,4,1])
-body1, body2, body3 =st.columns([1,50,1])
+header1, header2, header3 = st.columns([1,12,1])
+body1, body2, body3 =st.columns([1,12,1])
+footer1, footer2, footer3 =st.columns([1,12,1])
 
-
-
-def record_page_start_time():
-    global page_start_time
-    page_start_time = datetime.now()
-
-# Function to record page duration and send to Data Foundry
-def record_page_duration_and_send():
-    current_page_title = st.session_state.current_page_title
-    if page_start_time:
-        page_end_time = datetime.now()
-        page_duration = page_end_time - page_start_time
-        st.write(f"Time spent on {current_page_title}: {page_duration}")
-        
-        # Send data to Data Foundry via OOCSI
-        data = {
-            "page_name": current_page_title,
-            "duration_seconds": page_duration.total_seconds(), 
-            'participant_ID': st.session_state.participantID
-        }
-        st.session_state.oocsi.send('Time_XAI', data)
-
-st.session_state.current_page_title = "Final Page"
-page_start_time = None
-record_page_start_time()
-
-
-with header2:
-    st.title("Demographic information")
-    st.write("This is the final section of this experiment.")
+with header2: 
+    st.title("Baseline - No Tool")
+    st.write("Baseline part - no Summary tool")
 
 
 with body2:
@@ -149,31 +129,15 @@ with body2:
              "I don't know"], index=4)
 
 
-        
-        submitted = st.form_submit_button("Submit")
-        if submitted:
-            if page_start_time:
-                record_page_duration_and_send()
-            # record_page_start_time()
-            st.session_state.oocsi.send('XAI_demograhphics', {
-                'participant_ID': st.session_state.participantID,
-                'gender': gender,
-                'age': age,
-                # 'socio1': socio1,
-                # 'socio2': socio2,
-                # 'socio3': socio3,
-                # 'socio4': socio4,
-                'techUser1': techUser1,
-                'techUser2': techUser2,
-                'techUser3': techUser3,
-                'techUser4': techUser4,
-                'techCreator1': techCreator1,
-                'techCreator2': techCreator2,
-                'techCreator3': techCreator3,
-                'techCreator4': techCreator4,
 
-            })
-            st.balloons()
-            switch_page('thankyou')
-    # Execute your app
-    # embed streamlit docs in a streamlit app
+if st.button("Next page"):
+                # if page_start_time:
+                    # record_page_duration_and_send()
+                # record_page_start_time()
+                # st.session_state.oocsi.send('XAI_consent', {
+                #     'participant_ID': st.session_state.participantID,
+                #     'expert': "yes",
+                #     'consent': 'yes',
+                #     'consentForOSF': consentforOSF
+                # })
+    switch_page("Summarization")
