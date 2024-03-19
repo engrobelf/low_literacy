@@ -257,7 +257,26 @@ with body2:
              "95% Testing and 5% Training",
              "It does not matter",
              "I don't know"], index=4)
-
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            pass
+            # if page_start_time:
+            #     record_page_duration_and_send()    
+            # # st.write("question 1", q1)
+            # st.session_state.oocsi.send('XAImethods_evaluation', {
+            #     'participant_ID': st.session_state.participantID,
+            #     'type of explanation': 'Decision tree',
+            #     'cognitive load': c_load,
+            #     'q1': q1,
+            #     'q2': q2,
+            #     'q3': q3,
+            #     'q4': q4,
+            #     'q5': q5,
+            #     'q6': q6,
+            #     'q7': q7,
+            #     'q8': q8,
+                
+            #     })
 
 if st.button("Next page"):
                 # if page_start_time:
@@ -269,4 +288,4 @@ if st.button("Next page"):
                 #     'consent': 'yes',
                 #     'consentForOSF': consentforOSF
                 # })
-    switch_page("evaluation")
+    switch_page("evaluation_tool")

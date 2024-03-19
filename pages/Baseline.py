@@ -16,18 +16,29 @@ body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
 with header2: 
-    st.title("Baseline - No Tool")
-    st.write("Baseline part - no Summary tool")
+    st.title("Baseline - No tool")
+
+with body2:
+    st.header("Overview")
+    st.markdown("explanatio of the task, after clicking the person will need to read the text and try to understand it as much as possible")
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
+
+    st.header('Explanation experiment')
+    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
+    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
+    This prediction is accompanied by each time a different type of explanation.''')
+    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
+    
+    st.subheader('Model')
+    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
+                This model is used to generate all of the four types of explanations that you will see during the experiment. 
+                ''')
+    
 
 
 with body2:
     with st.form("my_form"):
-        gender = st.radio("How do you identify your gender", ('Female',
-                          'Male', 'Non-binary', 'Other', 'Prefer not to say'))
-        age = st.number_input("How old are you?", step=1)
-        # educationlevel = st.radio("What is your highest level of education?",
-        #                           ('elementary school', 'high school', 'MBO', 'HBO', 'University'))
-        st.markdown('**AI literacy**')
+        st.markdown('**Reading comprehension**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
 
@@ -127,7 +138,26 @@ with body2:
              "95% Testing and 5% Training",
              "It does not matter",
              "I don't know"], index=4)
-
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            pass
+            # if page_start_time:
+            #     record_page_duration_and_send()    
+            # # st.write("question 1", q1)
+            # st.session_state.oocsi.send('XAImethods_evaluation', {
+            #     'participant_ID': st.session_state.participantID,
+            #     'type of explanation': 'Decision tree',
+            #     'cognitive load': c_load,
+            #     'q1': q1,
+            #     'q2': q2,
+            #     'q3': q3,
+            #     'q4': q4,
+            #     'q5': q5,
+            #     'q6': q6,
+            #     'q7': q7,
+            #     'q8': q8,
+                
+            #     })
 
 
 if st.button("Next page"):
@@ -140,4 +170,4 @@ if st.button("Next page"):
                 #     'consent': 'yes',
                 #     'consentForOSF': consentforOSF
                 # })
-    switch_page("Summarization")
+    switch_page("evaluation_baseline")
