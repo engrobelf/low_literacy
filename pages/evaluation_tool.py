@@ -118,7 +118,7 @@ with body2:
                 'q9': q9,
                 
                 })
-        switch_page('finalPage')
+        switch_page('final_page')
 
     # Execute your app
     # embed streamlit docs in a streamlit app
