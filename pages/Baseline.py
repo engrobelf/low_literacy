@@ -11,6 +11,23 @@ from PIL import Image
 from datetime import datetime, timedelta
 import numpy as np
 
+
+def pdf_to_text(pdf_file):
+    """
+    Convert a PDF file to a string of text.
+
+    :param pdf_file: The PDF file to convert.
+
+    :return: A string of text.
+    """
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    text = StringIO()
+    for i in range(len(pdf_reader.pages)):
+        p = pdf_reader.pages[i]
+        text.write(p.extract_text())
+    return text.getvalue().encode('utf-8')
+
+
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
