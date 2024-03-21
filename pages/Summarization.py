@@ -156,9 +156,10 @@ st.sidebar.markdown("""<small>It's always good practice to verify that a website
 
 if st.button('Summarize (click once and wait)'):
     if st.session_state ['uploaded_file'] is not None:
-            process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+        process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+        st.write('If you are not satisfied with the summary, you can summarize again')
     else:
-        st.warning('plese uplaod your file')
+        st.warning('please uplaod your file')
 
 
 

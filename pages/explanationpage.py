@@ -48,17 +48,17 @@ with body2:
     st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
 
     st.header('Explanation experiment')
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
-    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
+    st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
+                Then you will compare the summarization tool with a baseline (no summarization) and will need to answer some questions on the text to see how well (or bad) 
+                you understood it. Do not worry about getting eerything correct! I you don't have the answer, an 'I don't know' will also be available. 
+                Good luck and thanks again for participating!''')
+    st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
     
     st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
+    st.markdown(''' A GPT4 model was finetune and prompt engineer to provide the most tailored summary possible. Typical lexical metrics were also used to validate the quality of the 
+                summary.''')
     
-
+    st.subheader('Letters')
 
     # st.subheader('Demographic information')
     # st.markdown("Before you start with the study we would like to ask you to first answer these questions")
@@ -77,10 +77,20 @@ with body2:
 
 
 with footer2:
-        input_method = st.radio("Select input method", ('Upload a document', 'another potential feature '))
+        input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital DataPrivacy', 'Relationship', 'Financial' ))
 
-        if input_method == 'Upload a document':
+        if input_method == 'Health':
             uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+        elif input_method == 'Work': 
+            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+        elif input_method == 'Relationship':
+            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+        elif input_method == 'Financial': 
+            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+        else: 
+            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
+
+
             
         api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
         st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
