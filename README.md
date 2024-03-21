@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # **GPT 3.5/4 Powered Document Summarizer**
 
 =======
