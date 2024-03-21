@@ -13,7 +13,7 @@ small sections that contain the majority of the meaning of the document.
 =======
 Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
 
-Demo it here: https://gptdoc-summarizer.streamlit.app/
+Demo it here: https://lowliteracy-bxeunnq5uvyzf2dhunvvf8.streamlit.app/
 =======
 To preview and run the project on your device:
 
