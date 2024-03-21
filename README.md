@@ -6,9 +6,9 @@
 
 # Machine learning courses
 
-> > > > > > > Incoming
 
-<<<<<<< HEAD
+
+
 This is a tool that takes a document (PDF, JPG, JPEG) and generates a concise summary tailored for people with low-literacy using GPT-4 or GPT-3.5-turbo. It can accurately summarize hundreds of pages of text. It's built with Python and Streamlit and leverages the langchain library for text processing.
 While the final output is generated with either GPT3.5 or GPT4 (the LLM's that power ChatGPT), only a small portion of the overall document is used in the prompts. Before any call is made to either LLM, the document is separated into
 small sections that contain the majority of the meaning of the document.
@@ -17,14 +17,11 @@ Note: Please ensure you have installed <code><a href="https://nodejs.org/en/down
 
 > > > > > > > Incoming
 
-<<<<<<< HEAD
+
 Demo it here: https://gptdoc-summarizer.streamlit.app/
 =======
 To preview and run the project on your device:
 
-> > > > > > > Incoming
-
-<<<<<<< HEAD
 
 ## Features
 
