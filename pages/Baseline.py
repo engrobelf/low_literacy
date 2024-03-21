@@ -9,6 +9,7 @@ import xgboost as xgb
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
+from streamlit_app_utils import pdf_to_text
 import numpy as np
 
 header1, header2, header3 = st.columns([1,12,1])
@@ -34,7 +35,10 @@ with body2:
                 This model is used to generate all of the four types of explanations that you will see during the experiment. 
                 ''')
     
-
+    st.subheader('Letter')
+    new_text = pdf_to_text(st.session_state['uploaded_file']).decode('utf-8')
+    st.write(new_text)
+    
 
 with body2:
     with st.form("my_form"):

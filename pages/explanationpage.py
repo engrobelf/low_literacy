@@ -86,25 +86,20 @@ with footer2:
     selected_pdf = None
     if f'{input_method}.pdf' in pdf_files:
         st.write("You have selected:", input_method)
-        selected_pdf = os.path.join(pdf_directory, input_method)
+        selected_pdf = os.path.join(pdf_directory, f'{input_method}.pdf')
         # st.write("Selected PDF:", selected_pdf)
         st.session_state['uploaded_file'] = selected_pdf
     else:
         st.write("Please select a topic to proceed.")
-
-
-    
-        # Your code to switch to the next page
-
-            
-        if st.button("Next page") and selected_pdf is not None:
-                        # if page_start_time:
-                            # record_page_duration_and_send()
-                        # record_page_start_time()
-                        # st.session_state.oocsi.send('XAI_consent', {
-                        #     'participant_ID': st.session_state.participantID,
-                        #     'expert': "yes",
-                        #     'consent': 'yes',
-                        #     'consentForOSF': consentforOSF
-                        # })
-            switch_page("baseline")
+          
+    if st.button("Next page") and selected_pdf is not None:
+                    # if page_start_time:
+                        # record_page_duration_and_send()
+                    # record_page_start_time()
+                    # st.session_state.oocsi.send('XAI_consent', {
+                    #     'participant_ID': st.session_state.participantID,
+                    #     'expert': "yes",
+                    #     'consent': 'yes',
+                    #     'consentForOSF': consentforOSF
+                    # })
+        switch_page("baseline")
