@@ -5,6 +5,7 @@ import random
 import pandas as pd
 import datetime
 import xgboost as xgb
+import os
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
@@ -75,36 +76,28 @@ with body2:
 #             })
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
+# Assuming you have a directory containing PDF files for each topic
+pdf_directory = r"C:\Users\FrancoisLeborgne\OneDrive - Mentech\Documents\GitHub\low_literacy\letters"
 
+# Get the list of PDF files in the directory
+pdf_files = os.listdir(pdf_directory)
 with footer2:
-        input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital DataPrivacy', 'Relationship', 'Financial' ))
+    input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital DataPrivacy', 'Relationship', 'Financial' ))
+    selected_pdf = None
+    if f'{input_method}.pdf' in pdf_files:
+        st.write("You have selected:", input_method)
+        selected_pdf = os.path.join(pdf_directory, input_method)
+        # st.write("Selected PDF:", selected_pdf)
+        st.session_state['uploaded_file'] = selected_pdf
+    else:
+        st.write("Please select a topic to proceed.")
 
-        if input_method == 'Health':
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-        elif input_method == 'Work': 
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-        elif input_method == 'Relationship':
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-        elif input_method == 'Financial': 
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-        else: 
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
 
+    
+        # Your code to switch to the next page
 
             
-        api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
-        st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
-        use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
-        st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
-        st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
-        st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
-                            This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
-
-
-
-
-
-        if st.button("Next page"):
+        if st.button("Next page") and selected_pdf is not None:
                         # if page_start_time:
                             # record_page_duration_and_send()
                         # record_page_start_time()

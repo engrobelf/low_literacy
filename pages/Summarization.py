@@ -144,7 +144,7 @@ uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k to
 if uploaded_file is not None:
     st.session_state['uploaded_file'] = uploaded_file
 
-api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
+api_key = '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'  ### do not share this key !
 st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
 use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
 find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
