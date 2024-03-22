@@ -2,6 +2,7 @@
 import streamlit as st
 from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
+from utils import calculate_readability_metrics
 import random
 import pandas as pd
 import datetime
@@ -38,6 +39,11 @@ with body2:
     st.subheader('Letter')
     new_text = pdf_to_text(st.session_state['uploaded_file']).decode('utf-8')
     st.write(new_text)
+
+    metrics = calculate_readability_metrics(new_text)
+    st.write("Readability Metrics:")
+    for metric, value in metrics.items():
+        st.write(f"{metric}: {value}")
     
 
 with body2:
