@@ -104,7 +104,7 @@ with body2:
                 record_page_duration_and_send()    
             # record_page_start_time()
             # st.write("question 1", q1)
-            st.session_state.oocsi.send('Baseline_evaluation', {
+            st.session_state.oocsi.send('Tool_feedback', {
                 'participant_ID': st.session_state.participantID,
                 'type of method': 'Baseline',
                 'q1': q1,

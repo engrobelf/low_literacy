@@ -174,7 +174,7 @@ if st.button("Next page"):
                 # if page_start_time:
                     # record_page_duration_and_send()
                 # record_page_start_time()
-                # st.session_state.oocsi.send('XAI_consent', {
+                # st.session_state.oocsi.send('Baseline_text_question', {
                 #     'participant_ID': st.session_state.participantID,
                 #     'expert': "yes",
                 #     'consent': 'yes',
