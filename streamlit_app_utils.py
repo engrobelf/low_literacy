@@ -1,7 +1,7 @@
 import tempfile
 import streamlit as st
 import pytesseract
-
+import requests
 import PyPDF2
 
 from io import StringIO

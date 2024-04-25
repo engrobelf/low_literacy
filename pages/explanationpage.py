@@ -1,6 +1,7 @@
 import streamlit as st
 from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
+from streamlit_app_utils import download_pdf
 import random
 import pandas as pd
 import datetime
@@ -80,15 +81,18 @@ with body2:
 pdf_directory = r"https://github.com/engrobelf/low_literacy/tree/main/letters"
 
 # Get the list of PDF files in the directory
-pdf_files = os.listdir(pdf_directory)
+# pdf_files = ['Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial']
 with footer2:
-    input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital DataPrivacy', 'Relationship', 'Financial' ))
+    input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial' ))
     selected_pdf = None
-    if f'{input_method}.pdf' in pdf_files:
+    if input_method:
         st.write("You have selected:", input_method)
-        selected_pdf = os.path.join(pdf_directory, f'{input_method}.pdf')
+        selected_pdf = os.path.join(pdf_directory, input_method + '.pdf').replace('\\', '/').replace('tree', 'blob')
         # st.write("Selected PDF:", selected_pdf)
+        # selected_pdf = download_pdf(selected_pdf, f'{input_method}.pdf')
         st.session_state['uploaded_file'] = selected_pdf
+        st.write(selected_pdf)
+
     else:
         st.write("Please select a topic to proceed.")
           
@@ -102,4 +106,4 @@ with footer2:
                     #     'consent': 'yes',
                     #     'consentForOSF': consentforOSF
                     # })
-        switch_page("baseline")
+        switch_page("Baseline")
