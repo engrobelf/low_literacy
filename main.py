@@ -70,7 +70,7 @@ def record_page_duration_and_send():
         st.session_state.oocsi.send('Time_XAI', data)
 
 # Set up page configuration
-st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
+st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf?tab=repositories)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key.
                     This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)

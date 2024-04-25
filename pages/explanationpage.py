@@ -78,7 +78,8 @@ with body2:
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
 # Assuming you have a directory containing PDF files for each topic
-pdf_directory = r"https://github.com/engrobelf/low_literacy/tree/main/letters"
+pdf_directory = st.text_input("Enter the name of your repository where your cloned the github repository:")
+# pdf_directory = r"C:\Users\FrancoisLeborgne\OneDrive - Mentech\Documents\GitHub\low_literacy\letters"
 
 # Get the list of PDF files in the directory
 # pdf_files = ['Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial']
@@ -87,11 +88,10 @@ with footer2:
     selected_pdf = None
     if input_method:
         st.write("You have selected:", input_method)
-        selected_pdf = os.path.join(pdf_directory, input_method + '.pdf').replace('\\', '/').replace('tree', 'blob')
+        selected_pdf = os.path.join(pdf_directory, input_method + '.pdf')
         # st.write("Selected PDF:", selected_pdf)
-        # selected_pdf = download_pdf(selected_pdf, f'{input_method}.pdf')
         st.session_state['uploaded_file'] = selected_pdf
-        st.write(selected_pdf)
+        # st.write(selected_pdf)
 
     else:
         st.write("Please select a topic to proceed.")
