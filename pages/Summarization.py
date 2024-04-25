@@ -23,24 +23,6 @@ header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
-def validate_doc_size(doc):
-    """
-    Validates the size of the document
-
-    :param doc: doc to validate
-
-    :return: True if the doc is valid, False otherwise
-    """
-    if not token_limit(doc, 800000):
-        st.warning('File or transcript too big!')
-        return False
-
-    if not token_minimum(doc, 2000):
-        st.warning('File or transcript too small!')
-        return False
-    return True
-
-
 def validate_input(file_or_transcript, api_key, use_gpt_4):
     """
     Validates the user input, and displays warnings if the input is invalid
