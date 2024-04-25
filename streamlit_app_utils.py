@@ -69,7 +69,7 @@ def token_limit(doc, maximum=200000):
     return True
 
 
-def token_minimum(doc, minimum=2000):
+def token_minimum(doc, minimum):
     """
     Check if a document has more tokens than a specified minimum.
 
