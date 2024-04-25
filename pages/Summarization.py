@@ -176,7 +176,7 @@ def validate_doc_size(doc):
         st.warning('File or transcript too big!')
         return False
 
-    if not token_minimum(doc, 500):
+    if not token_minimum(doc, 50):
         st.warning('File or transcript too small!')
         return False
     return True
@@ -341,7 +341,7 @@ if st.button("Next page"):
                 # if page_start_time:
                     # record_page_duration_and_send()
                 # record_page_start_time()
-                # st.session_state.oocsi.send('XAI_consent', {
+                # st.session_state.oocsi.send('Tool_answer', {
                 #     'participant_ID': st.session_state.participantID,
                 #     'expert': "yes",
                 #     'consent': 'yes',

@@ -77,7 +77,7 @@ with body2:
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
 # Assuming you have a directory containing PDF files for each topic
-pdf_directory = r"C:\Users\FrancoisLeborgne\OneDrive - Mentech\Documents\GitHub\low_literacy\letters"
+pdf_directory = r"https://github.com/engrobelf/low_literacy/tree/main/letters"
 
 # Get the list of PDF files in the directory
 pdf_files = os.listdir(pdf_directory)
