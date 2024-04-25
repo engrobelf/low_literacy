@@ -81,6 +81,7 @@ def token_minimum(doc, minimum):
     """
     text = doc_to_text(doc)
     count = token_counter(text)
+    st.write(count, minimum)
     if count < minimum:
         return False
     return True
