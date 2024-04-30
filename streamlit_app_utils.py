@@ -35,41 +35,6 @@ def pdf_to_text(pdf_file):
         text.write(p.extract_text())
     return text.getvalue().encode('utf-8')
 
-def download_pdf(url, output_path):
-    """
-    Download a PDF file from a URL and save it to the specified output path.
-    
-    :param url: The URL of the PDF file to download.
-    :param output_path: The path where the downloaded PDF file will be saved.
-    
-    :return: The binary content of the downloaded PDF file.
-    """
-    response = requests.get(url)
-    with open(output_path, 'wb') as f:
-        f.write(response.content)
-    return response.content
-
-
-# def pdf_to_text(pdf_file):
-#     """
-#     Convert a PDF file (either file path or binary content) to a string of text.
-
-#     :param pdf_file: The PDF file (file path or binary content) to convert.
-
-#     :return: A string of text.
-#     """
-#     if isinstance(pdf_file, str):  # If pdf_file is a file path
-#         with open(pdf_file, 'rb') as f:
-#             pdf_content = f.read()
-#     else:  # If pdf_file is binary content
-#         pdf_content = pdf_file
-
-#     pdf_reader = PyPDF2.PdfReader(BytesIO(pdf_content))
-#     text = ""
-#     for page in pdf_reader.pages:
-#         text += page.extract_text()
-#     return text.encode('utf-8')
-
 def check_gpt_4(api_key):
     """
     Check if the user has access to GPT-4.
