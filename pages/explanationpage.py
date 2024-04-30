@@ -10,7 +10,6 @@ import copy
 from PIL import Image
 from datetime import datetime, timedelta
 import numpy as np
-
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
