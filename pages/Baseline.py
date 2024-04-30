@@ -2,6 +2,7 @@
 import streamlit as st
 from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
+from utils import calculate_readability_metrics
 import random
 import pandas as pd
 import datetime
@@ -9,25 +10,63 @@ import xgboost as xgb
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
+from streamlit_app_utils import pdf_to_text, load_pdf_from_github
 import numpy as np
+
+import requests
+import streamlit as st
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
+# Function to download PDF from URL and convert to text
+
+
+
 with header2: 
-    st.title("Baseline - No Tool")
-    st.write("Baseline part - no Summary tool")
+    st.title("Baseline - No tool")
 
 
 with body2:
+    st.header("Overview")
+    st.markdown("explanatio of the task, after clicking the person will need to read the text and try to understand it as much as possible")
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True',  width=700)
+
+    st.header('Explanation experiment')
+    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
+    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
+    This prediction is accompanied by each time a different type of explanation.''')
+    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
+    
+    st.subheader('Model')
+    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
+                This model is used to generate all of the four types of explanations that you will see during the experiment. 
+                ''')
+    
+    st.subheader('Letter')
+        # Assuming the URL is set correctly in your Streamlit app's session state
+    pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
+    pdf_content = load_pdf_from_github(pdf_url)
+    if pdf_content:
+        text = pdf_to_text(pdf_content)
+        if text:
+            st.text_area("PDF Text", text, height=800)  # Display the text in a text area widget
+        else:
+            st.error("Failed to convert PDF to text.")
+    else:
+        st.error("No PDF content to display.")
+
+    metrics = calculate_readability_metrics(text)
+    st.write("Readability Metrics:")
+    for metric, value in metrics.items():
+        st.write(f"{metric}: {value}")
+    
+with body2:
+    st.write("Please answer the following questions:")
+
     with st.form("my_form"):
-        gender = st.radio("How do you identify your gender", ('Female',
-                          'Male', 'Non-binary', 'Other', 'Prefer not to say'))
-        age = st.number_input("How old are you?", step=1)
-        # educationlevel = st.radio("What is your highest level of education?",
-        #                           ('elementary school', 'high school', 'MBO', 'HBO', 'University'))
-        st.markdown('**AI literacy**')
+        st.markdown('**Reading comprehension**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
 
@@ -127,17 +166,36 @@ with body2:
              "95% Testing and 5% Training",
              "It does not matter",
              "I don't know"], index=4)
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            pass
+            # if page_start_time:
+            #     record_page_duration_and_send()    
+            # # st.write("question 1", q1)
+            # st.session_state.oocsi.send('XAImethods_evaluation', {
+            #     'participant_ID': st.session_state.participantID,
+            #     'type of explanation': 'Decision tree',
+            #     'cognitive load': c_load,
+            #     'q1': q1,
+            #     'q2': q2,
+            #     'q3': q3,
+            #     'q4': q4,
+            #     'q5': q5,
+            #     'q6': q6,
+            #     'q7': q7,
+            #     'q8': q8,
+                
+            #     })
 
-
-
-if st.button("Next page"):
-                # if page_start_time:
-                    # record_page_duration_and_send()
-                # record_page_start_time()
-                # st.session_state.oocsi.send('XAI_consent', {
-                #     'participant_ID': st.session_state.participantID,
-                #     'expert': "yes",
-                #     'consent': 'yes',
-                #     'consentForOSF': consentforOSF
-                # })
-    switch_page("Summarization")
+if submitted: 
+    if st.button("Next page"):
+                    # if page_start_time:
+                        # record_page_duration_and_send()
+                    # record_page_start_time()
+                    # st.session_state.oocsi.send('Baseline_text_question', {
+                    #     'participant_ID': st.session_state.participantID,
+                    #     'expert': "yes",
+                    #     'consent': 'yes',
+                    #     'consentForOSF': consentforOSF
+                    # })
+        switch_page("evaluation_baseline")
