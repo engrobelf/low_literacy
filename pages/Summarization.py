@@ -115,9 +115,20 @@ with body2:
     st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
                 This model is used to generate all of the four types of explanations that you will see during the experiment. 
                 ''')
+    use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
+    find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
 
+    # Ask for the API key
+    api_key = st.text_input("Enter your API key:", type='password')
 
-    st.imput('what is your API key? ')
+    # Button to submit the API key
+    if st.button('Submit API Key'):
+        if api_key:
+            st.session_state['api_key'] = api_key  # Save API key in session state if needed
+            st.success("API Key submitted successfully!")
+        else:
+            st.error("Please enter a valid API Key.")
+
     if st.button('Summarize (click once and wait)'):
         if st.session_state ['uploaded_file'] is not None:
             process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
@@ -138,8 +149,7 @@ if uploaded_file is not None:
 
   ### do not share this key !
 st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
-use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
-find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
+
 st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
@@ -148,7 +158,7 @@ st.sidebar.markdown("""<small>It's always good practice to verify that a website
 
 if st.button('Summarize (click once and wait)'):
     if st.session_state ['uploaded_file'] is not None:
-        process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+        process_summarize_button(st.session_state['uploaded_file'], api_key, True, find_clusters)
         st.write('If you are not satisfied with the summary, you can summarize again')
     else:
         st.warning('please uplaod your file')
