@@ -15,7 +15,7 @@ To hide menu: copy paste this in config.toml
 [ui]
 hideSidebarNav = true
 """
-#  #OPEN_AI_KEI = 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
+#  #OPEN_AI_KEI = sk-proj-TrjEp8HF1XMceDrHHtcMT3BlbkFJ0nPa9Jep1HvtiBilzRd0
 
 import os
 from datetime import datetime
