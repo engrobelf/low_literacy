@@ -76,22 +76,18 @@ with body2:
 #             })
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
-# Assuming you have a directory containing PDF files for each topic
-# pdf_directory = st.text_input("Enter the name of your repository where your cloned the github repository:")
-url_directory = "https://github.com/engrobelf/low_literacy/tree/main/letters"
+url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
 # Get the list of PDF files in the directory
-# pdf_files = ['Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial']
 with footer2:
-    input_method = st.radio("Select input prefered topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial' ))
+    input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
     selected_pdf = None
     if input_method:
         st.write("You have selected:", input_method)
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
         selected_pdf = selected_pdf.replace('\\', '/')
         st.session_state['uploaded_file'] = selected_pdf
-        # st.write(selected_pdf)
-
+        st.write(selected_pdf)
     else:
         st.write("Please select a topic to proceed.")
           

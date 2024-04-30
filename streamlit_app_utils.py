@@ -3,6 +3,7 @@ import streamlit as st
 import pytesseract
 import requests
 import PyPDF2
+import pdfplumber
 
 from io import StringIO, BytesIO
 
@@ -20,29 +21,35 @@ def image_to_text(image):
     text = pytesseract.image_to_string(image)
     return text.encode('utf-8')
 
-def pdf_to_text(pdf_file):
+def pdf_to_text(pdf_content):
     """
-    Convert a PDF file to a string of text.
+    Convert PDF file content (bytes) to a string of text using PyPDF2.
 
-    :param pdf_file: The PDF file to convert.
-
+    :param pdf_content: The PDF file content in bytes.
     :return: A string of text.
     """
-    pdf_reader = PyPDF2.PdfReader(pdf_file)
-    text = StringIO()
-    for i in range(len(pdf_reader.pages)):
-        p = pdf_reader.pages[i]
-        text.write(p.extract_text())
-    return text.getvalue().encode('utf-8')
+    try:
+        # Convert bytes content to a file-like object
+        pdf_file = BytesIO(pdf_content)
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+        text = StringIO()
+        for page in pdf_reader.pages:
+            text.write(page.extract_text() or "")  # Extract text or use an empty string if none
+        return text.getvalue()
+    except Exception as e:
+        print("Failed to extract text from PDF:", str(e))
+        return None
 
-def pdf_url_to_text(url):
+
+def load_pdf_from_github(url):
+    """Fetch PDF content from GitHub."""
     response = requests.get(url)
-    pdf_bytes = BytesIO(response.content)
-    pdf_reader = PyPDF2.PdfReader(pdf_bytes)
-    text = ""
-    for page in pdf_reader.pages:
-        text += page.extract_text()
-    return text
+    if response.status_code == 200:
+        return response.content
+    else:
+        st.error("Failed to load PDF from GitHub. Status code: " + str(response.status_code))
+        return None
+
 
 def check_gpt_4(api_key):
     """
