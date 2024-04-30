@@ -19,6 +19,8 @@ from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_fil
     token_limit, token_minimum
 from utils import transcript_loader
 
+
+
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
@@ -100,20 +102,28 @@ with header2:
     st.title("Summarization")
 
 with body2:
-    st.header("Overview")
-    st.markdown("here it ould be nice to have some sort of explanaiton of the LL problem that is faced by a large number of people ")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
-
     st.header('Explanation experiment')
     st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
     Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
     This prediction is accompanied by each time a different type of explanation.''')
-    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=700, caption= 'Low literacy overview')
+
+
+
     
     st.subheader('Model')
     st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
                 This model is used to generate all of the four types of explanations that you will see during the experiment. 
                 ''')
+
+
+    st.imput('what is your API key? ')
+    if st.button('Summarize (click once and wait)'):
+        if st.session_state ['uploaded_file'] is not None:
+            process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+            st.write('If you are not satisfied with the summary, you can summarize again')
+        else:
+            st.warning('please uplaod your file')
     
 if 'uploaded_file' not in st.session_state:
     st.session_state['uploaded_file'] = None
@@ -126,7 +136,7 @@ uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k to
 if uploaded_file is not None:
     st.session_state['uploaded_file'] = uploaded_file
 
-api_key = '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'  ### do not share this key !
+  ### do not share this key !
 st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
 use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
 find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)

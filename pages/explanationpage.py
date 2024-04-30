@@ -83,11 +83,9 @@ with footer2:
     input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
     selected_pdf = None
     if input_method:
-        st.write("You have selected:", input_method)
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
         selected_pdf = selected_pdf.replace('\\', '/')
         st.session_state['uploaded_file'] = selected_pdf
-        st.write(selected_pdf)
     else:
         st.write("Please select a topic to proceed.")
           

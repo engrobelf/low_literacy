@@ -26,25 +26,12 @@ footer1, footer2, footer3 =st.columns([1,12,1])
 
 with header2: 
     st.title("Baseline - No tool")
-    # Assuming the URL is set correctly in your Streamlit app's session state
-    pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
-    pdf_content = load_pdf_from_github(pdf_url)
-    if pdf_content:
-        text = pdf_to_text(pdf_content)
-        if text:
-            st.text_area("PDF Text", text, height=800)  # Display the text in a text area widget
-            st.write("Please answer the following questions:")
-        else:
-            st.error("Failed to convert PDF to text.")
-    else:
-        st.error("No PDF content to display.")
-
 
 
 with body2:
     st.header("Overview")
     st.markdown("explanatio of the task, after clicking the person will need to read the text and try to understand it as much as possible")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True',  width=700)
 
     st.header('Explanation experiment')
     st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
@@ -58,16 +45,26 @@ with body2:
                 ''')
     
     st.subheader('Letter')
-    new_text = pdf_to_text(st.session_state['uploaded_file']).decode('utf-8')
-    st.write(new_text)
+        # Assuming the URL is set correctly in your Streamlit app's session state
+    pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
+    pdf_content = load_pdf_from_github(pdf_url)
+    if pdf_content:
+        text = pdf_to_text(pdf_content)
+        if text:
+            st.text_area("PDF Text", text, height=800)  # Display the text in a text area widget
+        else:
+            st.error("Failed to convert PDF to text.")
+    else:
+        st.error("No PDF content to display.")
 
-    metrics = calculate_readability_metrics(new_text)
+    metrics = calculate_readability_metrics(text)
     st.write("Readability Metrics:")
     for metric, value in metrics.items():
         st.write(f"{metric}: {value}")
     
-
 with body2:
+    st.write("Please answer the following questions:")
+
     with st.form("my_form"):
         st.markdown('**Reading comprehension**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
@@ -190,7 +187,7 @@ with body2:
                 
             #     })
 
-
+# if submitted: 
 if st.button("Next page"):
                 # if page_start_time:
                     # record_page_duration_and_send()
