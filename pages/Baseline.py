@@ -10,15 +10,40 @@ import xgboost as xgb
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
-from streamlit_app_utils import pdf_to_text
+from streamlit_app_utils import pdf_to_text, pdf_url_to_text
 import numpy as np
+
+import requests
+import streamlit as st
+import pdfplumber
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
+# Function to download PDF from URL and convert to text
+def pdf_url_to_text(url):
+    response = requests.get(url)
+    with pdfplumber.open(BytesIO(response.content)) as pdf:
+        text = ""
+        for page in pdf.pages:
+            text += page.extract_text()
+    return text
+
+
 with header2: 
     st.title("Baseline - No tool")
+
+    # URL of the PDF
+    pdf_url = "https://github.com/engrobelf/low_literacy/raw/main/letters/Work.pdf"
+
+    # Get text from PDF
+    new_text = pdf_url_to_text(st.session_state['uploaded_file'])
+    test_text =  pdf_url_to_text(pdf_url)
+
+    # Display text
+    st.write(new_text)
+    st.write(test_text)
 
 with body2:
     st.header("Overview")
@@ -37,7 +62,7 @@ with body2:
                 ''')
     
     st.subheader('Letter')
-    new_text = pdf_to_text(st.session_state['uploaded_file']).decode('utf-8')
+    new_text = pdf_url_to_text(st.session_state['uploaded_file']).decode('utf-8')
     st.write(new_text)
 
     metrics = calculate_readability_metrics(new_text)

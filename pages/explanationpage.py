@@ -1,7 +1,6 @@
 import streamlit as st
 from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
-from streamlit_app_utils import download_pdf
 import random
 import pandas as pd
 import datetime
@@ -78,8 +77,8 @@ with body2:
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
 # Assuming you have a directory containing PDF files for each topic
-pdf_directory = st.text_input("Enter the name of your repository where your cloned the github repository:")
-# pdf_directory = r"C:\Users\FrancoisLeborgne\OneDrive - Mentech\Documents\GitHub\low_literacy\letters"
+# pdf_directory = st.text_input("Enter the name of your repository where your cloned the github repository:")
+url_directory = "https://github.com/engrobelf/low_literacy/tree/main/letters"
 
 # Get the list of PDF files in the directory
 # pdf_files = ['Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial']
@@ -88,8 +87,8 @@ with footer2:
     selected_pdf = None
     if input_method:
         st.write("You have selected:", input_method)
-        selected_pdf = os.path.join(pdf_directory, input_method + '.pdf')
-        # st.write("Selected PDF:", selected_pdf)
+        selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+        selected_pdf = selected_pdf.replace('\\', '/')
         st.session_state['uploaded_file'] = selected_pdf
         # st.write(selected_pdf)
 

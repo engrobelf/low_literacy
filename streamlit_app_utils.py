@@ -35,6 +35,15 @@ def pdf_to_text(pdf_file):
         text.write(p.extract_text())
     return text.getvalue().encode('utf-8')
 
+def pdf_url_to_text(url):
+    response = requests.get(url)
+    pdf_bytes = BytesIO(response.content)
+    pdf_reader = PyPDF2.PdfReader(pdf_bytes)
+    text = ""
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+    return text
+
 def check_gpt_4(api_key):
     """
     Check if the user has access to GPT-4.
