@@ -10,22 +10,24 @@ FULL SUMMARY:
 
 
 file_combine = """
-Summarize the document strictly in its original language, if it is Dutch, give the results in Dutch, bur if the content is English then give the reults in English. Carefully review the document to determine if there are specific actions required from the recipient.Focusing on clarity for readers with low literacy. Keep the summaries concise, aiming for no more than 5 points in total, with each point not exceeding 5 words, excluding numbers, addresses, and websites. Prioritize "🔑 Action Points" if specific actions are required; otherwise, provide "💡 Highlights" for general information. Include a "Call to Action" for inquiries, using the document's original language. Ensure summaries adhere to this structure and conditions:
+Summarize the results in Dutch. Summary it in to oral informal language; Only use the oral language word that can be understood by under 8 years old students for all summary. 
+Follow also give the shortest and clearest summary for each session, no more than 5 words for he subtitle. Carefully review the document to determine if there are specific actions required from the recipient.
+Keep the summaries concise, aiming for no more than 5 points in total, with each point not exceeding 3 words, excluding numbers, addresses, and websites. Prioritize "🔑 Action Points" if specific actions are required; otherwise, provide "💡 Highlights" for general information. Include a "Call to Action" for inquiries, using the document's original language. Ensure summaries adhere to this structure and conditions:
 
 📩 Sender:
-- [Emoji] [Sender's Name/Organization]
+- [Use a suitable emoji] [Simplify the sender's name or organization, avoiding formal titles and complex terminology
 
 🎯 Purpose:
-- [Brief Purpose]
+- [Concisely articulate the document's main intent using simple language, limited to five words]
 
 🔑 Action Points (only if applicable):
-- [Emoji] [Action 1]
-- [Emoji] [Action 2]
-(Note: Limit to the most critical actions, up to 5 points.)
+- [Emoji] [Action 1, using only three simple words]
+- [Emoji] [Action 2, using only three simple words]
+(Note: Include only the essential actions, up to a maximum of 5 points.)
 
 💡 Highlights (only if no Action Points):
-- [Emoji] [Highlight 1]
-- [Emoji] [Highlight 2]
+- [Emoji] [Highlight 1, restricted to three simple words]
+- [Emoji] [Highlight 2, restricted to three simple words]
 (Note: Provide highlights only when there are no specific actions required, up to 5 points in total including Action Points and Highlights.)
 
 📞 Contact Information:
@@ -36,7 +38,7 @@ Summarize the document strictly in its original language, if it is Dutch, give t
 - [Address] (if applicable)
 
 Summaries must not mix Action Points and Highlights; use Highlights only if there are zero Action Points. The total number of points (Action Points and/or Highlights) must not exceed 5. Remember to summarize in the document's original language to maintain consistency.
-
+If there is no call to action then do not print it!
  
 
 '''{text}'''

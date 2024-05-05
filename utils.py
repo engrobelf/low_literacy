@@ -15,7 +15,8 @@ from elbow import calculate_inertia, determine_optimal_clusters
 import time
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
-
+import re
+from collections import Counter
 
 def doc_loader(file_path: str):
     """
@@ -378,6 +379,77 @@ def transcript_loader(video_url):
     loaded = transcript.load()
     return loaded
 
+
+
+
+def calculate_readability_metrics(text):
+    """
+    Extract four typical dutch metrics studied in this reasearch: https://repository.tudelft.nl/islandora/object/uuid%3Aeade26cd-37de-4815-9c35-85662821156d?collection=education.
+    The parameters are : 
+    - Flesch-Douma (FD): This formula considers the number of words persentence and syllables per word to compute the readiblity score. 
+    - Leesindex A (LiA): Similar to FLesch-Douma, this formula also considers words per snetence and syllables per word calculate the readibility score. 
+    - CLIB (Cito leesbaarheidsindex voor het basisonderwijs): This formula incorporates foactors such as words freunecy, letters per words, type-token ratio,
+    and function words persentec in addition to the constants provided. 
+    - CILT (Cito Leesindex Technisch lezen): Similar to CLIB, but it doesn't include type-token ratio or function words per sentence. 
+
+    parameter: text input (the format might change -utf encode or decode?-)
+    :return: the Four readability metrics.
+    """
+    # Function to count syllables in a word
+    def count_syllables(word):
+        vowels = 'aeiouy'
+        count = 0
+        word = word.lower().strip(".:;?!")
+        if word[0] in vowels:
+            count += 1
+        for index in range(1, len(word)):
+            if word[index] in vowels and word[index - 1] not in vowels:
+                count += 1
+        if word.endswith('e'):
+            count -= 1
+        if count == 0:
+            count += 1
+        return count
+    
+    # Split the text into sentences
+    sentences = re.split(r'[.!?]+', text)
+    num_sentences = len(sentences)
+    
+    # Split the text into words
+    words = re.findall(r'\b\w+\b', text)
+    num_words = len(words)
+    
+    # Calculate the number of syllables in the text
+    syllable_count = sum(count_syllables(word) for word in words)
+    
+    # Calculate word frequency
+    word_freq = Counter(words)
+    
+    # Calculate type-token ratio
+    type_token_ratio = len(set(words)) / len(words)
+    
+    # Calculate function words per sentence (assume function words are words with <= 3 characters)
+    function_words_per_sentence = sum(len([word for word in sentence.split() if len(word) <= 3]) for sentence in sentences) / num_sentences
+    
+    # Calculate metrics using provided formulas
+    flesch_douma = 206.84 - 0.93 * (num_words / num_sentences) - 77 * (syllable_count / num_words)
+    leesindex_a = 195 - 2 * (num_words / num_sentences) - 66.67 * (syllable_count / num_words)
+    clib = 46 + 0.474 * word_freq.most_common(1)[0][1] - 6.603 * (sum(len(word) for word in words) / num_words) - 0.364 * type_token_ratio + 1.425 * function_words_per_sentence
+    cilt = 114.49 + 0.28 * word_freq.most_common(1)[0][1] - 12.33 * (sum(len(word) for word in words) / num_words)
+    
+    return {
+        "Flesch-Douma": flesch_douma,
+        "Leesindex A": leesindex_a,
+        "CLIB": clib,
+        "CILT": cilt
+    }
+
+# # Example usage:
+# text = "Dit is een voorbeeldtekst. Deze tekst wordt gebruikt om de leesbaarheidsindexen te berekenen."
+# metrics = calculate_readability_metrics(text)
+# print("Readability Metrics:")
+# for metric, value in metrics.items():
+#     print(f"{metric}: {value}")
 
 
 
