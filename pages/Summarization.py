@@ -11,12 +11,10 @@ from PIL import Image
 from datetime import datetime, timedelta
 import numpy as np
 import os
-from utils import (
-    doc_loader, summary_prompt_creator, doc_to_final_summary,
-)
+from utils import doc_loader, summary_prompt_creator, doc_to_final_summary
+
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
-from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, \
-    token_limit, token_minimum
+from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, token_limit, token_minimum
 from utils import transcript_loader
 
 
@@ -136,20 +134,6 @@ with body2:
         else:
             st.warning('please uplaod your file')
     
-if 'uploaded_file' not in st.session_state:
-    st.session_state['uploaded_file'] = None
-    
-# input_method = st.radio("Select input method", ('Upload a document', 'another potential feature '))
-
-# if input_method == 'Upload a document':
-uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-    
-if uploaded_file is not None:
-    st.session_state['uploaded_file'] = uploaded_file
-
-  ### do not share this key !
-st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
-
 st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
