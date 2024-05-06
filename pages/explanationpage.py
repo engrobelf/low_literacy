@@ -86,6 +86,7 @@ with footer2:
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
         selected_pdf = selected_pdf.replace('\\', '/')
         st.session_state['uploaded_file'] = selected_pdf
+        st.session_state['selected_topic'] = input_method
     else:
         st.write("Please select a topic to proceed.")
           

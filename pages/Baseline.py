@@ -30,7 +30,7 @@ with header2:
 
 with body2:
     st.header("Overview")
-    st.markdown("explanatio of the task, after clicking the person will need to read the text and try to understand it as much as possible")
+    st.markdown("explanation of the task, after clicking the person will need to read the text and try to understand it as much as possible")
     st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True',  width=700)
 
     st.header('Explanation experiment')
@@ -46,6 +46,8 @@ with body2:
     
     st.subheader('Letter')
         # Assuming the URL is set correctly in your Streamlit app's session state
+
+
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
     pdf_content = load_pdf_from_github(pdf_url)
     if pdf_content:
@@ -61,9 +63,27 @@ with body2:
     st.write("Readability Metrics:")
     for metric, value in metrics.items():
         st.write(f"{metric}: {value}")
+
+if 'selected_topic' in st.session_state:
+    if st.session_state['selected_topic'] == 'Health':
+        with st.form("health_form"):
+        # add queation form related to health
+            st.subheader("Questionnaire I for Health")
+        # questionnaire
+elif st.session_state['selected_topic'] == 'Relationship':
+    with st.form("relationship_form"):
+        # add queation form related to relationship
+        st.subheader("Questionnaire II for Relationship")
+        # questionnaire
     
 with body2:
+    st.subheader("Questionnaire I")
     st.write("Please answer the following questions:")
+    # if 'selected_topic' in st.session_state:
+        # if st.session_state['selected_topic'] == 'Health':
+        #  with st.form("health_form"):
+        #     st.write("Please answer the following questions:")
+    
 
     with st.form("my_form"):
         st.markdown('**Reading comprehension**')
@@ -103,69 +123,56 @@ with body2:
         #  "I don't know"], index =4)
         
         techCreator4 = st.radio(
-            "What is not part of an ANN?",
-            ["Input layer",
-             "User layer",
-             "Output layer",
-             "Hidden layer",
-             "I don't know"], index=4)
+            "Van welke organisatie is deze brief?",
+            ["A) Gezondheidsraad",
+            "B) RIVM",
+            "C) Ministerie van Volksgezondheid",
+            "D) Gemeentehuis",
+            "E) I don't know"], index=4)
         
         techUser4 = st.radio(
-            "Running the same request with the same data on the same AI",
-            ["increase the computing speed",
-             "never give different results",
-             "double the computing time ",
-             "could give different results",
-             "I don't know"], index=4)
+            "Wat is het hoofddoel van deze brief?",
+            ["A) Uitnodiging voor een feest",
+            "B) Informatie over een coronaprik voor kinderen",
+            "C) Advies over schoolbezoeken ",
+            "D) Registratie voor een sportevenement",
+            "E) I don't know"], index=4)
         
         techUser1 = st.radio(
-            "What is the central distinction between supervised and unsupervised learning",
-            ["Supervised learning uses labelled datasets",
-             "Unsupervised learning may happen anytime ",
-             "Supervised learning is performed by supervised personnel",
-             "Supervised learning supersedes unsupervised learning ",
-             "I don't know"], index=4)
+            "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+            ["A) Bel de huisarts",
+            "B) Zoek het BSN van je kind ",
+            "C) Bezoek de lokale kliniek",
+            "D) Schrijf je in op een website",
+            "E) I don't know"], index=4)
 
         techCreator3 = st.radio(
-            "What is not a strictly necessary part of a single AI system's development process?",
-            ["Data preprocessing",
-             "Model definition",
-             "Benchmarking",
-             "Training/Learning",
-             "I don't know"], index=4)
+            "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+            ["A) 0800 7070",
+            "B) 112",
+            "C) 0800 1234",
+            "D) 0900 2020",
+            "E) I don't know"], index=4)
         
 
         techUser3 = st.radio(
-            "What is a typical application of an AI at which it is usually better than non-AI",
-            ["Hardware space analysis",
-             "Image recognition ",
-             "Creating annual reports",
-             "Undefined processes",
-             "I don't know"], index=4)
+            "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+            ["A) Een waterfles",
+            "B) Een pasfoto",
+            "C) De uitnodigingsbrief en een ID",
+            "D) Een medische geschiedenisrapport",
+            "E) I don't know"], index=4)
 
 
 
         techCreator1 = st.radio(
-            "What always distinguishes decision trees from support vector machine?",
-            ["Decision trees are trained faster",
-             "Decision trees generate more predictions ",
-             "Decision trees are more implicit",
-             "Decision trees are more interpretable ",
-             "I don't know"], index=4)
-        techUser2 = st.radio(
-            "Which of the following statements is true?",
-            ["Machine Learning is part of AI",
-             "Machine Learning and AI are mutually exclusive",
-             "AI and ML are the same ",
-             "AI is a part of ML",
-             "I don't know"], index=4)
-        techCreator2 = st.radio(
-            "What is a typical split of testing and training data for development purposes?",
-            ["80% Training and 20% Testing",
-             "40% Training, 40% Testing, 20% Train-Testing together",
-             "95% Testing and 5% Training",
-             "It does not matter",
-             "I don't know"], index=4)
+            "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+            ["A) www.gezondheid.nl",
+            "B) www.rivm.nl",
+            "C) www.coronavaccinatie.nl",
+            "D) www.kinderzorg.nl",
+            "E) I don't know"], index=4)
+        
         submitted = st.form_submit_button("Submit")
         if submitted:
             pass
