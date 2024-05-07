@@ -23,6 +23,19 @@ header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
+def record_page_start_time():
+    st.session_state['page_start_time'] = datetime.now()
+
+# Record page duration and send data via OOCSI
+def record_page_duration_and_send():
+    if 'page_start_time' in st.session_state:
+        page_duration = datetime.now() - st.session_state['page_start_time']
+        st.session_state.oocsi.send('Time_XAI', {
+            "page_name": "Baseline - No tool",
+            "duration_seconds": page_duration.total_seconds(),
+            "participant_ID": st.session_state.name
+        })
+
 def validate_input(file_or_transcript, api_key, use_gpt_4):
     """
     Validates the user input, and displays warnings if the input is invalid
@@ -95,6 +108,8 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
         st.markdown(summary, unsafe_allow_html=True)
         if file:
             os.unlink(temp_file_path)
+
+record_page_start_time()
 
 with header2: 
     st.title("Summarization")
@@ -258,11 +273,11 @@ with body2:
         
         submitted = st.form_submit_button("Submit")
         if submitted:
-            if page_start_time:
+            if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()    
             # st.write("question 1", q1)
             st.session_state.oocsi.send('Baseline_text_question', {
-                'participant_ID': st.session_state.participantID,
+                'participant_ID': st.session_state.name,
                 'q1': question1,
                 'q2': question2,
                 'q3': question3,

@@ -15,19 +15,12 @@ To hide menu: copy paste this in config.toml
 [ui]
 hideSidebarNav = true
 """
-#  #OPEN_AI_KEI = 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
-
 import os
 from datetime import datetime
 import streamlit as st
 from oocsi_source import OOCSI
 from streamlit_extras.switch_page_button import switch_page
-from utils import (
-    doc_loader,
-    summary_prompt_creator,
-    doc_to_final_summary,
-    transcript_loader
-)
+from utils import doc_loader, summary_prompt_creator, doc_to_final_summary,transcript_loader
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
 from streamlit_app_utils import (
     check_gpt_4,
@@ -38,27 +31,25 @@ from streamlit_app_utils import (
     token_minimum
 )
 
-# Constants
-find_clusters = False
-
+# Set up the page configuration
 st.set_page_config(page_title="Low literacy research", layout="wide")
 
+# Constants
+PAGE_START_TIME_KEY = "page_start_time"
+OOCSI_KEY = "oocsi"
 
 # Initialize OOCSI
-if 'oocsi' not in st.session_state:
-    st.session_state.oocsi = OOCSI('', 'oocsi.id.tue.nl')
+if OOCSI_KEY not in st.session_state:
+    st.session_state[OOCSI_KEY] = OOCSI('', 'oocsi.id.tue.nl')
 
-# Record start time for each page
+# Record the start time for each page
 def record_page_start_time():
-    global page_start_time
-    page_start_time = datetime.now()
+    st.session_state[PAGE_START_TIME_KEY] = datetime.now()
 
 # Record page duration and send data via OOCSI
-def record_page_duration_and_send():
-    current_page_title = st.session_state.current_page_title
-    if page_start_time:
-        page_end_time = datetime.now()
-        page_duration = page_end_time - page_start_time
+def record_page_duration_and_send(current_page_title):
+    if PAGE_START_TIME_KEY in st.session_state:
+        page_duration = datetime.now() - st.session_state[PAGE_START_TIME_KEY]
         st.write(f"Time spent on {current_page_title}: {page_duration}")
 
         # Send data to Data Foundry via OOCSI
@@ -67,19 +58,19 @@ def record_page_duration_and_send():
             "duration_seconds": page_duration.total_seconds(),
             'participant_ID': st.session_state.participantID
         }
-        st.session_state.oocsi.send('Time_XAI', data)
+        st.session_state[OOCSI_KEY].send('Time_LL', data)
 
-# Set up page configuration
-st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf?tab=repositories)')
-st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
-st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key.
-                    This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
-
-page_start_time = None
 record_page_start_time()
 
 with st.container():
     st.title("Low literacy research - Document Summarizer")
+
+    # Set up page configuration
+    st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf?tab=repositories)')
+    st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
+    st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key.
+                        This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
+
 
 with st.container():
     st.header(' 📄 Information form for participants')
@@ -95,15 +86,13 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     st.write('''This study is performed by François Leborgne and Sichen Guo, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
 
     st.subheader('🧗 Procedure')
-    st.markdown('''During this project we ask you to: 
-    -	Choose one letter to upload
-    -	wirite down the action points or high light points you know from this letter
-    -	put the chosen letter in the new designed summrized system 
-    -	wirite down the action points or high light points you know from this letter
-    -   fill in a survey with 12 questions 
-    -   In the end, you will be invited to do a semi-structure interview 
-   
-''')
+    st.markdown("""_Instructions:_
+    1. Choose a letter to upload.
+    2. Write down the action points or highlight points you know from this letter.
+    3. Put the chosen letter in the newly designed summarizing system.
+    4. Write down the action points or highlight points from the summarized output.
+    5. Fill in a survey with 12 questions.
+    6. Participate in a semi-structured interview at the end of the session.""")
 
     st.subheader('⚠️ Risks')
     st.markdown(
@@ -173,23 +162,25 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     nameID = st.text_input(
         "Please enter/paste here your name")
     st.session_state.name = nameID
+    gender = st.radio("How do you identify your gender", ('Female',
+                        'Male', 'Non-binary', 'Other', 'Prefer not to say'))
+    age = st.number_input("How old are you?", step=1)
 
     if agree == "do":
         st.write('Thank you! Please continue to the next page to start the experiment')
         if st.button("Next page"):
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
-                'expert': "yes",
-                'consent': 'no',
-                'consentForOSF': consent_for_osf
+                'consentForOSF': consent_for_osf, 
+                'gender': gender, 
+                'age': age
             })
             switch_page("explanationpage")
-    else:
-        if st.button("Next page"):
-            st.session_state.oocsi.send('Lowl_consent', {
-                'participant_ID': st.session_state.name,
-                'expert': "yes",
-                'consent': 'no',
-                'consentForOSF': consent_for_osf
-            })
-            switch_page('noconsent')
+    elif st.button("Next page"):
+        st.session_state.oocsi.send('Lowl_consent', {
+            'participant_ID': st.session_state.name,
+            'consentForOSF': 'no',
+            'gender': gender, 
+            'age': age
+        })
+        switch_page('noconsent')
