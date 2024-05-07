@@ -51,16 +51,16 @@ with body2:
     if pdf_content:
         text = pdf_to_text(pdf_content)
         if text:
-            st.text_area("PDF Text", text, height=800)  # Display the text in a text area widget
+            st.text_area("", text, height=800)  # Display the text in a text area widget
         else:
             st.error("Failed to convert PDF to text.")
     else:
         st.error("No PDF content to display.")
 
     metrics = calculate_readability_metrics(text)
-    st.write("Readability Metrics:")
-    for metric, value in metrics.items():
-        st.write(f"{metric}: {value}")
+    # st.write("Readability Metrics:")
+    # for metric, value in metrics.items():
+    #     st.write(f"{metric}: {value}")
     
 with body2:
     st.write("Please answer the following questions:")
@@ -70,122 +70,74 @@ with body2:
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
 
-        # socio1 = st.radio(
-        # "AI was first mention in",
-        # ["The 2000s",
-        #  "The 1950s",
-        #  "The 1880s",
-        #  "The 1980s",
-        #  "I don't know"], index =4)
-
-        # socio2 = st.radio(
-        # "How are human and artificial intelligence related?",
-        # ["They are the same, concerning strengths and weaknesses",
-        #  "They predict each other",
-        #  "Their strengths and weaknesses converge",
-        #  "They are different, each has its own strengths and weaknesses",
-        #  "I don't know"], index =4)
-
-        # socio3 = st.radio(
-        # "AI research",
-        # ["happens in an interdisciplinary field including multiple technologies ",
-        #  "refers to one specific AI technology",
-        #  "is only fiction at this point in time ",
-        #  "revolves predominantly around optimization ",
-        #  "I don't know"], index =4)
-
-        # socio4 = st.radio(
-        # "What is a possible risk for humans of AI technology",
-        # ["Digital assistants take over self-driving cars",
-        #  "Voice generators make people unlearn natural languages",
-        #  "Image generator break the rule of art ",
-        #  "Deep fakes render videos unattributable",
-        #  "I don't know"], index =4)
+        question1 = st.radio(
+            "Van welke organisatie is deze brief?",
+            ["A) Gezondheidsraad",
+            "B) RIVM",
+            "C) Ministerie van Volksgezondheid",
+            "D) Gemeentehuis",
+            "E) I don't know"], index=4)
         
-        techCreator4 = st.radio(
-            "What is not part of an ANN?",
-            ["Input layer",
-             "User layer",
-             "Output layer",
-             "Hidden layer",
-             "I don't know"], index=4)
+        question2 = st.radio(
+            "Wat is het hoofddoel van deze brief?",
+            ["A) Uitnodiging voor een feest",
+            "B) Informatie over een coronaprik voor kinderen",
+            "C) Advies over schoolbezoeken ",
+            "D) Registratie voor een sportevenement",
+            "E) I don't know"], index=4)
         
-        techUser4 = st.radio(
-            "Running the same request with the same data on the same AI",
-            ["increase the computing speed",
-             "never give different results",
-             "double the computing time ",
-             "could give different results",
-             "I don't know"], index=4)
-        
-        techUser1 = st.radio(
-            "What is the central distinction between supervised and unsupervised learning",
-            ["Supervised learning uses labelled datasets",
-             "Unsupervised learning may happen anytime ",
-             "Supervised learning is performed by supervised personnel",
-             "Supervised learning supersedes unsupervised learning ",
-             "I don't know"], index=4)
+        question3 = st.radio(
+            "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+            ["A) Bel de huisarts",
+            "B) Zoek het BSN van je kind ",
+            "C) Bezoek de lokale kliniek",
+            "D) Schrijf je in op een website",
+            "E) I don't know"], index=4)
 
-        techCreator3 = st.radio(
-            "What is not a strictly necessary part of a single AI system's development process?",
-            ["Data preprocessing",
-             "Model definition",
-             "Benchmarking",
-             "Training/Learning",
-             "I don't know"], index=4)
+        question4 = st.radio(
+            "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+            ["A) 0800 7070",
+            "B) 112",
+            "C) 0800 1234",
+            "D) 0900 2020",
+            "E) I don't know"], index=4)
         
 
-        techUser3 = st.radio(
-            "What is a typical application of an AI at which it is usually better than non-AI",
-            ["Hardware space analysis",
-             "Image recognition ",
-             "Creating annual reports",
-             "Undefined processes",
-             "I don't know"], index=4)
+        question5 = st.radio(
+            "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+            ["A) Een waterfles",
+            "B) Een pasfoto",
+            "C) De uitnodigingsbrief en een ID",
+            "D) Een medische geschiedenisrapport",
+            "E) I don't know"], index=4)
 
 
 
-        techCreator1 = st.radio(
-            "What always distinguishes decision trees from support vector machine?",
-            ["Decision trees are trained faster",
-             "Decision trees generate more predictions ",
-             "Decision trees are more implicit",
-             "Decision trees are more interpretable ",
-             "I don't know"], index=4)
-        techUser2 = st.radio(
-            "Which of the following statements is true?",
-            ["Machine Learning is part of AI",
-             "Machine Learning and AI are mutually exclusive",
-             "AI and ML are the same ",
-             "AI is a part of ML",
-             "I don't know"], index=4)
-        techCreator2 = st.radio(
-            "What is a typical split of testing and training data for development purposes?",
-            ["80% Training and 20% Testing",
-             "40% Training, 40% Testing, 20% Train-Testing together",
-             "95% Testing and 5% Training",
-             "It does not matter",
-             "I don't know"], index=4)
+        question6 = st.radio(
+            "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+            ["A) www.gezondheid.nl",
+            "B) www.rivm.nl",
+            "C) www.coronavaccinatie.nl",
+            "D) www.kinderzorg.nl",
+            "E) I don't know"], index=4)
+        
         submitted = st.form_submit_button("Submit")
         if submitted:
-            pass
-            # if page_start_time:
-            #     record_page_duration_and_send()    
-            # # st.write("question 1", q1)
-            # st.session_state.oocsi.send('XAImethods_evaluation', {
-            #     'participant_ID': st.session_state.participantID,
-            #     'type of explanation': 'Decision tree',
-            #     'cognitive load': c_load,
-            #     'q1': q1,
-            #     'q2': q2,
-            #     'q3': q3,
-            #     'q4': q4,
-            #     'q5': q5,
-            #     'q6': q6,
-            #     'q7': q7,
-            #     'q8': q8,
+            if page_start_time:
+                record_page_duration_and_send()    
+            # st.write("question 1", q1)
+            st.session_state.oocsi.send('Baseline_text_question', {
+                'participant_ID': st.session_state.participantID,
+                'cognitive load': c_load,
+                'q1': question1,
+                'q2': question2,
+                'q3': question3,
+                'q4': question4,
+                'q5': question5,
+                'q6': question6,
+
                 
-            #     })
+                })
 
 # if submitted: 
 if st.button("Next page"):

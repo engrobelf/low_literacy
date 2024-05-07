@@ -45,7 +45,7 @@ with header2:
 with body2:
     st.header("Overview")
     st.markdown("here it ould be nice to have some sort of explanaiton of the LL problem that is faced by a large number of people ")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=1000)
 
     st.header('Explanation experiment')
     st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
@@ -77,6 +77,7 @@ with body2:
 
 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
+letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
 with footer2:
     input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
@@ -84,7 +85,8 @@ with footer2:
     if input_method:
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
         selected_pdf = selected_pdf.replace('\\', '/')
-        st.session_state['uploaded_file'] = selected_pdf
+        st.session_state['uploaded_file'] = letter_path_test
+        # st.session_state['uploaded_file'] = selected_pdf
     else:
         st.write("Please select a topic to proceed.")
           
