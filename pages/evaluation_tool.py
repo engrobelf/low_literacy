@@ -46,56 +46,56 @@ with body2:
         st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
         st.subheader('Effectiveness')
         q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
-                                    options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+                                    options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree", "agree", 
                             "Totally agree"])
 
         q2 = st.select_slider(
         '**2**- From the text, I felt confident understanding the content of the letters:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree",
+                            "Neither agree or disagree",  "agree", 
                             "Totally agree"])
 
         q3 = st.select_slider(
         '**3**- The process helped me retain the **important information** from the letters:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree",
+                            "Neither agree or disagree",  "agree", 
                             "Totally agree"])
         st.subheader('Efficiency')
         q4 = st.select_slider(
         '**1**- I was able to complete my reading in a timely manner:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree","agree", 
                             "Totally agree"])
 
         q5 = st.select_slider(
         '**2**- I was able to understand the key information in a timely manner',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree", "agree", 
                             "Totally agree"])
         st.subheader('Cognitive load')
         q6 = st.select_slider(
         '**1**- I felt the amount of effort required to understand the general text was reasonable:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree", "agree", 
                             "Totally agree"])
 
         q7 = st.select_slider(
         '**2**- The language/ terminology used was very easy:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree",
+                            "Neither agree or disagree", "agree", 
                             "Totally agree"])
 
         q8 = st.select_slider(
         '**3**- I invested a very low mental effort to understand the content:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree",  "agree", 
                             "Totally agree"])
 
         q9 = st.select_slider(
         '**9**- TThe structure of the text was very clear:',
-        options=["Totally disagree", "disagree", "Somewhat disagree",
-                            "Neither agree or disagree", "Somewhat aggree", "agree", 
+        options=["Totally disagree", "disagree", 
+                            "Neither agree or disagree",  "agree", 
                             "Totally agree"])
         # Every form must have a submit button.
         submitted = st.form_submit_button("Submit")
@@ -118,7 +118,7 @@ with body2:
                 'q9': q9,
                 
                 })
-        switch_page('finalPage')
+        switch_page('thankyou')
 
     # Execute your app
     # embed streamlit docs in a streamlit app
