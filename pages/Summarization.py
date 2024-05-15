@@ -220,9 +220,9 @@ with body2:
             'q5': question5,
             'q6': question6,
             })
+        switch_page("evaluation_tool")
 
-
-if st.button("Next page"):
-    switch_page("evaluation_tool")
+# if st.button("Next page"):
+    
 
 

@@ -134,7 +134,7 @@ with body2:
                 'q5': question5,
                 'q6': question6,
                 })
-
-# if submitted: 
-if st.button("Next page"):
-    switch_page("evaluation_baseline")
+            switch_page("evaluation_baseline")
+# # if submitted: 
+# if st.button("Next page"):
+#     switch_page("evaluation_baseline")
