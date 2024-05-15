@@ -4,6 +4,7 @@ import pytesseract
 import requests
 import PyPDF2
 import pdfplumber
+import os
 from pathlib import Path
 from io import StringIO, BytesIO
 
@@ -123,9 +124,7 @@ def check_key_validity(api_key):
 
 def create_temp_file(url):
     """
-    Create a temporary file from a PDF URL, downloads the PDF, and converts it to text.
-    :param url: URL pointing to a PDF file.
-    :return: Path to the temporary file containing text extracted from the PDF.
+    Download a PDF from a URL, convert it to text, and save to a temporary text file.
     """
     try:
         response = requests.get(url)
@@ -136,11 +135,12 @@ def create_temp_file(url):
         text_content = pdf_to_text(temp_pdf_path)
         if text_content:
             temp_text_path = tempfile.NamedTemporaryFile(delete=False, suffix='.txt').name
-            with open(temp_text_path, "w") as text_file:
+            with open(temp_text_path, "w", encoding='utf-8') as text_file:
                 text_file.write(text_content)
-            Path(temp_pdf_path).unlink()
+            os.unlink(temp_pdf_path)  # Clean up the temporary PDF file
             return temp_text_path
         else:
+            os.unlink(temp_pdf_path)  # Clean up if text extraction fails
             raise Exception("Failed to extract text from PDF")
     except requests.RequestException as e:
         raise Exception(f"Failed to download or process the PDF: {e}")

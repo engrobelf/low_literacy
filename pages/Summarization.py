@@ -62,15 +62,20 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
 
     with st.spinner("Summarizing... please wait..."):
         temp_file_path = create_temp_file(url)
-        doc_text = Path(temp_file_path).read_text()
-        Path(temp_file_path).unlink()  # Clean up the temporary text file
+        try:
+            # Load the document using doc_loader
+            doc = doc_loader(temp_file_path)
+            map_prompt = file_map
+            combine_prompt = file_combine
+            llm = create_chat_model(api_key, use_gpt_4)
+            initial_prompt_list = summary_prompt_creator(map_prompt, 'text', llm)
+            final_prompt_list = summary_prompt_creator(combine_prompt, 'text', llm)
+            summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
+            st.markdown(summary, unsafe_allow_html=True)
 
-        llm = create_chat_model(api_key, use_gpt_4)
-        initial_prompt_list = summary_prompt_creator("File map prompt", 'text', llm)
-        final_prompt_list = summary_prompt_creator("File combine prompt", 'text', llm)
-        st.write(final_prompt_list)
-        summary = doc_to_final_summary(doc_text, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
-        st.markdown(summary, unsafe_allow_html=True)
+        finally:
+            if os.path.exists(temp_file_path):
+                os.unlink(temp_file_path)  # Clean up the temporary text file
 
 
 

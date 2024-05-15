@@ -27,6 +27,7 @@ def doc_loader(file_path: str):
     :return: A langchain Document object.
     """
     loader = TextLoader(file_path, encoding='utf-8')
+    st.write(loader)
     return loader.load()
     # if image: 
     #     loader = UnstructuredImageLoader(file_path)
@@ -111,40 +112,6 @@ def kmeans_clustering(vectors, num_clusters=None):
     num_clusters = min(num_clusters, n_samples - 1)
     kmeans = KMeans(n_clusters=num_clusters, random_state=42).fit(vectors)
     return kmeans
-
-
-def get_closest_vectors(vectors, kmeans):
-    """
-    Get the closest vectors to the cluster centers of a K-Means clustering object.
-
-    :param vectors: A list of vectors to cluster.
-
-    :param kmeans: A K-Means clustering object.
-
-    :return: A list of indices of the closest vectors to the cluster centers.
-    """
-    closest_indices = []
-    for i in range(len(kmeans.cluster_centers_)):
-        distances = np.linalg.norm(vectors - kmeans.cluster_centers_[i], axis=1)
-        closest_index = np.argmin(distances)
-        closest_indices.append(closest_index)
-
-    selected_indices = sorted(closest_indices)
-    return selected_indices
-
-
-def map_vectors_to_docs(indices, docs):
-    """
-    Map a list of indices to a list of loaded langchain Document objects.
-
-    :param indices: A list of indices to map.
-
-    :param docs: A list of langchain Document objects to map to.
-
-    :return: A list of loaded langchain Document objects.
-    """
-    selected_docs = [docs[i] for i in indices]
-    return selected_docs
 
 
 def create_summarize_chain(prompt_list):
