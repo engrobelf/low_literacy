@@ -40,10 +40,11 @@ page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("Letter Choose")
+    st.title("Letter Selection")
 
 with body2:
-    st.header("💡Scenrio")
+    st.header("💡Scenario")
+    
     st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, blue envelope marked with a government seal. 
                 It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. 
                 What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications. ''')
