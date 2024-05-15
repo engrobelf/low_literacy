@@ -141,6 +141,19 @@ def get_closest_vectors(vectors, kmeans):
     selected_indices = sorted(closest_indices)
     return selected_indices
 
+def map_vectors_to_docs(indices, docs):
+    """
+    Map a list of indices to a list of loaded langchain Document objects.
+
+    :param indices: A list of indices to map.
+
+    :param docs: A list of langchain Document objects to map to.
+
+    :return: A list of loaded langchain Document objects.
+    """
+    selected_docs = [docs[i] for i in indices]
+    return selected_docs
+
 def parallelize_summaries(summary_docs, initial_chain, progress_bar, max_workers=4):
     """
     Summarize a list of loaded langchain Document objects using multiple langchain summarize chains in parallel.
