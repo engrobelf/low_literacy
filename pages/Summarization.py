@@ -14,7 +14,8 @@ import os
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary
 
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
-from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, token_limit, token_minimum
+from streamlit_app_utils import (check_gpt_4, check_key_validity, create_temp_file,
+create_chat_model, token_limit, token_minimum, load_pdf_from_github, pdf_to_text)
 from utils import transcript_loader
 
 
@@ -63,7 +64,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
     return True
 
 
-def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_clusters, file=True):
+def process_summarize_button(url, api_key, use_gpt_4, find_clusters, file=True):
     """
     Processes the summarize button, and displays the summary if input and doc size are valid
 
@@ -77,12 +78,18 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
 
     :return: None
     """
-    if not validate_input(file_or_transcript, api_key, use_gpt_4):
+    if not validate_input(url, api_key, use_gpt_4):
         return
 
     with st.spinner("Summarizing... please wait..."):
         if file:
+<<<<<<< Updated upstream
+            st.write(file_or_transcript)
             temp_file_path = create_temp_file(file_or_transcript)
+=======
+            file_or_transcript = load_pdf_from_github(url)
+            temp_file_path = text = pdf_to_text(file_or_transcript)
+>>>>>>> Stashed changes
             doc = doc_loader(temp_file_path)
             map_prompt = file_map
             combine_prompt = file_combine
@@ -148,6 +155,7 @@ st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/lo
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
                     This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
 
+st.write(st.session_state['uploaded_file'])
 
 if st.button('Summarize (click once and wait)'):
     if st.session_state ['uploaded_file'] is not None:
@@ -205,12 +213,6 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 with body2:
     with st.form("my_form"):
-
-        gender = st.radio("How do you identify your gender", ('Female',
-                          'Male', 'Non-binary', 'Other', 'Prefer not to say'))
-        age = st.number_input("How old are you?", step=1)
-        # educationlevel = st.radio("What is your highest level of education?",
-        #                           ('elementary school', 'high school', 'MBO', 'HBO', 'University'))
         st.markdown('**AI literacy**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
@@ -282,13 +284,4 @@ with body2:
 
 
 if st.button("Next page"):
-                # if page_start_time:
-                    # record_page_duration_and_send()
-                # record_page_start_time()
-                # st.session_state.oocsi.send('Tool_answer', {
-                #     'participant_ID': st.session_state.participantID,
-                #     'expert': "yes",
-                #     'consent': 'yes',
-                #     'consentForOSF': consentforOSF
-                # })
     switch_page("evaluation_tool")

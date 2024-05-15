@@ -122,22 +122,19 @@ def check_key_validity(api_key):
 
 
 def create_temp_file(uploaded_file):
+    # Add error handling to check if 'type' attribute exists
+    if not hasattr(uploaded_file, 'type'):
+        raise AttributeError("Uploaded file is missing the 'type' attribute.")
 
-    # Create a temporary file with a '.txt' suffix
     with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_file:
         if uploaded_file.type == 'application/pdf':
-            # If it's a PDF, write the text content to the temporary file
             temp_file.write(pdf_to_text(uploaded_file))
         else:
-            # If it's an image, open it using Pillow
+            # Handle other types like images
             pil_image = Image.open(uploaded_file)
-            # st.image(pil_image, caption='Uploaded Image', use_column_width=True)
-
-            # Extract text using Tesseract OCR
             text = pytesseract.image_to_string(pil_image)
             temp_file.write(text.encode('utf-8'))
 
-    # Return the path to the temporary file
     return temp_file.name
 
 def create_chat_model(api_key, use_gpt_4):
