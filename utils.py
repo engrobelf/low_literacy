@@ -27,11 +27,7 @@ def doc_loader(file_path: str):
     :return: A langchain Document object.
     """
     loader = TextLoader(file_path, encoding='utf-8')
-    st.write(loader)
     return loader.load()
-    # if image: 
-    #     loader = UnstructuredImageLoader(file_path)
-    #     return loader.load()
 
 
 def token_counter(text: str):
