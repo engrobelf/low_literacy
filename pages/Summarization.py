@@ -6,6 +6,7 @@ import pandas as pd
 import datetime
 import xgboost as xgb
 import copy
+import os
 from PIL import Image
 from datetime import datetime
 import numpy as np
