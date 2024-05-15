@@ -5,11 +5,11 @@ import random
 import pandas as pd
 import datetime
 import xgboost as xgb
+import os
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
 import numpy as np
-
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
@@ -45,20 +45,20 @@ with header2:
 with body2:
     st.header("Overview")
     st.markdown("here it ould be nice to have some sort of explanaiton of the LL problem that is faced by a large number of people ")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True')
+    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=1000)
 
     st.header('Explanation experiment')
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
-    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
+    st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
+                Then you will compare the summarization tool with a baseline (no summarization) and will need to answer some questions on the text to see how well (or bad) 
+                you understood it. Do not worry about getting eerything correct! I you don't have the answer, an 'I don't know' will also be available. 
+                Good luck and thanks again for participating!''')
+    st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
     
     st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
+    st.markdown(''' A GPT4 model was finetune and prompt engineer to provide the most tailored summary possible. Typical lexical metrics were also used to validate the quality of the 
+                summary.''')
     
-
+    st.subheader('Letters')
 
     # st.subheader('Demographic information')
     # st.markdown("Before you start with the study we would like to ask you to first answer these questions")
@@ -75,33 +75,29 @@ with body2:
 #             })
 #         switch_page(st.session_state.pages[st.session_state.nextPage])
 
+url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
+letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
+# Get the list of PDF files in the directory
 with footer2:
-        input_method = st.radio("Select input method", ('Upload a document', 'another potential feature '))
-
-        if input_method == 'Upload a document':
-            uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf', 'png', 'jpeg'])
-            
-        api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
-        st.markdown('[Author email](mailto:f.m.g.leborgne@tue.nl)')
-        use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
-        st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
-        st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
-        st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
-                            This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
-
-
-
-
-
-        if st.button("Next page"):
-                        # if page_start_time:
-                            # record_page_duration_and_send()
-                        # record_page_start_time()
-                        # st.session_state.oocsi.send('XAI_consent', {
-                        #     'participant_ID': st.session_state.participantID,
-                        #     'expert': "yes",
-                        #     'consent': 'yes',
-                        #     'consentForOSF': consentforOSF
-                        # })
-            switch_page("Baseline")
+    input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
+    selected_pdf = None
+    if input_method:
+        selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+        selected_pdf = selected_pdf.replace('\\', '/')
+        st.session_state['uploaded_file'] = letter_path_test
+        # st.session_state['uploaded_file'] = selected_pdf
+    else:
+        st.write("Please select a topic to proceed.")
+          
+    if st.button("Next page") and selected_pdf is not None:
+                    # if page_start_time:
+                        # record_page_duration_and_send()
+                    # record_page_start_time()
+                    # st.session_state.oocsi.send('XAI_consent', {
+                    #     'participant_ID': st.session_state.participantID,
+                    #     'expert': "yes",
+                    #     'consent': 'yes',
+                    #     'consentForOSF': consentforOSF
+                    # })
+        switch_page("Baseline")
