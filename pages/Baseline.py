@@ -1,4 +1,3 @@
-
 import streamlit as st
 from uuid import uuid4
 from streamlit_extras.switch_page_button import switch_page
@@ -29,22 +28,20 @@ def record_page_duration_and_send():
     if 'page_start_time' in st.session_state:
         page_duration = datetime.now() - st.session_state['page_start_time']
         st.session_state.oocsi.send('Time_XAI', {
-            "page_name": "Baseline - No tool",
+            "page_name": "Baseline - Geen hulpmiddel",
             "duration_seconds": page_duration.total_seconds(),
             "participant_ID": st.session_state.name
         })
 
-
 record_page_start_time()
 
 with header2: 
-    st.title("Baseline - No tool")
-
+    st.title("Baseline - Geen hulpmiddel")
 
 with body2:
-    st.header('Explanation experiment')
-    st.markdown('''Read carefully the letter related to the field you selected. Take as much time as you need and try to answer the questions following the letter. In case of a doubt, don't hesitate to answer the I don't know answer.''')
-    st.subheader('Letter')
+    st.header('Uitleg experiment')
+    st.markdown('''Lees zorgvuldig de brief met betrekking tot het door jou gekozen veld. Neem de tijd die je nodig hebt en probeer de vragen na de brief te beantwoorden. Bij twijfel, aarzel niet om het antwoord 'Ik weet het niet' te kiezen.''')
+    st.subheader('Brief')
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
     pdf_content = load_pdf_from_github(pdf_url)
@@ -53,22 +50,22 @@ with body2:
         if text:
             st.text_area("", text, height=800)  # Display the text in a text area widget
         else:
-            st.error("Failed to convert PDF to text.")
+            st.error("Het is niet gelukt om de PDF naar tekst om te zetten.")
     else:
-        st.error("No PDF content to display.")
+        st.error("Geen PDF-inhoud om weer te geven.")
 
     metrics = calculate_readability_metrics(text)
-    # st.write("Readability Metrics:")
+    # st.write("Leesbaarheid Metrieken:")
     # for metric, value in metrics.items():
     #     st.write(f"{metric}: {value}")
     
 with body2:
-    st.write("Please answer the following questions:")
+    st.write("Beantwoord alstublieft de volgende vragen:")
 
     with st.form("my_form"):
-        st.markdown('**Reading comprehension**')
-        st.markdown("Please select the right answer to the multiple-choice questions below. \
-                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+        st.markdown('**Leesbegrip**')
+        st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder. \
+                    Een correct antwoord levert +1 punt op, een fout antwoord -1 punt en 'Ik weet het niet' 0 punten.")
 
         question1 = st.radio(
             "Van welke organisatie is deze brief?",
@@ -82,14 +79,14 @@ with body2:
             "Wat is het hoofddoel van deze brief?",
             ["A) Uitnodiging voor een feest",
             "B) Informatie over een coronaprik voor kinderen",
-            "C) Advies over schoolbezoeken ",
+            "C) Advies over schoolbezoeken",
             "D) Registratie voor een sportevenement",
             "E) Ik weet het niet"], index=4)
         
         question3 = st.radio(
             "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
             ["A) Bel de huisarts",
-            "B) Zoek het BSN van je kind ",
+            "B) Zoek het BSN van je kind",
             "C) Bezoek de lokale kliniek",
             "D) Schrijf je in op een website",
             "E) Ik weet het niet"], index=4)
@@ -102,7 +99,6 @@ with body2:
             "D) 30276683",
             "E) Ik weet het niet"], index=4)
         
-
         question5 = st.radio(
             "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
             ["A) Een waterfles",
@@ -110,8 +106,6 @@ with body2:
             "C) De uitnodigingsbrief en een ID",
             "D) Een medische geschiedenisrapport",
             "E) Ik weet het niet"], index=4)
-
-
 
         question6 = st.radio(
             "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
@@ -121,7 +115,7 @@ with body2:
             "D) www.kinderzorg.nl",
             "E) Ik weet het niet"], index=4)
         
-        submitted = st.form_submit_button("Submit")
+        submitted = st.form_submit_button("Indienen")
         if submitted:
             if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()    
@@ -136,5 +130,5 @@ with body2:
                 })
             switch_page("evaluation_baseline")
 # # if submitted: 
-# if st.button("Next page"):
-#     switch_page("evaluation_baseline")
+# if st.button("Volgende pagina"):
+#     switch_page("evaluatie_baseline")

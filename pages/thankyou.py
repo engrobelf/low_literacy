@@ -5,8 +5,8 @@ from oocsi_source import OOCSI
 # import datetime
 
 header1, header2, header3 = st.columns([1,2,1])
-body1, body2, body3 =st.columns([1,2,1])
+body1, body2, body3 = st.columns([1,2,1])
 
 with header2:
     st.balloons()
-    st.title("Thank you for completing this survey.\n We are now going to conduct a semi stucture interview of the experiment")
+    st.title("Bedankt voor het invullen van deze enquête.\n We gaan nu een semi-gestructureerd interview over het experiment afnemen")

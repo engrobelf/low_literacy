@@ -1,17 +1,17 @@
 """
-These are the meta data and instructions
-Author: François Leborgne & Guoze
+Dit zijn de metadata en instructies
+Auteur: François Leborgne & Guoze
 
-Instructions:
-1. Pip install streamlit, oocsi, streamlit_extras in your python environment
-2. Save this file somewhere on your computer
-3. In the command line, cd to where your file is: "cd/...../folder
+Instructies:
+1. Voer pip install streamlit, oocsi, streamlit_extras uit in je python-omgeving
+2. Sla dit bestand ergens op je computer op
+3. Navigeer in de opdrachtregel naar waar je bestand staat: "cd/...../folder"
 
-4. To run it: streamlit run app.py 
-5. Click on the link it provides you
-6. You need to click sometimes rerun in the website
+4. Om het te draaien: streamlit run app.py 
+5. Klik op de link die je krijgt
+6. Je moet soms op opnieuw uitvoeren klikken op de website
 
-To hide menu: copy paste this in config.toml
+Om het menu te verbergen: kopieer en plak dit in config.toml
 [ui]
 hideSidebarNav = true
 """
@@ -27,7 +27,7 @@ from utils import (
     doc_to_final_summary,
     transcript_loader
 )
-from my_prompts import file_map, file_combine, youtube_map, youtube_combine
+from my_prompts import file_map, file_combine
 from streamlit_app_utils import (
     check_gpt_4,
     check_key_validity,
@@ -40,8 +40,7 @@ from streamlit_app_utils import (
 # Constants
 find_clusters = False
 
-st.set_page_config(page_title="Low literacy research", layout="wide")
-
+st.set_page_config(page_title="Onderzoek naar lage geletterdheid", layout="wide")
 
 # Initialize OOCSI
 if 'oocsi' not in st.session_state:
@@ -58,7 +57,7 @@ def record_page_duration_and_send():
     if page_start_time:
         page_end_time = datetime.now()
         page_duration = page_end_time - page_start_time
-        st.write(f"Time spent on {current_page_title}: {page_duration}")
+        st.write(f"Tijd besteed aan {current_page_title}: {page_duration}")
 
         # Send data to Data Foundry via OOCSI
         data = {
@@ -69,10 +68,10 @@ def record_page_duration_and_send():
         st.session_state.oocsi.send('Time_XAI', data)
 
 # Set up page configuration
-st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf?tab=repositories)')
+st.sidebar.markdown('# Gemaakt door: [François en Sichen ](https://github.com/engrobelf?tab=repositories)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
-st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key.
-                    This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
+st.sidebar.markdown("""<small>Het is altijd een goede gewoonte om te controleren of een website veilig is voordat je je API-sleutel geeft. 
+                    Deze site is open source, dus je kunt de code zelf controleren of de streamlit-app lokaal draaien.</small>""", unsafe_allow_html=True)
 
 page_start_time = None
 record_page_start_time()
@@ -81,113 +80,92 @@ with st.container():
     st.title("🤖AI Doc Assistant")
 
 with st.container():
-    st.header(' 📄 Information form for participants')
-    st.write('''Hello and thank you for considering participation in our research project at Eindhoven University of Technology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
+    st.header('📄 Informatievorm voor deelnemers')
+    st.write('''Hallo en bedankt voor het overwegen om deel te nemen aan ons onderzoeksproject aan de Technische Universiteit Eindhoven. Deze studie omvat een innovatieve GPT-4 samenvattingstool, en uw betrokkenheid zou van onschatbare waarde zijn, vooral gezien uw interesse of expertise in dit veld.
 
-Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo.''')
+Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico's. U heeft volledige vrijheid om te kiezen welke vragen u beantwoordt en de mogelijkheid om op elk moment te stoppen, zonder negatieve gevolgen. Als u na het lezen over de studie vragen heeft of meer informatie wilt, neem dan contact op met Sichen Guo.''')
 
-    st.subheader('🎯 Aim and benefit of the study')
-    st.write('''The aim of this research project is to invite the participants to engage with our designed tool, experience
-            real-time interaction, and receive immediate outcomes. We will evaluate the effectiveness of these
-            interactions by measuring both the duration of validated engagement and the overall user experience via
-            questionnaires, and interviews.  ''')
-    st.write('''This study is performed by François Leborgne and Sichen Guo, all Engineering Doctorate (EngD) trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
+    st.subheader('🎯 Doel en voordeel van de studie')
+    st.write('''Het doel van dit onderzoeksproject is om deelnemers uit te nodigen om onze ontworpen tool te gebruiken, real-time interactie te ervaren en directe resultaten te ontvangen. We zullen de effectiviteit van deze interacties evalueren door zowel de duur van de gevalideerde betrokkenheid als de algehele gebruikerservaring te meten via vragenlijsten en interviews.''')
+    st.write('''Deze studie wordt uitgevoerd door François Leborgne en Sichen Guo, allen Engineering Doctorate (EngD) stagiairs van het programma Designing Human-System Interaction en voor deze studie onder supervisie van Jun Hu van de afdeling Industrial Design.''')
 
     st.subheader('🧗 Procedure')
-    st.markdown('''During this project we ask you to: 
-    1.	Choose one letter to upload 
-    2.	Choose the content and information you know from this letter 
-    3.	Put the chosen letter in the new designed summrized system 
-    4.	Choose the action points or highlight points you know from this letter 
-    5.	Fill in a survey with 9 questions 
-    6.	In the end, you will be invited to do a semi-structure interview
-
-   
-''')
-
-    st.subheader('⚠️ Risks')
-    st.markdown(
-        "The study does not involve any risks, detrimental side effects, or cause discomfort.")
-
-    st.subheader("🕙 Duration")
-    st.markdown(
-        "The instructions, measurements and debriefing will take approximately 30 minutes.")
-
-    st.subheader("🧑‍💼 Voluntary")
-    st.markdown('''Your participation is completely voluntary. You can refuse to participate without giving any reasons and you can stop your participation at any time during the study. You can also withdraw your permission to use your data immediately after completing the study. None of this will have any negative consequences for you whatsoever.''')
-
-    st.subheader("📊 Confidentiality and use, storage, and sharing of data")
-    st.markdown('''
-                    The collected data will be stored on TU/e supported storage facilities.
-                    
-                    We will make sure that any published research results will not include confidential or identifiable
-                    information about you unless you explicitly agree to it, for example, if you want your name to be
-                    mentioned in publications.
-                    
-                    Your personal data might be used for future research, but only if your data is truly necessary if the
-                    recognized ethical standards for scientific research are followed, and if the new research objectives align
-                    with the current research objectives. If your personal data is used in future research, we will take all
-                    reasonable steps to inform you about this. You can object to the use of your data for new research.
-                    
-                    We might use anonymized data for new purposes such as research or education. We will ensure the data
-                    cannot be linked to you and we will not disclose anything that makes you identifiable.
-                    This research has been assessed and approved by the ethical committee of Eindhoven University of
-                    Technology.
-                                
-                    The screen and time will be recorded during the interacting process, and the interview script will be recorded by audio recording.
-    
+    st.markdown('''Tijdens dit project vragen we u om:
+    1. Een brief te kiezen om te uploaden 
+    2. De inhoud en informatie te kiezen die u uit deze brief kent
+    3. De gekozen brief in het nieuw ontworpen samenvattingssysteem te plaatsen 
+    4. De actiepunten of hoogtepunten te kiezen die u uit deze brief kent 
+    5. Een enquête met 9 vragen in te vullen 
+    6. Aan het eind wordt u uitgenodigd voor een semi-gestructureerd interview
     ''')
 
-    st.subheader("📰 Further information")
-    st.markdown('''If you want more information about this study, the study design, or the results, you can contact François Leborgne (contact email: f.m.g.leborgne@tue.nl ) or Sichen Guo (contact email: s.guo3@tue.nl). 
-    If you have any complaints about this study, please contact the supervisor, Jun Hu (j.hu@tue.nl)  You can report irregularities related to scientific integrity to confidential advisors of the TU/e.
+    st.subheader('⚠️ Risico\'s')
+    st.markdown("De studie brengt geen risico's, nadelige bijwerkingen of ongemak met zich mee.")
+
+    st.subheader("🕙 Duur")
+    st.markdown("De instructies, metingen en debriefing zullen ongeveer 30 minuten duren.")
+
+    st.subheader("🧑‍💼 Vrijwillig")
+    st.markdown('''Uw deelname is volledig vrijwillig. U kunt weigeren deel te nemen zonder een reden op te geven en u kunt uw deelname op elk moment tijdens de studie stoppen. U kunt ook uw toestemming om uw gegevens te gebruiken onmiddellijk na het voltooien van de studie intrekken. Dit zal geen negatieve gevolgen voor u hebben.''')
+
+    st.subheader("📊 Vertrouwelijkheid en gebruik, opslag en delen van gegevens")
+    st.markdown('''De verzamelde gegevens worden opgeslagen op door de TU/e ondersteunde opslagfaciliteiten.              
+                    We zullen ervoor zorgen dat eventuele gepubliceerde onderzoeksresultaten geen vertrouwelijke of identificeerbare informatie over u bevatten, tenzij u hier expliciet mee instemt, bijvoorbeeld als u wilt dat uw naam in publicaties wordt vermeld.
+                    Uw persoonlijke gegevens kunnen worden gebruikt voor toekomstig onderzoek, maar alleen als uw gegevens echt nodig zijn, als de erkende ethische normen voor wetenschappelijk onderzoek worden gevolgd, en als de nieuwe onderzoeksdoelen overeenkomen met de huidige onderzoeksdoelen. Als uw persoonlijke gegevens in toekomstig onderzoek worden gebruikt, zullen we alle redelijke stappen ondernemen om u hierover te informeren. U kunt bezwaar maken tegen het gebruik van uw gegevens voor nieuw onderzoek.                    We kunnen geanonimiseerde gegevens gebruiken voor nieuwe doeleinden zoals onderzoek of onderwijs. We zullen ervoor zorgen dat de gegevens niet aan u kunnen worden gekoppeld en we zullen niets bekendmaken dat u identificeerbaar maakt.
+                    Dit onderzoek is beoordeeld en goedgekeurd door de ethische commissie van de Technische Universiteit Eindhoven.
+                    Het scherm en de tijd zullen worden opgenomen tijdens het interactieproces, en het interviewscript zal worden opgenomen door middel van audio-opname.
+    ''')
+
+    st.subheader("📰 Verdere informatie")
+    st.markdown('''Als u meer informatie wilt over deze studie, het onderzoeksontwerp of de resultaten, kunt u contact opnemen met François Leborgne (contact email: f.m.g.leborgne@tue.nl ) of Sichen Guo (contact email: s.guo3@tue.nl). 
+    Als u klachten heeft over deze studie, neem dan contact op met de supervisor, Jun Hu (j.hu@tue.nl). U kunt onregelmatigheden met betrekking tot wetenschappelijke integriteit melden bij vertrouwenspersonen van de TU/e.
     ''')
 
     st.subheader("📝 Informed consent form")
     st.markdown('''
-1️⃣ I have enough information about the research project from the separate information sheet. I have read it, and I have had the chance to ask questions, which have been answered to my satisfaction.
+1️⃣ Ik heb voldoende informatie over het onderzoeksproject van het aparte informatieblad. Ik heb het gelezen en ik heb de kans gehad om vragen te stellen, die naar tevredenheid zijn beantwoord.
                 
-2️⃣ I take part in this research project voluntarily. There is no explicit or implicit pressure for me to take part in this research project, and I understand I can stop my participation at any moment without explaining why. I do not have to answer any question I do not want to answer.
+2️⃣ Ik neem vrijwillig deel aan dit onderzoeksproject. Er is geen expliciete of impliciete druk om deel te nemen aan dit onderzoeksproject, en ik begrijp dat ik mijn deelname op elk moment kan stoppen zonder uit te leggen waarom. Ik hoef geen enkele vraag te beantwoorden die ik niet wil beantwoorden.
                 
-3️⃣ I know my personal data will be collected and used for the research, as explained to me in the information sheet.
+3️⃣ Ik weet dat mijn persoonlijke gegevens zullen worden verzameld en gebruikt voor het onderzoek, zoals uitgelegd in het informatieblad.
 
     ''')
 
     # Consent form
     OSF = st.radio
 
-    st.subheader("✍️ Consent")
+    st.subheader("✍️ Toestemming")
     agree = st.radio(
-        '4️⃣ I consent to my answers being used for quotes in the research publications – without including my name.',
-        ('do', 'do not'), index=1)
+        '4️⃣ Ik stem ermee in dat mijn antwoorden worden gebruikt voor citaten in de onderzoeksresultaten – zonder mijn naam te vermelden.',
+        ('doe ik', 'doe ik niet'), index=1)
 
-    consent_for_osf = "yes" if OSF == 'do' else 'no'
+    consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
     agree = st.radio(
-            '5️⃣ I consent to my real name being mentioned in the quotes as described under 4',
-            ('do', 'do not'), index=1)
+            '5️⃣ Ik stem ermee in dat mijn echte naam wordt vermeld in de citaten zoals beschreven onder 4',
+            ('doe ik', 'doe ik niet'), index=1)
 
-    consent_for_osf = "yes" if OSF == 'do' else 'no'
+    consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
 
     nameID = st.text_input(
-        "Please enter/paste here your name")
+        "Voer hier uw naam in")
     st.session_state.name = nameID
 
-    if agree == "do":
-        st.write('Thank you! Please continue to the next page to start the experiment')
-        if st.button("Next page"):
+    if agree == "doe ik":
+        st.write('Bedankt! Ga verder naar de volgende pagina om het experiment te starten')
+        if st.button("Volgende pagina"):
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
-                'expert': "yes",
-                'consent': 'no',
+                'expert': "ja",
+                'consent': 'nee',
                 'consentForOSF': consent_for_osf
             })
             switch_page("explanationpage")
     else:
-        if st.button("Next page"):
+        if st.button("Volgende pagina"):
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
-                'expert': "yes",
-                'consent': 'no',
+                'expert': "ja",
+                'consent': 'nee',
                 'consentForOSF': consent_for_osf
             })
             switch_page('noconsent')

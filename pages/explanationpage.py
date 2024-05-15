@@ -14,7 +14,6 @@ header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
 
-
 def record_page_start_time():
     global page_start_time
     page_start_time = datetime.now()
@@ -26,7 +25,7 @@ def record_page_duration_and_send_explanation():
         page_end_time = datetime.now()
         page_duration = page_end_time - page_start_time
 
-        st.write(f"Time spent on {current_page_title}: {page_duration}")
+        st.write(f"Tijd besteed aan {current_page_title}: {page_duration}")
             # Send data to Data Foundry via OOCSI
         data = {
             "page_name": current_page_title,
@@ -35,55 +34,43 @@ def record_page_duration_and_send_explanation():
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-st.session_state.current_page_title = "Explanation Page"
+st.session_state.current_page_title = "Verklaring Pagina"
 page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("Letter Selection")
+    st.title("Brief Selectie")
 
 with body2:
     st.header("💡Scenario")
     
-    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, blue envelope marked with a government seal. 
-                It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. 
-                What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications. ''')
+    st.markdown('''Stel je voor dat het een rustige middag thuis is. Terwijl je door de post van vandaag sorteert, vind je een dikke, blauwe envelop met een regeringszegel. 
+                Het valt op tussen de rekeningen en folders. Een beetje nerveus over officiële documenten, open je voorzichtig de envelop. Binnenin zit een brief vol met dicht opeenstaande tekst. Neem de tijd om te proberen te begrijpen wat de brief zegt. 
+                Welke informatie kun je eruit halen? Nadat je je best hebt gedaan om de tekst door te nemen, beantwoord dan de vragen die betrekking hebben op de inhoud. Deze vragen zijn ontworpen om ons te helpen begrijpen hoe je omgaat met en officiële communicatie interpreteert.''')
     st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800)
 
-    st.header('Explanation experiment')
-    st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
-                Then you will compare the summarization tool with a baseline (no summarization) and will need to answer some questions on the text to see how well (or bad) 
-                you understood it. Do not worry about getting eerything correct! I you don't have the answer, an 'I don't know' will also be available. 
-                Good luck and thanks again for participating!''')
-    st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
+    st.header('Uitleg experiment')
+    st.markdown('''Je moet kiezen tussen 5 verschillende brieven van de Nederlandse overheid met onderwerpen die te maken hebben met belastingen, gezondheid of zelfs een typische controle. 
+                Daarna vergelijk je de samenvattingstool met een basislijn (geen samenvatting) en moet je enkele vragen over de tekst beantwoorden om te zien hoe goed (of slecht) 
+                je het begrepen hebt. Maak je geen zorgen over het correct krijgen van alles! Als je het antwoord niet weet, is er ook een 'Ik weet het niet' beschikbaar. 
+                Veel succes en nogmaals bedankt voor je deelname!''')
+    st.markdown("Na het beantwoorden van de vraag wordt u gevraagd de methode te evalueren die u zojuist hebt gezien.")
     
     st.subheader('Model')
-    st.markdown(''' A GPT4 model was finetune and prompt engineer to provide the most tailored summary possible. Typical lexical metrics were also used to validate the quality of the 
-                summary.''')
+    st.markdown(''' Een GPT-4-model is fijn afgestemd en prompt-engineered om de meest op maat gemaakte samenvatting mogelijk te maken. Typische lexicale metrics werden ook gebruikt om de kwaliteit van de 
+                samenvatting te valideren.''')
     
-    st.subheader('Letters')
+    st.subheader('Brieven')
 
-    # st.subheader('Demographic information')
-    # st.markdown("Before you start with the study we would like to ask you to first answer these questions")
-
-
-# with footer2:
-#     if st.button("Start the experiment "):
-#         if page_start_time:
-#             record_page_duration_and_send_explanation()    
-#         record_page_start_time()
-#         st.session_state.oocsi.send('XAImethods_attentioncheck', {
-#             'participant_ID': st.session_state.participantID,
-#             'feature_explanation': feature_explanation,
-#             })
-#         switch_page(st.session_state.pages[st.session_state.nextPage])
+    # st.subheader('Demografische informatie')
+    # st.markdown("Voordat u met de studie begint, willen we u vragen eerst deze vragen te beantwoorden")
 
 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
 letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
 with footer2:
-    input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
+    input_method = st.radio("Selecteer voorkeurs onderwerp", ('Gezondheid', 'Werk', 'Digitale gegevensbescherming', 'Relatie', 'Financieel'))
     selected_pdf = None
     if input_method:
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
@@ -91,9 +78,9 @@ with footer2:
         st.session_state['uploaded_file'] = letter_path_test
         # st.session_state['uploaded_file'] = selected_pdf
     else:
-        st.write("Please select a topic to proceed.")
+        st.write("Selecteer een onderwerp om verder te gaan.")
           
-    if st.button("Next page") and selected_pdf is not None:
+    if st.button("Volgende pagina") and selected_pdf is not None:
                     # if page_start_time:
                         # record_page_duration_and_send()
                     # record_page_start_time()
