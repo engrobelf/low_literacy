@@ -146,7 +146,9 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     st.subheader("📝 Informed consent form")
     st.markdown('''
 1️⃣ I have enough information about the research project from the separate information sheet. I have read it, and I have had the chance to ask questions, which have been answered to my satisfaction.
+                
 2️⃣ I take part in this research project voluntarily. There is no explicit or implicit pressure for me to take part in this research project, and I understand I can stop my participation at any moment without explaining why. I do not have to answer any question I do not want to answer.
+                
 3️⃣ I know my personal data will be collected and used for the research, as explained to me in the information sheet.
 
     ''')
