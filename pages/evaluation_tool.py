@@ -30,13 +30,13 @@ def record_page_duration_and_send():
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-st.session_state.current_page_title = "Final Page"
+st.session_state.current_page_title = "evaluation_tool"
 page_start_time = None
 record_page_start_time()
 
 
 with header2:
-    st.title("Demographic information")
+    st.title("Summarization Tool - Evaluation")
     st.write("This is the final section of this experiment.")
 
 
@@ -118,7 +118,7 @@ with body2:
                 'q9': q9,
                 
                 })
-        switch_page('thankyou')
+            switch_page('thankyou')
 
     # Execute your app
     # embed streamlit docs in a streamlit app

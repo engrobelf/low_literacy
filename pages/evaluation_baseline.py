@@ -30,15 +30,13 @@ def record_page_duration_and_send():
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-st.session_state.current_page_title = "Final Page"
+st.session_state.current_page_title = "Evaluation Baseline"
 page_start_time = None
 record_page_start_time()
 
 
 with header2:
-    st.title("Demographic information")
-    st.write("This is the final section of this experiment.")
-
+    st.title("Baseline - Evaluation")
 
 with body2:
     with st.form("my_form3", clear_on_submit=True):
@@ -101,8 +99,6 @@ with body2:
         if submitted:
             if page_start_time:
                 record_page_duration_and_send()    
-            # record_page_start_time()
-            # st.write("question 1", q1)
             st.session_state.oocsi.send('Baseline_feedback', {
                 'participant_ID': st.session_state.name,
                 'type of method': 'Baseline',
@@ -118,6 +114,3 @@ with body2:
                 
                 })
             switch_page('Summarization')
-
-    # Execute your app
-    # embed streamlit docs in a streamlit app

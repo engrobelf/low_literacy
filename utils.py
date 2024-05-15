@@ -297,6 +297,23 @@ def extract_summary_docs(langchain_document, num_clusters, api_key, find_cluster
     summary_docs = map_vectors_to_docs(indices, split_document)
     return summary_docs
 
+def validate_doc_size(doc):
+    """
+    Validates the size of the document
+
+    :param doc: doc to validate
+
+    :return: True if the doc is valid, False otherwise
+    """
+    if not token_limit(doc, 800000):
+        st.warning('File or transcript too big!')
+        return False
+
+    if not token_minimum(doc, 50):
+        st.warning('File or transcript too small!')
+        return False
+    return True
+
 
 def doc_to_final_summary(langchain_document, num_clusters, initial_prompt_list, final_prompt_list, api_key, use_gpt_4, find_clusters=False):
     """
