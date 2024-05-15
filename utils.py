@@ -122,6 +122,24 @@ def create_summarize_chain(prompt_list):
     chain = load_summarize_chain(llm=prompt_list[2], chain_type='stuff', prompt=template)
     return chain
 
+def get_closest_vectors(vectors, kmeans):
+    """
+    Get the closest vectors to the cluster centers of a K-Means clustering object.
+
+    :param vectors: A list of vectors to cluster.
+
+    :param kmeans: A K-Means clustering object.
+
+    :return: A list of indices of the closest vectors to the cluster centers.
+    """
+    closest_indices = []
+    for i in range(len(kmeans.cluster_centers_)):
+        distances = np.linalg.norm(vectors - kmeans.cluster_centers_[i], axis=1)
+        closest_index = np.argmin(distances)
+        closest_indices.append(closest_index)
+
+    selected_indices = sorted(closest_indices)
+    return selected_indices
 
 def parallelize_summaries(summary_docs, initial_chain, progress_bar, max_workers=4):
     """
