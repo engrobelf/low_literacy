@@ -7,6 +7,8 @@ import pdfplumber
 import os
 from pathlib import Path
 from io import StringIO, BytesIO
+import pdfplumber
+
 
 from langchain_openai import ChatOpenAI
 
@@ -38,6 +40,8 @@ def pdf_to_text(pdf_path):
     except Exception as e:
         print("Failed to extract text from PDF:", str(e))
         return None
+
+
 
 
 def load_pdf_from_github(url):

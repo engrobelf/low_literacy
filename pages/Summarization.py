@@ -23,7 +23,7 @@ from datetime import datetime
 import os
 from streamlit_extras.switch_page_button import switch_page
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary, validate_doc_size
-from my_prompts import file_map, file_combine, youtube_map, youtube_combine
+from my_prompts import file_map, file_combine
 from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, load_pdf_from_github
 from pathlib import Path
 
