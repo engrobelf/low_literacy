@@ -78,29 +78,30 @@ page_start_time = None
 record_page_start_time()
 
 with st.container():
-    st.title("Low literacy research - Document Summarizer")
+    st.title("🤖AI Doc Assistant")
 
 with st.container():
     st.header(' 📄 Information form for participants')
     st.write('''Hello and thank you for considering participation in our research project at Eindhoven University of Techonology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
 
-Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo or feel free to consult with trusted individuals.''')
+Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo.''')
 
     st.subheader('🎯 Aim and benefit of the study')
     st.write('''The aim of this research project is to invite the participants to engage with our designed tool, experience
             real-time interaction, and receive immediate outcomes. We will evaluate the effectiveness of these
             interactions by measuring both the duration of validated engagement and the overall user experience via
             questionnaires, and interviews.  ''')
-    st.write('''This study is performed by François Leborgne and Sichen Guo, all EngD trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
+    st.write('''This study is performed by François Leborgne and Sichen Guo, all Engineering Doctorate (EngD) trainees of the Designing Human-System Interaction program and for this study under the supervision of Jun Hu of the Industrial Design Department.''')
 
     st.subheader('🧗 Procedure')
     st.markdown('''During this project we ask you to: 
-    -	Choose one letter to upload
-    -	wirite down the action points or high light points you know from this letter
-    -	put the chosen letter in the new designed summrized system 
-    -	wirite down the action points or high light points you know from this letter
-    -   fill in a survey with 12 questions 
-    -   In the end, you will be invited to do a semi-structure interview 
+    1.	Choose one letter to upload 
+    2.	Choose the content and information you know from this letter 
+    3.	Put the chosen letter in the new designed summrized system 
+    4.	Choose the action points or high light points you know from this letter 
+    5.	Fill in a survey with 12 questions 
+    6.	In the end, you will be invited to do a semi-structure interview
+
    
 ''')
 
@@ -144,14 +145,10 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
 
     st.subheader("📝 Informed consent form")
     st.markdown('''
-        1. I have enough information about the research project from the separate information sheet. I
-        have read it, and I have had the chance to ask questions, which have been answered to my
-        satisfaction.
-        2. I take part in this research project voluntarily. There is no explicit or implicit pressure for me to
-        take part in this research project, and I understand I can stop my participation at any moment
-        without explaining why. I do not have to answer any question I do not want to answer.
-        3. I know my personal data will be collected and used for the research, as explained to me in the
-        information sheet.
+1️⃣ I have enough information about the research project from the separate information sheet. I have read it, and I have had the chance to ask questions, which have been answered to my satisfaction.
+2️⃣ I take part in this research project voluntarily. There is no explicit or implicit pressure for me to take part in this research project, and I understand I can stop my participation at any moment without explaining why. I do not have to answer any question I do not want to answer.
+3️⃣ I know my personal data will be collected and used for the research, as explained to me in the information sheet.
+
     ''')
 
     # Consent form
@@ -159,12 +156,12 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
 
     st.subheader("✍️ Consent")
     agree = st.radio(
-        'I consent to my answers being used for quotes in the research publications – without including my name.',
+        '4️⃣ I consent to my answers being used for quotes in the research publications – without including my name.',
         ('do', 'do not'), index=1)
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
     agree = st.radio(
-            'I consent to my real name being mentioned in the quotes as described under 4',
+            '5️⃣ I consent to my real name being mentioned in the quotes as described under 4',
             ('do', 'do not'), index=1)
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'

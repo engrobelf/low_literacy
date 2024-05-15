@@ -42,21 +42,15 @@ with header2:
 
 
 with body2:
-    st.header("Overview")
-    st.markdown("explanatio of the task, after clicking the person will need to read the text and try to understand it as much as possible")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True',  width=700)
+    st.header("💡Scnerio")
+    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, 
+blue envelope marked with a government seal. It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications.''')
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  width=800)
 
     st.header('Explanation experiment')
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
+    st.markdown('''Look thourgh the content the answer the questions.''')
     st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
-    
-    st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
-    
+
     st.subheader('Letter')
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
@@ -81,7 +75,7 @@ with body2:
     with st.form("my_form"):
         st.markdown('**Reading comprehension**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
-                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
+                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
 
         question1 = st.radio(
             "Van welke organisatie is deze brief?",
@@ -89,7 +83,7 @@ with body2:
             "B) RIVM",
             "C) Ministerie van Volksgezondheid",
             "D) Gemeentehuis",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
         question2 = st.radio(
             "Wat is het hoofddoel van deze brief?",
@@ -97,7 +91,7 @@ with body2:
             "B) Informatie over een coronaprik voor kinderen",
             "C) Advies over schoolbezoeken ",
             "D) Registratie voor een sportevenement",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
         question3 = st.radio(
             "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
@@ -105,15 +99,15 @@ with body2:
             "B) Zoek het BSN van je kind ",
             "C) Bezoek de lokale kliniek",
             "D) Schrijf je in op een website",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
 
         question4 = st.radio(
             "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
             ["A) 0800 7070",
             "B) 112",
             "C) 0800 1234",
-            "D) 0900 2020",
-            "E) I don't know"], index=4)
+            "D) 30276683",
+            "E) Ik weet het niet"], index=4)
         
 
         question5 = st.radio(
@@ -122,7 +116,7 @@ with body2:
             "B) Een pasfoto",
             "C) De uitnodigingsbrief en een ID",
             "D) Een medische geschiedenisrapport",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
 
 
 
@@ -132,7 +126,7 @@ with body2:
             "B) www.rivm.nl",
             "C) www.coronavaccinatie.nl",
             "D) www.kinderzorg.nl",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
         submitted = st.form_submit_button("Submit")
         if submitted:

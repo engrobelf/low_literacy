@@ -30,18 +30,20 @@ def record_page_duration_and_send():
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-st.session_state.current_page_title = "Evaluation Baseline"
+st.session_state.current_page_title = "Final Page"
 page_start_time = None
 record_page_start_time()
 
 
 with header2:
-    st.title("Baseline - Evaluation")
+    st.title("Demographic information")
+    st.write("This is the final section of this experiment.")
+
 
 with body2:
     with st.form("my_form3", clear_on_submit=True):
         st.subheader("Evaluation")
-        st.write("These questions only ask for your opinion about the method you just used (No tool)")
+        st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
         st.subheader('Effectiveness')
         q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                     options=["Totally disagree", "disagree", 
@@ -90,7 +92,7 @@ with body2:
                             "Totally agree"])
 
         q9 = st.select_slider(
-        '**9**- The structure of the text was very clear:',
+        '**4**- The structure of the text was very clear:',
         options=["Totally disagree", "disagree", 
                             "Neither agree or disagree","agree", 
                             "Totally agree"])
@@ -99,6 +101,8 @@ with body2:
         if submitted:
             if page_start_time:
                 record_page_duration_and_send()    
+            # record_page_start_time()
+            # st.write("question 1", q1)
             st.session_state.oocsi.send('Baseline_feedback', {
                 'participant_ID': st.session_state.name,
                 'type of method': 'Baseline',
@@ -114,3 +118,6 @@ with body2:
                 
                 })
             switch_page('Summarization')
+
+    # Execute your app
+    # embed streamlit docs in a streamlit app

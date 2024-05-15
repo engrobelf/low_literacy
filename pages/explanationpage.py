@@ -40,12 +40,14 @@ page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("Low literacy issues?")
+    st.title("Letter Choose")
 
 with body2:
-    st.header("Overview")
-    st.markdown("here it ould be nice to have some sort of explanaiton of the LL problem that is faced by a large number of people ")
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=1000)
+    st.header("💡Scenrio")
+    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, blue envelope marked with a government seal. 
+                It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. 
+                What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications. ''')
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800)
 
     st.header('Explanation experiment')
     st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 

@@ -93,7 +93,7 @@ with body2:
                             "Totally agree"])
 
         q9 = st.select_slider(
-        '**9**- TThe structure of the text was very clear:',
+        '**4**- The structure of the text was very clear:',
         options=["Totally disagree", "disagree", 
                             "Neither agree or disagree",  "agree", 
                             "Totally agree"])
