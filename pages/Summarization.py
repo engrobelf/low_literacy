@@ -124,16 +124,6 @@ st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/lo
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
                     This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
 
-st.write(st.session_state['uploaded_file'])
-
-if st.button('Summarize (click once and wait)'):
-    if st.session_state ['uploaded_file'] is not None:
-        process_summarize_button(st.session_state['uploaded_file'], api_key, True, find_clusters)
-        st.write('If you are not satisfied with the summary, you can summarize again')
-    else:
-        st.warning('please uplaod your file')
-
-
 def validate_input(file_or_transcript, api_key, use_gpt_4):
     """
     Validates the user input, and displays warnings if the input is invalid
@@ -217,19 +207,19 @@ with body2:
             "E) I don't know"], index=4)
         
         submitted = st.form_submit_button("Submit")
-        if submitted:
-            if 'page_start_time' in st.session_state:
-                record_page_duration_and_send()    
-            # st.write("question 1", q1)
-            st.session_state.oocsi.send('Baseline_text_question', {
-                'participant_ID': st.session_state.name,
-                'q1': question1,
-                'q2': question2,
-                'q3': question3,
-                'q4': question4,
-                'q5': question5,
-                'q6': question6,
-                })
+    if submitted:
+        if 'page_start_time' in st.session_state:
+            record_page_duration_and_send()    
+        # st.write("question 1", q1)
+        st.session_state.oocsi.send('Tool_answer', {
+            'participant_ID': st.session_state.name,
+            'q1': question1,
+            'q2': question2,
+            'q3': question3,
+            'q4': question4,
+            'q5': question5,
+            'q6': question6,
+            })
 
 
 if st.button("Next page"):
