@@ -82,6 +82,7 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
 
     with st.spinner("Summarizing... please wait..."):
         if file:
+            st.write(file_or_transcript)
             temp_file_path = create_temp_file(file_or_transcript)
             doc = doc_loader(temp_file_path)
             map_prompt = file_map
@@ -211,12 +212,6 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 with body2:
     with st.form("my_form"):
-
-        gender = st.radio("How do you identify your gender", ('Female',
-                          'Male', 'Non-binary', 'Other', 'Prefer not to say'))
-        age = st.number_input("How old are you?", step=1)
-        # educationlevel = st.radio("What is your highest level of education?",
-        #                           ('elementary school', 'high school', 'MBO', 'HBO', 'University'))
         st.markdown('**AI literacy**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
@@ -288,13 +283,4 @@ with body2:
 
 
 if st.button("Next page"):
-                # if page_start_time:
-                    # record_page_duration_and_send()
-                # record_page_start_time()
-                # st.session_state.oocsi.send('Tool_answer', {
-                #     'participant_ID': st.session_state.participantID,
-                #     'expert': "yes",
-                #     'consent': 'yes',
-                #     'consentForOSF': consentforOSF
-                # })
     switch_page("evaluation_tool")
