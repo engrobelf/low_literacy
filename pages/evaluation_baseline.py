@@ -41,7 +41,7 @@ with header2:
 with body2:
     with st.form("my_form3", clear_on_submit=True):
         st.subheader("Evaluation")
-        st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
+        st.write("These questions only ask for your opinion about the method you just used (No tool)")
         st.subheader('Effectiveness')
         q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                     options=["Totally disagree", "disagree", 
@@ -90,7 +90,7 @@ with body2:
                             "Totally agree"])
 
         q9 = st.select_slider(
-        '**9**- TThe structure of the text was very clear:',
+        '**9**- The structure of the text was very clear:',
         options=["Totally disagree", "disagree", 
                             "Neither agree or disagree","agree", 
                             "Totally agree"])

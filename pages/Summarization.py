@@ -24,7 +24,8 @@ import os
 from streamlit_extras.switch_page_button import switch_page
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary, validate_doc_size
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
-from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model
+from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, load_pdf_from_github
+from pathlib import Path
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
@@ -54,24 +55,24 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
         return False
     return True
 
-def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_clusters):
-    if not validate_input(file_or_transcript, api_key, use_gpt_4):
+def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
+    if not check_key_validity(api_key):
+        st.warning("Invalid API Key or GPT access denied.")
         return
+
     with st.spinner("Summarizing... please wait..."):
-        temp_file_path = create_temp_file(file_or_transcript) if file_or_transcript else None
-        doc = doc_loader(temp_file_path) if temp_file_path else file_or_transcript
-        map_prompt, combine_prompt = (file_map, file_combine) if temp_file_path else (youtube_map, youtube_combine)
+        temp_file_path = create_temp_file(url)
+        doc_text = Path(temp_file_path).read_text()
+        Path(temp_file_path).unlink()  # Clean up the temporary text file
+
         llm = create_chat_model(api_key, use_gpt_4)
-        initial_prompt_list = summary_prompt_creator(map_prompt, 'text', llm)
-        final_prompt_list = summary_prompt_creator(combine_prompt, 'text', llm)
-        if not validate_doc_size(doc):
-            if temp_file_path:
-                os.unlink(temp_file_path)
-            return
-        summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4, find_clusters)
+        initial_prompt_list = summary_prompt_creator("File map prompt", 'text', llm)
+        final_prompt_list = summary_prompt_creator("File combine prompt", 'text', llm)
+        st.write(final_prompt_list)
+        summary = doc_to_final_summary(doc_text, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
         st.markdown(summary, unsafe_allow_html=True)
-        if temp_file_path:
-            os.unlink(temp_file_path)
+
+
 
 record_page_start_time()
 
@@ -126,11 +127,6 @@ if st.button('Summarize (click once and wait)'):
         st.write('If you are not satisfied with the summary, you can summarize again')
     else:
         st.warning('please uplaod your file')
-
-
-
-
-
 
 
 def validate_input(file_or_transcript, api_key, use_gpt_4):

@@ -17,6 +17,6 @@ footer1, footer2, footer3 =st.columns([1,2,1])
 
 
 with body2:
-    st.subheader("Without consent you cannot participate in this study, please click on the link to go back to hell")
+    st.subheader("Without consent you cannot participate in this study, please click on the link for a nice recipee")
     # code for the experts
     st.write("https://prettysimplesweet.com/clafoutis/")
