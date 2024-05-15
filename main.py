@@ -98,8 +98,8 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
     1.	Choose one letter to upload 
     2.	Choose the content and information you know from this letter 
     3.	Put the chosen letter in the new designed summrized system 
-    4.	Choose the action points or high light points you know from this letter 
-    5.	Fill in a survey with 12 questions 
+    4.	Choose the action points or highlight points you know from this letter 
+    5.	Fill in a survey with 9 questions 
     6.	In the end, you will be invited to do a semi-structure interview
 
    

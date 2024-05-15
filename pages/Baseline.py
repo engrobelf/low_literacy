@@ -42,15 +42,8 @@ with header2:
 
 
 with body2:
-    st.header("💡Scenario")
-    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, 
-blue envelope marked with a government seal. It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications.''')
-    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  width=800)
-
     st.header('Explanation experiment')
-    st.markdown('''Look through the content the answer the questions.''')
-    st.markdown("After seeing four profiles, you will be asked to evaluate the explanation you have just seen.")
-
+    st.markdown('''Read carefully the letter related to the field you selected. Take as much time as you need and try to answer the questions following the letter. In case of a doubt, don't hesitate to answer the I don't know answer.''')
     st.subheader('Letter')
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
@@ -132,7 +125,6 @@ with body2:
         if submitted:
             if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()    
-            # st.write("question 1", q1)
             st.session_state.oocsi.send('Baseline_text_question', {
                 'participant_ID': st.session_state.name,
                 'q1': question1,
@@ -142,16 +134,7 @@ with body2:
                 'q5': question5,
                 'q6': question6,
                 })
-
-# if submitted: 
-if st.button("Next page"):
-                # if page_start_time:
-                    # record_page_duration_and_send()
-                # record_page_start_time()
-                # st.session_state.oocsi.send('Baseline_text_question', {
-                #     'participant_ID': st.session_state.participantID,
-                #     'expert': "yes",
-                #     'consent': 'yes',
-                #     'consentForOSF': consentforOSF
-                # })
-    switch_page("evaluation_baseline")
+            switch_page("evaluation_baseline")
+# # if submitted: 
+# if st.button("Next page"):
+#     switch_page("evaluation_baseline")

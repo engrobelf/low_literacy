@@ -28,9 +28,6 @@ def doc_loader(file_path: str):
     """
     loader = TextLoader(file_path, encoding='utf-8')
     return loader.load()
-    # if image: 
-    #     loader = UnstructuredImageLoader(file_path)
-    #     return loader.load()
 
 
 def token_counter(text: str):
@@ -113,6 +110,18 @@ def kmeans_clustering(vectors, num_clusters=None):
     return kmeans
 
 
+def create_summarize_chain(prompt_list):
+    """
+    Create a langchain summarize chain from a list of prompts.
+
+    :param prompt_list: A list containing the template, input variables, and llm to use for the chain.
+
+    :return: A langchain summarize chain.
+    """
+    template = PromptTemplate(template=prompt_list[0], input_variables=([prompt_list[1]]))
+    chain = load_summarize_chain(llm=prompt_list[2], chain_type='stuff', prompt=template)
+    return chain
+
 def get_closest_vectors(vectors, kmeans):
     """
     Get the closest vectors to the cluster centers of a K-Means clustering object.
@@ -132,7 +141,6 @@ def get_closest_vectors(vectors, kmeans):
     selected_indices = sorted(closest_indices)
     return selected_indices
 
-
 def map_vectors_to_docs(indices, docs):
     """
     Map a list of indices to a list of loaded langchain Document objects.
@@ -145,20 +153,6 @@ def map_vectors_to_docs(indices, docs):
     """
     selected_docs = [docs[i] for i in indices]
     return selected_docs
-
-
-def create_summarize_chain(prompt_list):
-    """
-    Create a langchain summarize chain from a list of prompts.
-
-    :param prompt_list: A list containing the template, input variables, and llm to use for the chain.
-
-    :return: A langchain summarize chain.
-    """
-    template = PromptTemplate(template=prompt_list[0], input_variables=([prompt_list[1]]))
-    chain = load_summarize_chain(llm=prompt_list[2], chain_type='stuff', prompt=template)
-    return chain
-
 
 def parallelize_summaries(summary_docs, initial_chain, progress_bar, max_workers=4):
     """
@@ -296,6 +290,23 @@ def extract_summary_docs(langchain_document, num_clusters, api_key, find_cluster
     indices = get_closest_vectors(vectors, kmeans)
     summary_docs = map_vectors_to_docs(indices, split_document)
     return summary_docs
+
+def validate_doc_size(doc):
+    """
+    Validates the size of the document
+
+    :param doc: doc to validate
+
+    :return: True if the doc is valid, False otherwise
+    """
+    if not token_limit(doc, 800000):
+        st.warning('File or transcript too big!')
+        return False
+
+    if not token_minimum(doc, 50):
+        st.warning('File or transcript too small!')
+        return False
+    return True
 
 
 def doc_to_final_summary(langchain_document, num_clusters, initial_prompt_list, final_prompt_list, api_key, use_gpt_4, find_clusters=False):

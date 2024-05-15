@@ -15,6 +15,7 @@ def record_page_start_time():
     page_start_time = datetime.now()
 
 # Function to record page duration and send to Data Foundry
+
 def record_page_duration_and_send():
     current_page_title = st.session_state.current_page_title
     if page_start_time:
@@ -26,17 +27,17 @@ def record_page_duration_and_send():
         data = {
             "page_name": current_page_title,
             "duration_seconds": page_duration.total_seconds(), 
-            'participant_ID': st.session_state.participantID
+            'participant_ID': st.session_state.name
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
-st.session_state.current_page_title = "Final Page"
+st.session_state.current_page_title = "evaluation_tool"
 page_start_time = None
 record_page_start_time()
 
 
 with header2:
-    st.title("Demographic information")
+    st.title("Summarization Tool - Evaluation")
     st.write("This is the final section of this experiment.")
 
 
@@ -105,7 +106,7 @@ with body2:
             # record_page_start_time()
             # st.write("question 1", q1)
             st.session_state.oocsi.send('Tool_feedback', {
-                'participant_ID': st.session_state.participantID,
+                'participant_ID': st.session_state.name,
                 'type of method': 'Baseline',
                 'q1': q1,
                 'q2': q2,
@@ -118,7 +119,7 @@ with body2:
                 'q9': q9,
                 
                 })
-        switch_page('thankyou')
+            switch_page('thankyou')
 
     # Execute your app
     # embed streamlit docs in a streamlit app

@@ -4,8 +4,11 @@ import pytesseract
 import requests
 import PyPDF2
 import pdfplumber
-
+import os
+from pathlib import Path
 from io import StringIO, BytesIO
+import pdfplumber
+
 
 from langchain_openai import ChatOpenAI
 
@@ -21,34 +24,38 @@ def image_to_text(image):
     text = pytesseract.image_to_string(image)
     return text.encode('utf-8')
 
-def pdf_to_text(pdf_content):
+def pdf_to_text(pdf_path):
     """
-    Convert PDF file content (bytes) to a string of text using PyPDF2.
-
-    :param pdf_content: The PDF file content in bytes.
-    :return: A string of text.
+    Convert a PDF file to a string of text using PyPDF2.
+    :param pdf_path: Path to the PDF file.
+    :return: A string of text extracted from the PDF.
     """
     try:
-        # Convert bytes content to a file-like object
-        pdf_file = BytesIO(pdf_content)
-        pdf_reader = PyPDF2.PdfReader(pdf_file)
-        text = StringIO()
-        for page in pdf_reader.pages:
-            text.write(page.extract_text() or "")  # Extract text or use an empty string if none
-        return text.getvalue()
+        with open(pdf_path, "rb") as file:
+            pdf_reader = PyPDF2.PdfReader(file)
+            text = StringIO()
+            for page in pdf_reader.pages:
+                text.write(page.extract_text() or "")
+            return text.getvalue()
     except Exception as e:
         print("Failed to extract text from PDF:", str(e))
         return None
 
 
+
+
 def load_pdf_from_github(url):
-    """Fetch PDF content from GitHub."""
     response = requests.get(url)
     if response.status_code == 200:
-        return response.content
+        # Assuming we are saving the file temporarily to handle it
+        from pathlib import Path
+        import tempfile
+
+        temp = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+        Path(temp.name).write_bytes(response.content)
+        return temp.name
     else:
-        st.error("Failed to load PDF from GitHub. Status code: " + str(response.status_code))
-        return None
+        raise Exception("Failed to download file")
 
 
 def check_gpt_4(api_key):
@@ -119,23 +126,28 @@ def check_key_validity(api_key):
         print(e)
         return False
 
+def create_temp_file(url):
+    """
+    Download a PDF from a URL, convert it to text, and save to a temporary text file.
+    """
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        temp_pdf_path = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf').name
+        Path(temp_pdf_path).write_bytes(response.content)
 
-
-def create_temp_file(uploaded_file):
-    # Add error handling to check if 'type' attribute exists
-    if not hasattr(uploaded_file, 'type'):
-        raise AttributeError("Uploaded file is missing the 'type' attribute.")
-
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_file:
-        if uploaded_file.type == 'application/pdf':
-            temp_file.write(pdf_to_text(uploaded_file))
+        text_content = pdf_to_text(temp_pdf_path)
+        if text_content:
+            temp_text_path = tempfile.NamedTemporaryFile(delete=False, suffix='.txt').name
+            with open(temp_text_path, "w", encoding='utf-8') as text_file:
+                text_file.write(text_content)
+            os.unlink(temp_pdf_path)  # Clean up the temporary PDF file
+            return temp_text_path
         else:
-            # Handle other types like images
-            pil_image = Image.open(uploaded_file)
-            text = pytesseract.image_to_string(pil_image)
-            temp_file.write(text.encode('utf-8'))
-
-    return temp_file.name
+            os.unlink(temp_pdf_path)  # Clean up if text extraction fails
+            raise Exception("Failed to extract text from PDF")
+    except requests.RequestException as e:
+        raise Exception(f"Failed to download or process the PDF: {e}")
 
 def create_chat_model(api_key, use_gpt_4):
     """
