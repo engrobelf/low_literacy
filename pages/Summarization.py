@@ -83,13 +83,8 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters, file=True):
 
     with st.spinner("Summarizing... please wait..."):
         if file:
-<<<<<<< Updated upstream
-            st.write(file_or_transcript)
-            temp_file_path = create_temp_file(file_or_transcript)
-=======
             file_or_transcript = load_pdf_from_github(url)
             temp_file_path = text = pdf_to_text(file_or_transcript)
->>>>>>> Stashed changes
             doc = doc_loader(temp_file_path)
             map_prompt = file_map
             combine_prompt = file_combine
