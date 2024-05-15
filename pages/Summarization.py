@@ -115,19 +115,13 @@ with header2:
     st.title("Summarization")
 
 with body2:
-    st.header('Explanation experiment')
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=700, caption= 'Low literacy overview')
+    st.header('💡Scenrio')
+    st.markdown('''Imagine it’s another quiet afternoon at home, and you got the same letter. However, this time you have access to a new tool designed to help you understand the contents more quickly and easily.
 
+Your task is to select one of these letters and then use this new summarization tool. Compare it to the standard method without summarization. After using both methods, you will need to answer some questions about the text to see how well (or poorly) you understood it. Don’t worry about getting everything correct; if you don’t know the answer, an 'I don’t know' option will also be available. Good luck, and thanks again for participating!
+''')
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800, caption= 'Photo by Kate Macate on Unsplash')
 
-
-    
-    st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
     use_gpt_4 = True
     find_clusters = False
 
@@ -219,7 +213,7 @@ with body2:
         #                           ('elementary school', 'high school', 'MBO', 'HBO', 'University'))
         st.markdown('**AI literacy**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
-                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
+                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
 
         question1 = st.radio(
             "Van welke organisatie is deze brief?",
@@ -227,7 +221,7 @@ with body2:
             "B) RIVM",
             "C) Ministerie van Volksgezondheid",
             "D) Gemeentehuis",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
         question2 = st.radio(
             "Wat is het hoofddoel van deze brief?",
@@ -235,7 +229,7 @@ with body2:
             "B) Informatie over een coronaprik voor kinderen",
             "C) Advies over schoolbezoeken ",
             "D) Registratie voor een sportevenement",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
         question3 = st.radio(
             "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
@@ -243,7 +237,7 @@ with body2:
             "B) Zoek het BSN van je kind ",
             "C) Bezoek de lokale kliniek",
             "D) Schrijf je in op een website",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
 
         question4 = st.radio(
             "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
@@ -251,7 +245,7 @@ with body2:
             "B) 112",
             "C) 0800 1234",
             "D) 0900 2020",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
         
 
         question5 = st.radio(
@@ -260,7 +254,7 @@ with body2:
             "B) Een pasfoto",
             "C) De uitnodigingsbrief en een ID",
             "D) Een medische geschiedenisrapport",
-            "E) I don't know"], index=4)
+            "E) Ik weet het niet"], index=4)
 
 
         question6 = st.radio(
