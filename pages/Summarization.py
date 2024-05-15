@@ -14,7 +14,8 @@ import os
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary
 
 from my_prompts import file_map, file_combine, youtube_map, youtube_combine
-from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, token_limit, token_minimum
+from streamlit_app_utils import (check_gpt_4, check_key_validity, create_temp_file,
+create_chat_model, token_limit, token_minimum, load_pdf_from_github, pdf_to_text)
 from utils import transcript_loader
 
 
@@ -63,7 +64,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
     return True
 
 
-def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_clusters, file=True):
+def process_summarize_button(url, api_key, use_gpt_4, find_clusters, file=True):
     """
     Processes the summarize button, and displays the summary if input and doc size are valid
 
@@ -77,13 +78,18 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
 
     :return: None
     """
-    if not validate_input(file_or_transcript, api_key, use_gpt_4):
+    if not validate_input(url, api_key, use_gpt_4):
         return
 
     with st.spinner("Summarizing... please wait..."):
         if file:
+<<<<<<< Updated upstream
             st.write(file_or_transcript)
             temp_file_path = create_temp_file(file_or_transcript)
+=======
+            file_or_transcript = load_pdf_from_github(url)
+            temp_file_path = text = pdf_to_text(file_or_transcript)
+>>>>>>> Stashed changes
             doc = doc_loader(temp_file_path)
             map_prompt = file_map
             combine_prompt = file_combine
@@ -155,6 +161,7 @@ st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/lo
 st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
                     This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
 
+st.write(st.session_state['uploaded_file'])
 
 if st.button('Summarize (click once and wait)'):
     if st.session_state ['uploaded_file'] is not None:
