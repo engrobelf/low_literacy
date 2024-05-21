@@ -95,10 +95,6 @@ with body2:
 
     
     st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
-    use_gpt_4 = True
     find_clusters = False
 
     # Ask for the API key
