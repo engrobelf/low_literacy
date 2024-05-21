@@ -86,7 +86,7 @@ fitter==1.5.1
 Flask==2.2.2
 Flask-Compress==1.13
 Flask-SeaSurf==1.1.1
-flatbuffers==22.9.24
+flatbuffers==23.5.26
 fonttools==4.37.4
 frozenlist==1.3.3
 fsspec==2023.1.0
