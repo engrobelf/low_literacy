@@ -2,7 +2,7 @@ aiofiles==23.1.0
 aiohttp==3.8.4
 aiosignal==1.3.1
 altair==4.2.2
-anaconda-client==1.11.0
+anaconda-client==1.2.2  # Updated to the highest available version
 annotated-types==0.6.0
 anyio==3.6.2
 appdirs==1.4.4
@@ -196,7 +196,7 @@ nest-asyncio==1.5.6
 networkx==2.8.7
 neurokit2==0.2.1
 nolds==0.5.2
-notebook==6.5.4  # Corrected the version
+notebook==6.5.4
 numba==0.56.2
 numpy==1.24.3
 oauthlib==3.2.1
