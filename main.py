@@ -27,7 +27,7 @@ from utils import (
     doc_to_final_summary,
     transcript_loader
 )
-from my_prompts import file_map, file_combine, youtube_map, youtube_combine
+from my_prompts import file_map, file_combine
 from streamlit_app_utils import (
     check_gpt_4,
     check_key_validity,
