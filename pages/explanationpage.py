@@ -80,7 +80,7 @@ with body2:
 
 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
-letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
+#letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
 with footer2:
     input_method = st.radio("Select preferred topic", ('Health', 'Work', 'Digital_DataPrivacy', 'Relationship', 'Financial'))
@@ -88,7 +88,7 @@ with footer2:
     if input_method:
         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
         selected_pdf = selected_pdf.replace('\\', '/')
-        st.session_state['uploaded_file'] = letter_path_test
+        st.session_state['uploaded_file'] = selected_pdf
         # st.session_state['uploaded_file'] = selected_pdf
     else:
         st.write("Please select a topic to proceed.")
