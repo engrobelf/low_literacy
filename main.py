@@ -81,7 +81,7 @@ with st.container():
     st.title("🤖AI Doc Assistant")
 
 with st.container():
-    st.header(' 📄 Information form for participants')
+    st.header('📄 Information form for participants')
     st.write('''Hello and thank you for considering participation in our research project at Eindhoven University of Technology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
 
 Participation is entirely voluntary, with no associated physical, legal, or economic risks. You have full freedom to choose which questions to answer and the option to withdraw at any time, without any adverse consequences. If you have questions or need more information after reading about the study, please reach out to Sichen Guo.''')
