@@ -95,6 +95,8 @@ with body2:
 
     
     st.subheader('Model')
+
+    use_gpt_4 = True
     find_clusters = False
 
     # Ask for the API key

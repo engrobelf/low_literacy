@@ -61,8 +61,10 @@ with body2:
     # st.write("Readability Metrics:")
     # for metric, value in metrics.items():
     #     st.write(f"{metric}: {value}")
-    
-with body2:
+
+
+# Health Letter questions:
+# with body2:
     st.write("Please answer the following questions:")
 
     with st.form("my_form"):
@@ -135,6 +137,85 @@ with body2:
                 'q6': question6,
                 })
             switch_page("evaluation_baseline")
+
+
+
+# Financial Letter questions:
+with body2:
+    st.write("Please answer the following questions:")
+
+    with st.form("my_form"):
+        st.markdown('**Reading comprehension**')
+        st.markdown("Please select the right answer to the multiple-choice questions below. \
+                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+
+        question1 = st.radio(
+            "Van welke organisatie is deze brief?",
+            ["A) Gemeente Amsterdam",
+            "B) Gemeente Rotterdam",
+            "C) Gemeente Utrecht",
+            "D) Gemeente Eindhoven",
+            "E) Ik weet het niet"], index=4)
+        
+        question2 = st.radio(
+            "Wat is het hoofddoel van deze brief?",
+            ["A) Uitnodiging voor een evenement",
+            "B) Informatie over afvalstoffenheffing",
+            "C) Informatie over parkeervergunning ",
+            "D) Advies over gemeentelijke diensten",
+            "E) Ik weet het niet"], index=4)
+        
+        question3 = st.radio(
+            "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+            ["A) Bel de belastingdienst",
+            "B) Zoek je paspoort",
+            "C) Ga naar de digitale belastingbalie",
+            "D) Schrijf je in bij de gemeente",
+            "E) Ik weet het niet"], index=4)
+
+        question4 = st.radio(
+            "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+            ["A) NL00BANK0123456789",
+            "B) NL00RABO0987654321",
+            "C) NL00INGB8765432109 ",
+            "D) NL00ABNA1234567890",
+            "E) Ik weet het niet"], index=4)
+        
+
+        question5 = st.radio(
+            "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+            ["A) Betaal in 5 keer",
+            "B) Betaal in 10 keer via automatische afschrijving",
+            "C) Betaal in 12 keer",
+            "D) Betaal in 24 keer",
+            "E) Ik weet het niet"], index=4)
+
+
+
+        question6 = st.radio(
+            "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+            ["A) amsterdam.nl/contact-belastingen",
+            "B)  rotterdam.nl/contact-belastingen",
+            "C) eindhoven.nl/contact-belastingen",
+            "D) utrecht.nl/contact-belastingen",
+            "E) Ik weet het niet"], index=4)
+        
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            if 'page_start_time' in st.session_state:
+                record_page_duration_and_send()    
+            st.session_state.oocsi.send('Baseline_text_question', {
+                'participant_ID': st.session_state.name,
+                'q1': question1,
+                'q2': question2,
+                'q3': question3,
+                'q4': question4,
+                'q5': question5,
+                'q6': question6,
+                })
+            switch_page("evaluation_baseline")
+
+
 # # if submitted: 
 # if st.button("Next page"):
 #     switch_page("evaluation_baseline")
