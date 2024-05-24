@@ -8,8 +8,6 @@ from datetime import datetime
 header1, header2, header3 = st.columns([1,4,1])
 body1, body2, body3 =st.columns([1,50,1])
 
-
-
 def record_page_start_time():
     global page_start_time
     page_start_time = datetime.now()
@@ -36,8 +34,8 @@ record_page_start_time()
 
 
 with header2:
-    st.title("Demographic information")
-    st.write("This is the final section of this experiment.")
+    st.title("Baseline evaluation")
+    st.write("This is the final section of baseline evaluation.")
 
 
 with body2:
@@ -105,6 +103,7 @@ with body2:
             # st.write("question 1", q1)
             st.session_state.oocsi.send('Baseline_feedback', {
                 'participant_ID': st.session_state.name,
+                'topic': st.session_state['topic']
                 'type of method': 'Baseline',
                 'q1': q1,
                 'q2': q2,
