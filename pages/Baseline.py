@@ -69,58 +69,110 @@ with body2:
         st.markdown('**Reading comprehension**')
         st.markdown("Please select the right answer to the multiple-choice questions below. \
                     A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+        if st.session_state['topic'] == 'Health':
 
-        question1 = st.radio(
+            question1 = st.radio(
+                "Van welke organisatie is deze brief?",
+                ["A) Gezondheidsraad",
+                "B) RIVM",
+                "C) Ministerie van Volksgezondheid",
+                "D) Gemeentehuis",
+                "E) Ik weet het niet"], index=4)
+            
+            question2 = st.radio(
+                "Wat is het hoofddoel van deze brief?",
+                ["A) Uitnodiging voor een feest",
+                "B) Informatie over een coronaprik voor kinderen",
+                "C) Advies over schoolbezoeken ",
+                "D) Registratie voor een sportevenement",
+                "E) Ik weet het niet"], index=4)
+            
+            question3 = st.radio(
+                "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+                ["A) Bel de huisarts",
+                "B) Zoek het BSN van je kind ",
+                "C) Bezoek de lokale kliniek",
+                "D) Schrijf je in op een website",
+                "E) Ik weet het niet"], index=4)
+
+            question4 = st.radio(
+                "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+                ["A) 0800 7070",
+                "B) 112",
+                "C) 0800 1234",
+                "D) 30276683",
+                "E) Ik weet het niet"], index=4)
+            
+
+            question5 = st.radio(
+                "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+                ["A) Een waterfles",
+                "B) Een pasfoto",
+                "C) De uitnodigingsbrief en een ID",
+                "D) Een medische geschiedenisrapport",
+                "E) Ik weet het niet"], index=4)
+
+
+
+            question6 = st.radio(
+                "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+                ["A) www.gezondheid.nl",
+                "B) www.rivm.nl",
+                "C) www.coronavaccinatie.nl",
+                "D) www.kinderzorg.nl",
+                "E) Ik weet het niet"], index=4)
+        else:
+            question1 = st.radio(
             "Van welke organisatie is deze brief?",
-            ["A) Gezondheidsraad",
-            "B) RIVM",
-            "C) Ministerie van Volksgezondheid",
-            "D) Gemeentehuis",
+            ["A) Gemeente Amsterdam",
+            "B) Gemeente Rotterdam",
+            "C) Gemeente Utrecht",
+            "D) Gemeente Eindhoven",
             "E) Ik weet het niet"], index=4)
         
-        question2 = st.radio(
-            "Wat is het hoofddoel van deze brief?",
-            ["A) Uitnodiging voor een feest",
-            "B) Informatie over een coronaprik voor kinderen",
-            "C) Advies over schoolbezoeken ",
-            "D) Registratie voor een sportevenement",
-            "E) Ik weet het niet"], index=4)
-        
-        question3 = st.radio(
-            "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
-            ["A) Bel de huisarts",
-            "B) Zoek het BSN van je kind ",
-            "C) Bezoek de lokale kliniek",
-            "D) Schrijf je in op een website",
-            "E) Ik weet het niet"], index=4)
+            question2 = st.radio(
+                "Wat is het hoofddoel van deze brief?",
+                ["A) Uitnodiging voor een evenement",
+                "B) Informatie over afvalstoffenheffing",
+                "C) Informatie over parkeervergunning ",
+                "D) Advies over gemeentelijke diensten",
+                "E) Ik weet het niet"], index=4)
+            
+            question3 = st.radio(
+                "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+                ["A) Bel de belastingdienst",
+                "B) Zoek je paspoort",
+                "C) Ga naar de digitale belastingbalie",
+                "D) Schrijf je in bij de gemeente",
+                "E) Ik weet het niet"], index=4)
 
-        question4 = st.radio(
-            "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
-            ["A) 0800 7070",
-            "B) 112",
-            "C) 0800 1234",
-            "D) 30276683",
-            "E) Ik weet het niet"], index=4)
-        
+            question4 = st.radio(
+                "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+                ["A) NL00BANK0123456789",
+                "B) NL00RABO0987654321",
+                "C) NL00INGB8765432109 ",
+                "D) NL00ABNA1234567890",
+                "E) Ik weet het niet"], index=4)
+            
 
-        question5 = st.radio(
-            "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
-            ["A) Een waterfles",
-            "B) Een pasfoto",
-            "C) De uitnodigingsbrief en een ID",
-            "D) Een medische geschiedenisrapport",
-            "E) Ik weet het niet"], index=4)
+            question5 = st.radio(
+                "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+                ["A) Betaal in 5 keer",
+                "B) Betaal in 10 keer via automatische afschrijving",
+                "C) Betaal in 12 keer",
+                "D) Betaal in 24 keer",
+                "E) Ik weet het niet"], index=4)
 
 
 
-        question6 = st.radio(
-            "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
-            ["A) www.gezondheid.nl",
-            "B) www.rivm.nl",
-            "C) www.coronavaccinatie.nl",
-            "D) www.kinderzorg.nl",
-            "E) Ik weet het niet"], index=4)
-        
+            question6 = st.radio(
+                "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+                ["A) amsterdam.nl/contact-belastingen",
+                "B)  rotterdam.nl/contact-belastingen",
+                "C) eindhoven.nl/contact-belastingen",
+                "D) utrecht.nl/contact-belastingen",
+                "E) Ik weet het niet"], index=4)
+            
         submitted = st.form_submit_button("Submit")
         if submitted:
             if 'page_start_time' in st.session_state:
