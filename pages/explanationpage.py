@@ -82,20 +82,40 @@ url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/l
 
 #letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
+
 with footer2:
-    input_method = st.radio("Select first topic", ('Health', 'Financial'))
-    selected_pdf = None
-    if input_method:
-        selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-        selected_pdf = selected_pdf.replace('\\', '/')
-        st.session_state['uploaded_file'] = letter_path_test
-        st.session_state['topic'] = input_method
-        st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
-        # st.session_state['uploaded_file'] = selected_pdf
+
+    if 'first_topic_selected' not in st.session_state:
+        input_method = st.radio("Select first topic", ('Health', 'Financial'))
+        selected_pdf = None
+        if input_method:
+            selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+            selected_pdf = selected_pdf.replace('\\', '/')
+            st.session_state['uploaded_file'] = selected_pdf
+            st.session_state['topic'] = input_method
+            st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+            st.session_state['first_topic_selected'] = True
+        else:
+            st.write("Please select a topic to proceed.")
+            
+    
     else:
-        st.write("Please select a topic to proceed.")
-          
+        if st.session_state['topic'] == 'Health':
+            input_method = st.radio("Select second topic", ('Health', 'Financial'))
+            selected_pdf = None
+            if input_method:
+                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+                selected_pdf = selected_pdf.replace('\\', '/')
+                st.session_state['uploaded_file'] = selected_pdf
+                st.session_state['topic'] = input_method
+                st.session_state['second_topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+            else:
+                st.write("Please select a topic to proceed.")
+        else:
+            selected_pdf = st.session_state['uploaded_file']
+            
     if st.button("Next page") and selected_pdf is not None:
+        
                     # if page_start_time:
                         # record_page_duration_and_send()
                     # record_page_start_time()
@@ -105,4 +125,5 @@ with footer2:
                     #     'consent': 'yes',
                     #     'consentForOSF': consentforOSF
                     # })
-        switch_page("Baseline")
+        if 'selected_pdf' in locals():
+            switch_page("Baseline")
