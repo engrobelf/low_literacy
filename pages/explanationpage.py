@@ -90,7 +90,7 @@ with footer2:
         selected_pdf = selected_pdf.replace('\\', '/')
         st.session_state['uploaded_file'] = letter_path_test
         st.session_state['topic'] = input_method
-
+        st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
         # st.session_state['uploaded_file'] = selected_pdf
     else:
         st.write("Please select a topic to proceed.")
