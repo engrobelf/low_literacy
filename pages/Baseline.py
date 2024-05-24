@@ -44,7 +44,7 @@ with header2:
 with body2:
     st.header('Explanation experiment')
     st.markdown('''Read carefully the letter related to the field you selected. Take as much time as you need and try to answer the questions following the letter. In case of a doubt, don't hesitate to answer the I don't know answer.''')
-    st.subheader('Letter')
+    st.subheader(f'Letter - {st.session_state['topic']}')
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
     pdf_content = load_pdf_from_github(pdf_url)
@@ -103,7 +103,6 @@ with body2:
                 "D) 30276683",
                 "E) Ik weet het niet"], index=4)
             
-
             question5 = st.radio(
                 "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
                 ["A) Een waterfles",
@@ -111,8 +110,6 @@ with body2:
                 "C) De uitnodigingsbrief en een ID",
                 "D) Een medische geschiedenisrapport",
                 "E) Ik weet het niet"], index=4)
-
-
 
             question6 = st.radio(
                 "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
@@ -153,7 +150,6 @@ with body2:
                 "C) NL00INGB8765432109 ",
                 "D) NL00ABNA1234567890",
                 "E) Ik weet het niet"], index=4)
-            
 
             question5 = st.radio(
                 "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
@@ -162,8 +158,6 @@ with body2:
                 "C) Betaal in 12 keer",
                 "D) Betaal in 24 keer",
                 "E) Ik weet het niet"], index=4)
-
-
 
             question6 = st.radio(
                 "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
@@ -185,6 +179,7 @@ with body2:
                 'q4': question4,
                 'q5': question5,
                 'q6': question6,
+                'metrics': metrics,
                 })
             switch_page("evaluation_baseline")
 # # if submitted: 

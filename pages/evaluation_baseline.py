@@ -34,8 +34,8 @@ record_page_start_time()
 
 
 with header2:
-    st.title("Demographic information")
-    st.write("This is the final section of this experiment.")
+    st.title("Baseline evaluation")
+    st.write("This is the final section of baseline evaluation.")
 
 
 with body2:
