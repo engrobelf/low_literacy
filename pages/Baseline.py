@@ -249,6 +249,7 @@ with body2:
                         record_page_duration_and_send()    
                     st.session_state.oocsi.send('Baseline_text_question', {
                         'participant_ID': st.session_state.name,
+                        'topic': st.session_state['topic'],
                         'q1': question1,
                         'q2': question2,
                         'q3': question3,
