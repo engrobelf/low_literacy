@@ -44,7 +44,7 @@ with header2:
 with body2:
     st.header('Explanation experiment')
     st.markdown('''Read carefully the letter related to the field you selected. Take as much time as you need and try to answer the questions following the letter. In case of a doubt, don't hesitate to answer the I don't know answer.''')
-    st.subheader(f'Letter - {st.session_state['topic']}')
+    st.subheader(f"Letter - {st.session_state['topic']}")
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
     pdf_content = load_pdf_from_github(pdf_url)
@@ -249,6 +249,7 @@ with body2:
                         record_page_duration_and_send()    
                     st.session_state.oocsi.send('Baseline_text_question', {
                         'participant_ID': st.session_state.name,
+                        'topic': st.session_state['topic'],
                         'q1': question1,
                         'q2': question2,
                         'q3': question3,

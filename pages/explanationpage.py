@@ -52,9 +52,11 @@ with body2:
    
 
     st.header('Explanation experiment')
-    st.markdown('''You will have to select :orange[two letters] from the government, which topics related to financial, health, or even a typical check-up. 
-                Then, you will compare the summarization tool with a baseline (no summarization) and need to answer some questions on the text to see how well (or badly) you understood it. 
-                Do not worry about getting everything correct! You don't have the answer, and 'I don't know' will also be available. :rainbow[Good luck, and thanks again for participating!]''')
+    st.markdown('''You will have to read two letters from the Dutch government. One letter realated to health whereas the other one is
+                a financial letter. Then, you will compare the summarization tool with a baseline (no summarization) and will need to answer
+                some questions on the text to see how well/bad you understood it. Do not worry about getting everything correct!
+                I you don't have the answer, an 'I don't know' will also be available. 
+                Good luck and thanks again for participating!''')
     st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
     
     st.subheader('Model')
