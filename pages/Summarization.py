@@ -99,16 +99,17 @@ with body2:
     use_gpt_4 = True
     find_clusters = False
 
-    # Ask for the API key
-    api_key = st.text_input("Enter your API key:", type='password')
+## NO need for API key for now --> wizard of oz method
+    # # Ask for the API key
+    # api_key = st.text_input("Enter your API key:", type='password')
 
-    # Button to submit the API key
-    if st.button('Submit API Key'):
-        if api_key:
-            st.session_state['api_key'] = api_key  # Save API key in session state if needed
-            st.success("API Key submitted successfully!")
-        else:
-            st.error("Please enter a valid API Key.")
+    # # Button to submit the API key
+    # if st.button('Submit API Key'):
+    #     if api_key:
+    #         st.session_state['api_key'] = api_key  # Save API key in session state if needed
+    #         st.success("API Key submitted successfully!")
+    #     else:
+    #         st.error("Please enter a valid API Key.")
 
     if st.button('Summarize (click once and wait)', key='summarize_button'):
         if st.session_state['topic'] == 'Financial': 
@@ -132,7 +133,7 @@ with body2:
         else: 
             st.markdown('''
                         📩 Afzender: RIVM
-                        
+
                         🎯 Doel: Coronaprik voor kinderen
 
                         💡 Highlights: 
