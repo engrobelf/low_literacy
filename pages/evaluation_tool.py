@@ -108,7 +108,7 @@ with body2:
                 # st.write("question 1", q1)
                 st.session_state.oocsi.send('Tool_feedback', {
                     'participant_ID': st.session_state.name,
-                    'type of method': 'Baseline',
+                    'topic': st.session_state['topic'],
                     'q1': q1,
                     'q2': q2,
                     'q3': q3,

@@ -85,7 +85,7 @@ with header2:
     st.title("Summarization")
 
 with body2:
-    st.header('Explanation experiment')
+    st.header(f"Explanation experiment - {st.session_state['topic']}")
     st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
     Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
     This prediction is accompanied by each time a different type of explanation.''')
@@ -111,11 +111,49 @@ with body2:
             st.error("Please enter a valid API Key.")
 
     if st.button('Summarize (click once and wait)', key='summarize_button'):
-        if st.session_state ['uploaded_file'] is not None:
-            process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
-            st.write('If you are not satisfied with the summary, you can summarize again')
-        else:
-            st.warning('please uplaod your file')
+        if st.session_state['topic'] == 'Financial': 
+            st.markdown('''
+                        📩 Afzender: 🏛️ Gemeente Eindhoven
+                        
+                        🎯 Doel: Belastingaanslag uitleggen
+                        
+                        🔑 Actiepunten:
+                            💸 Betaal €269,72
+                            📅 Voor 31-03-2024
+                            🖥️ Betaal online
+                            📆 10 termijnen mogelijk
+                            📨 Maak bezwaar mogelijk
+                        📞 Contactinformatie:
+                            📞 14 040
+                            📝 Online contactformulier
+                        
+                        📢 Voor vragen, bezoek eindhoven.nl.''')
+
+        else: 
+            st.markdown('''
+                        📩 Afzender: RIVM
+                        
+                        🎯 Doel: Coronaprik voor kinderen
+
+                        💡 Highlights: 
+                            💉 Informatie coronaprik
+                            🧒 Kinderen vanaf 5 jaar
+                            📄 Maak afspraak
+                            📞 Bel 0800 7070
+                            🆔 Neem ID en brief
+                        
+                        📞 Contactinformatie:
+                        0800 7070 (gratis)
+                        
+                        📢 Call to Action:
+                        Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
+                                                
+
+        # if st.session_state ['uploaded_file'] is not None:
+        #     process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+        #     st.write('If you are not satisfied with the summary, you can summarize again')
+        # else:
+        #     st.warning('please uplaod your file')
     
 st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
