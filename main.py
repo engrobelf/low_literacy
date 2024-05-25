@@ -83,10 +83,6 @@ def create_audio_player():
     audio_html = f'<audio controls autoplay><source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3"></audio>'
     st.markdown(audio_html, unsafe_allow_html=True)
 
-# # Display the speaker icon as a button
-# speaker_icon_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/1200px-Loudspeaker.svg.png"
-# st.image(speaker_icon_url, width=50)
-
 content = """
 Information form for participants
 Hello, and thank you for considering participation in our research project at Eindhoven University of Technology. This study involves an innovative GPT-4 summarization tool, and your involvement would be invaluable, especially given your interest or expertise in this field.
@@ -257,7 +253,7 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
                 'expert': "yes",
-                'consent': 'no',
+                'consent': 'yes',
                 'consentForOSF': consent_for_osf
             })
             switch_page("explanationpage")
