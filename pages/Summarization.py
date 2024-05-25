@@ -78,7 +78,6 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)  # Clean up the temporary text file
 
 
-
 record_page_start_time()
 
 with header2: 
@@ -86,15 +85,20 @@ with header2:
 
 with body2:
     st.header(f"Explanation experiment - {st.session_state['topic']}")
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
+    st.subheader('💡Scenario')
+    st.markdown('''
+
+Imagine it’s another quiet afternoon at home, and you got the same letter. However, this time you have access to :orange-background[**a new tool**] designed to help you understand the contents more quickly and easily.
+Your task is to select one of these letters and then use this new summarization tool. Compare it to the standard method without summarization. After using both methods, you will need to answer some questions about the text to see how well (or poorly) you understood it. Don’t worry about getting everything correct; if you don’t know the answer, an 'I don’t know' option will also be available. :rainbow[Good luck, and thanks again for participating!]
+''')
+    
     st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=600,caption="Photo by Kate Macate on Unsplash")
 
 
 
     
-    st.subheader('Model')
+    st.subheader('Summarization ')
+    st.subheader('Click the button and wait 👇')
 
     use_gpt_4 = True
     find_clusters = False
@@ -113,40 +117,66 @@ with body2:
 
     if st.button('Summarize (click once and wait)', key='summarize_button'):
         if st.session_state['topic'] == 'Financial': 
+
             st.markdown('''
-                        📩 Afzender: 🏛️ Gemeente Eindhoven
+                    📩 Afzender: 
+
+                        🏛️ Gemeente Eindhoven
+                    
+                    🎯 Doel: 
                         
-                        🎯 Doel: Belastingaanslag uitleggen
+                        Belastingaanslag uitleggen
+                    
+                    🔑 Actiepunten:
+                    
+                        💸 Betaal €269,72
+                    
+                        📅 Voor 31-03-2024
+                    
+                        🖥️ Betaal online
+                    
+                        📆 10 termijnen mogelijk
+                    
+                        📨 Maak bezwaar mogelijk
+                    
+                    📞 Contactinformatie:
                         
-                        🔑 Actiepunten:
-                            💸 Betaal €269,72
-                            📅 Voor 31-03-2024
-                            🖥️ Betaal online
-                            📆 10 termijnen mogelijk
-                            📨 Maak bezwaar mogelijk
-                        📞 Contactinformatie:
-                            📞 14 040
-                            📝 Online contactformulier
-                        
-                        📢 Voor vragen, bezoek eindhoven.nl.''')
+                        📞 14 040
+                    
+                        📝 Online contactformulier
+                    
+                    📢 Voor vragen, bezoek www.eindhoven.nl.''')
 
         else: 
-            st.markdown('''
-                        📩 Afzender: RIVM
 
-                        🎯 Doel: Coronaprik voor kinderen
+
+            st.markdown('''
+                        📩 Afzender:
+                        
+                            RIVM
+
+                        🎯 Doel: 
+                        
+                            Coronaprik voor kinderen
 
                         💡 Highlights: 
+
                             💉 Informatie coronaprik
+                        
                             🧒 Kinderen vanaf 5 jaar
+                        
                             📄 Maak afspraak
+                        
                             📞 Bel 0800 7070
+                        
                             🆔 Neem ID en brief
                         
                         📞 Contactinformatie:
-                        0800 7070 (gratis)
+
+                            0800 7070 (gratis)
                         
                         📢 Call to Action:
+
                         Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
                                                 
 
@@ -190,9 +220,10 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 
 with body2:
+    st.subheader('Reading comprehension')
     if st.session_state['topic'] == 'Health':
         with st.form("health_form2"):
-            st.markdown('**AI literacy**')
+
             st.markdown("Please select the right answer to the multiple-choice questions below. \
                         A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
 
@@ -202,7 +233,7 @@ with body2:
                 "B) RIVM",
                 "C) Ministerie van Volksgezondheid",
                 "D) Gemeentehuis",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
             question2 = st.radio(
                 "Wat is het hoofddoel van deze brief?",
@@ -210,7 +241,7 @@ with body2:
                 "B) Informatie over een coronaprik voor kinderen",
                 "C) Advies over schoolbezoeken ",
                 "D) Registratie voor een sportevenement",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
             question3 = st.radio(
                 "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
@@ -218,7 +249,7 @@ with body2:
                 "B) Zoek het BSN van je kind ",
                 "C) Bezoek de lokale kliniek",
                 "D) Schrijf je in op een website",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
 
             question4 = st.radio(
                 "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
@@ -226,7 +257,7 @@ with body2:
                 "B) 112",
                 "C) 0800 1234",
                 "D) 0900 2020",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
 
             question5 = st.radio(
@@ -235,7 +266,7 @@ with body2:
                 "B) Een pasfoto",
                 "C) De uitnodigingsbrief en een ID",
                 "D) Een medische geschiedenisrapport",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
 
 
             question6 = st.radio(
@@ -244,7 +275,7 @@ with body2:
                 "B) www.rivm.nl",
                 "C) www.coronavaccinatie.nl",
                 "D) www.kinderzorg.nl",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
             submitted = st.form_submit_button("Submit")
         if submitted:
