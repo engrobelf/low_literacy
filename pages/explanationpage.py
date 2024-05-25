@@ -51,9 +51,10 @@ with body2:
     st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800)
 
     st.header('Explanation experiment')
-    st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
-                Then you will compare the summarization tool with a baseline (no summarization) and will need to answer some questions on the text to see how well (or bad) 
-                you understood it. Do not worry about getting eerything correct! I you don't have the answer, an 'I don't know' will also be available. 
+    st.markdown('''You will have to read two letters from the Dutch government. One letter realated to health whereas the other one is
+                a financial letter. Then, you will compare the summarization tool with a baseline (no summarization) and will need to answer
+                some questions on the text to see how well/bad you understood it. Do not worry about getting everything correct!
+                I you don't have the answer, an 'I don't know' will also be available. 
                 Good luck and thanks again for participating!''')
     st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
     
