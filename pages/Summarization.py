@@ -89,7 +89,7 @@ with body2:
     st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
     Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
     This prediction is accompanied by each time a different type of explanation.''')
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=700, caption= 'Low literacy overview')
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=600,caption="Photo by Kate Macate on Unsplash")
 
 
 
@@ -152,7 +152,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 with body2:
     if st.session_state['topic'] == 'Health':
-        with st.form("health_form"):
+        with st.form("health_form2"):
             st.markdown('**AI literacy**')
             st.markdown("Please select the right answer to the multiple-choice questions below. \
                         A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
@@ -225,7 +225,7 @@ with body2:
 
 # Financial Letter questions:
     elif st.session_state['topic'] == 'Financial':
-            with st.form("financial_form"):
+            with st.form("financial_form2"):
                 st.markdown('**Reading comprehension**')
                 st.markdown("Please select the right answer to the multiple-choice questions below. \
                             A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")

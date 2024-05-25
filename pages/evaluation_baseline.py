@@ -39,7 +39,7 @@ with header2:
 
 
 with body2:
-    with st.form("my_form3", clear_on_submit=True):
+    with st.form("health_form", clear_on_submit=True):
         st.subheader("Evaluation")
         st.write("These questions only ask for your opinion about the method you just used (No tool)")
         st.subheader('Effectiveness')
