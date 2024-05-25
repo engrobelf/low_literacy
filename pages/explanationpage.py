@@ -88,7 +88,7 @@ url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/l
 with footer2:
 
     if 'first_topic_selected' not in st.session_state:
-        input_method = st.radio("Select first topic", ('Health', 'Financial'))
+        input_method = st.radio("Select :orange-background[first] topic - **Health**", ('Health', 'Financial'))
         selected_pdf = None
         if input_method:
             selected_pdf = os.path.join(url_directory, input_method + '.pdf')
@@ -103,7 +103,7 @@ with footer2:
     
     else:
         if st.session_state['topic'] == 'Health':
-            input_method = st.radio("Select second topic", ('Health', 'Financial'))
+            input_method = st.radio("Select :orange-background[second] topic - **Financial**", ('Health', 'Financial'))
             selected_pdf = None
             if input_method:
                 selected_pdf = os.path.join(url_directory, input_method + '.pdf')

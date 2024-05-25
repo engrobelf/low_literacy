@@ -149,7 +149,6 @@ Your task is to select one of these letters and then use this new summarization 
 
         else: 
 
-
             st.markdown('''
                         📩 Afzender:
                         
@@ -161,15 +160,15 @@ Your task is to select one of these letters and then use this new summarization 
 
                         💡 Highlights: 
 
-                            💉 Informatie coronaprik
-                        
-                            🧒 Kinderen vanaf 5 jaar
-                        
-                            📄 Maak afspraak
-                        
+                            🔎 Zoek BSN op
+                            
                             📞 Bel 0800 7070
-                        
-                            🆔 Neem ID en brief
+                            
+                            🗓️ Maak afspraak
+                            
+                            📝 Vragenlijst invullen
+                            
+                            🛂 ID meenemen
                         
                         📞 Contactinformatie:
 

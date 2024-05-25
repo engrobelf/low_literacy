@@ -39,6 +39,7 @@ with header2:
 
 
 with body2:
+ if st.session_state['topic'] == 'Health':  
     with st.form("health_form", clear_on_submit=True):
         st.subheader("Evaluation")
         st.write("These questions only ask for your opinion about the method you just used (No tool)")

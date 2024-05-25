@@ -45,7 +45,7 @@ with body2:
     if st.session_state['topic'] == 'Health':
         with st.form("health_form3", clear_on_submit=True):
             st.subheader("Evaluation")
-            st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
+            st.write("These questions only ask for your opinion about the method you just used the :orange-background[:orange[**Summarization tool**]] ")
             st.subheader('Effectiveness')
             q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                         options=["Totally disagree", "disagree", 
@@ -126,7 +126,7 @@ with body2:
     elif st.session_state['topic'] == 'Financial':
             with st.form("financial_form3", clear_on_submit=True):
                 st.subheader("Evaluation")
-                st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
+                st.write("These questions only ask for your opinion about the method you just used  :orange-background[:orange[**Summarization tool**]]")
                 st.subheader('Effectiveness')
                 q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                             options=["Totally disagree", "disagree", 
