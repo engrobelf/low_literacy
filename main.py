@@ -83,6 +83,9 @@ def create_audio_player():
     audio_html = f'<audio controls autoplay><source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3"></audio>'
     st.markdown(audio_html, unsafe_allow_html=True)
 
+# # Display the speaker icon as a button
+# speaker_icon_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Loudspeaker.svg/1200px-Loudspeaker.svg.png"
+# st.image(speaker_icon_url, width=50)
 
 content = """
 Information form for participants
@@ -131,6 +134,8 @@ Please enter/paste here your name
 
 """
 
+# # Display the content text
+# st.write(content)
 
 if st.button("🔊 Listen to the page content"):
     generate_audio(content)
