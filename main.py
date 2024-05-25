@@ -190,4 +190,4 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
                 'consent': 'no',
                 'consentForOSF': consent_for_osf
             })
-            switch_page('noconsent')
+            switch_page('no_consent')
