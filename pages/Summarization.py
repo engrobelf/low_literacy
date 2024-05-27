@@ -114,15 +114,23 @@ with body2:
     if st.button('Summarize (click once and wait)', key='summarize_button'):
         if st.session_state['topic'] == 'Financial': 
             st.markdown('''
-                        📩 Afzender: 🏛️ Gemeente Eindhoven
+                        📩 Afzender: 
                         
-                        🎯 Doel: Belastingaanslag uitleggen
+                            🏛️ Gemeente Eindhoven
+                        
+                        🎯 Doel: 
+                            
+                            Belastingaanslag uitleggen
                         
                         🔑 Actiepunten:
                             💸 Betaal €269,72
+                        
                             📅 Voor 31-03-2024
+                        
                             🖥️ Betaal online
+                        
                             📆 10 termijnen mogelijk
+                        
                             📨 Maak bezwaar mogelijk
                         📞 Contactinformatie:
                             📞 14 040
@@ -132,22 +140,31 @@ with body2:
 
         else: 
             st.markdown('''
-                        📩 Afzender: RIVM
+                        📩 Afzender: 
+                        
+                            RIVM
 
-                        🎯 Doel: Coronaprik voor kinderen
+                        🎯 Doel: 
+                        
+                            Coronaprik voor kinderen
 
-                        💡 Highlights: 
+                        🔑 Actiepunten:
                             💉 Informatie coronaprik
+                        
                             🧒 Kinderen vanaf 5 jaar
+                        
                             📄 Maak afspraak
+                        
                             📞 Bel 0800 7070
+                        
                             🆔 Neem ID en brief
                         
                         📞 Contactinformatie:
-                        0800 7070 (gratis)
+                            0800 7070 (gratis)
                         
                         📢 Call to Action:
-                        Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
+                            
+                            Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
                                                 
 
         # if st.session_state ['uploaded_file'] is not None:
