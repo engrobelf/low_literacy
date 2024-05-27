@@ -243,15 +243,40 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
 
-    nameID = st.text_input(
-        "Please enter/paste here your name")
-    st.session_state.name = nameID
+if 'level' not in st.session_state:
+    st.session_state['level'] = ''
+
+if 'name' not in st.session_state:
+    st.session_state['name'] = ''
+
+if not st.session_state.name:
+    nameID = st.text_input("Please enter/paste here your name")
+    if nameID.strip():
+        st.session_state.name = nameID
+    else:
+        st.write("Input cannot be empty. Please try again.")
+
+
+# Input for Dutch level
+if not st.session_state.level:
+    Dutch_level = st.text_input("Please enter/paste here your Dutch level")
+    if Dutch_level.strip():
+        st.session_state.level = Dutch_level
+    else:
+        st.write("Input cannot be empty. Please try again.")
+
+
+
+# Display final output if both inputs are provided
+if st.session_state.name and st.session_state.level:
+    st.write(f"Hello, {st.session_state.name}! Your Dutch level is {st.session_state.level}.")
 
     if agree == "do":
         st.write('Thank you! Please continue to the next page to start the experiment')
         if st.button("Next page"):
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
+                'participant_level': st.session_state.level,
                 'expert': "yes",
                 'consent': 'yes',
                 'consentForOSF': consent_for_osf
