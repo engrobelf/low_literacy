@@ -78,46 +78,112 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)  # Clean up the temporary text file
 
 
-
 record_page_start_time()
 
 with header2: 
     st.title("Summarization")
 
 with body2:
-    st.header('Explanation experiment')
-    st.markdown('''To be modified: In this experiment we will show you four different profiles of passengers. 
-    Using Machine Learning (ML) we will show a prediction whether they would have survived the disaster. 
-    This prediction is accompanied by each time a different type of explanation.''')
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=700, caption= 'Low literacy overview')
+    st.header(f"Explanation experiment - {st.session_state['topic']}")
+    st.subheader('💡Scenario')
+    st.markdown('''
+
+Imagine it’s another quiet afternoon at home, and you got the same letter. However, this time you have access to :orange-background[**a new tool**] designed to help you understand the contents more quickly and easily.
+Your task is to select one of these letters and then use this new summarization tool. Compare it to the standard method without summarization. After using both methods, you will need to answer some questions about the text to see how well (or poorly) you understood it. Don’t worry about getting everything correct; if you don’t know the answer, an 'I don’t know' option will also be available. :rainbow[Good luck, and thanks again for participating!]
+''')
+    
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=600,caption="Photo by Kate Macate on Unsplash")
 
 
 
     
-    st.subheader('Model')
-    st.markdown(''' The same ML model is used to generate the predictions of who survived and who did not. 
-                This model is used to generate all of the four types of explanations that you will see during the experiment. 
-                ''')
+    st.subheader('Summarization ')
+    st.subheader('Click the button and wait 👇')
+
     use_gpt_4 = True
     find_clusters = False
 
-    # Ask for the API key
-    api_key = st.text_input("Enter your API key:", type='password')
+## NO need for API key for now --> wizard of oz method
+    # # Ask for the API key
+    # api_key = st.text_input("Enter your API key:", type='password')
 
-    # Button to submit the API key
-    if st.button('Submit API Key'):
-        if api_key:
-            st.session_state['api_key'] = api_key  # Save API key in session state if needed
-            st.success("API Key submitted successfully!")
-        else:
-            st.error("Please enter a valid API Key.")
+    # # Button to submit the API key
+    # if st.button('Submit API Key'):
+    #     if api_key:
+    #         st.session_state['api_key'] = api_key  # Save API key in session state if needed
+    #         st.success("API Key submitted successfully!")
+    #     else:
+    #         st.error("Please enter a valid API Key.")
 
     if st.button('Summarize (click once and wait)', key='summarize_button'):
-        if st.session_state ['uploaded_file'] is not None:
-            process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
-            st.write('If you are not satisfied with the summary, you can summarize again')
-        else:
-            st.warning('please uplaod your file')
+        if st.session_state['topic'] == 'Financial': 
+
+            st.markdown('''
+                    📩 Afzender: 
+
+                        🏛️ Gemeente Eindhoven
+                    
+                    🎯 Doel: 
+                        
+                        Belastingaanslag uitleggen
+                    
+                    🔑 Actiepunten:
+                    
+                        💸 Betaal €269,72
+                    
+                        📅 Voor 31-03-2024
+                    
+                        🖥️ Betaal online
+                    
+                        📆 10 termijnen mogelijk
+                    
+                        📨 Maak bezwaar mogelijk
+                    
+                    📞 Contactinformatie:
+                        
+                        📞 14 040
+                    
+                        📝 Online contactformulier
+                    
+                    📢 Voor vragen, bezoek www.eindhoven.nl.''')
+
+        else: 
+
+            st.markdown('''
+                        📩 Afzender:
+                        
+                            RIVM
+
+                        🎯 Doel: 
+                        
+                            Coronaprik voor kinderen
+
+                        🔑 Actiepunten:
+
+                            🔎 Zoek BSN op
+                            
+                            📞 Bel 0800 7070
+                            
+                            🗓️ Maak afspraak
+                            
+                            📝 Vragenlijst invullen
+                            
+                            🛂 ID meenemen
+                        
+                        📞 Contactinformatie:
+
+                            0800 7070 (gratis)
+                        
+                        📢 Call to Action:
+
+                        Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
+                                                
+
+        # if st.session_state ['uploaded_file'] is not None:
+        #     process_summarize_button(st.session_state['uploaded_file'], api_key, use_gpt_4, find_clusters)
+        #     st.write('If you are not satisfied with the summary, you can summarize again')
+        # else:
+        #     st.warning('please uplaod your file')
     
 st.sidebar.markdown('# Made by: [François and Sichen ](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)') 
@@ -150,77 +216,151 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
     return True
 
+
+
 with body2:
-    with st.form("my_form"):
-        st.markdown('**AI literacy**')
-        st.markdown("Please select the right answer to the multiple-choice questions below. \
-                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
+    st.subheader('Reading comprehension')
+    if st.session_state['topic'] == 'Health':
+        with st.form("health_form3"):
 
-        question1 = st.radio(
-            "Van welke organisatie is deze brief?",
-            ["A) Gezondheidsraad",
-            "B) RIVM",
-            "C) Ministerie van Volksgezondheid",
-            "D) Gemeentehuis",
-            "E) I don't know"], index=4)
-        
-        question2 = st.radio(
-            "Wat is het hoofddoel van deze brief?",
-            ["A) Uitnodiging voor een feest",
-            "B) Informatie over een coronaprik voor kinderen",
-            "C) Advies over schoolbezoeken ",
-            "D) Registratie voor een sportevenement",
-            "E) I don't know"], index=4)
-        
-        question3 = st.radio(
-            "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
-            ["A) Bel de huisarts",
-            "B) Zoek het BSN van je kind ",
-            "C) Bezoek de lokale kliniek",
-            "D) Schrijf je in op een website",
-            "E) I don't know"], index=4)
+            st.markdown("Please select the right answer to the multiple-choice questions below. \
+                        A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
 
-        question4 = st.radio(
-            "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
-            ["A) 0800 7070",
-            "B) 112",
-            "C) 0800 1234",
-            "D) 0900 2020",
-            "E) I don't know"], index=4)
-        
+            question1 = st.radio(
+                "Van welke organisatie is deze brief?",
+                ["A) Gezondheidsraad",
+                "B) RIVM",
+                "C) Ministerie van Volksgezondheid",
+                "D) Gemeentehuis",
+                "E) Ik weet het niet"], index=4)
+            
+            question2 = st.radio(
+                "Wat is het hoofddoel van deze brief?",
+                ["A) Uitnodiging voor een feest",
+                "B) Informatie over een coronaprik voor kinderen",
+                "C) Advies over schoolbezoeken ",
+                "D) Registratie voor een sportevenement",
+                "E) Ik weet het niet"], index=4)
+            
+            question3 = st.radio(
+                "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
+                ["A) Bel de huisarts",
+                "B) Zoek het BSN van je kind ",
+                "C) Bezoek de lokale kliniek",
+                "D) Schrijf je in op een website",
+                "E) Ik weet het niet"], index=4)
 
-        question5 = st.radio(
-            "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
-            ["A) Een waterfles",
-            "B) Een pasfoto",
-            "C) De uitnodigingsbrief en een ID",
-            "D) Een medische geschiedenisrapport",
-            "E) I don't know"], index=4)
+            question4 = st.radio(
+                "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
+                ["A) 0800 7070",
+                "B) 112",
+                "C) 0800 1234",
+                "D) 0900 2020",
+                "E) Ik weet het niet"], index=4)
+            
+
+            question5 = st.radio(
+                "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
+                ["A) Een waterfles",
+                "B) Een pasfoto",
+                "C) De uitnodigingsbrief en een ID",
+                "D) Een medische geschiedenisrapport",
+                "E) Ik weet het niet"], index=4)
 
 
-        question6 = st.radio(
-            "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
-            ["A) www.gezondheid.nl",
-            "B) www.rivm.nl",
-            "C) www.coronavaccinatie.nl",
-            "D) www.kinderzorg.nl",
-            "E) I don't know"], index=4)
-        
-        submitted = st.form_submit_button("Submit")
-    if submitted:
-        if 'page_start_time' in st.session_state:
-            record_page_duration_and_send()    
-        # st.write("question 1", q1)
-        st.session_state.oocsi.send('Tool_answer', {
-            'participant_ID': st.session_state.name,
-            'q1': question1,
-            'q2': question2,
-            'q3': question3,
-            'q4': question4,
-            'q5': question5,
-            'q6': question6,
-            })
-        switch_page("evaluation_tool")
+            question6 = st.radio(
+                "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
+                ["A) www.gezondheid.nl",
+                "B) www.rivm.nl",
+                "C) www.coronavaccinatie.nl",
+                "D) www.kinderzorg.nl",
+                "E) Ik weet het niet"], index=4)
+            
+            submitted = st.form_submit_button("Submit")
+        if submitted:
+            if 'page_start_time' in st.session_state:
+                record_page_duration_and_send()    
+            # st.write("question 1", q1)
+            st.session_state.oocsi.send('Tool_answer', {
+                'participant_ID': st.session_state.name,
+                'q1': question1,
+                'q2': question2,
+                'q3': question3,
+                'q4': question4,
+                'q5': question5,
+                'q6': question6,
+                })
+            switch_page("evaluation_tool")
+
+# Financial Letter questions:
+    elif st.session_state['topic'] == 'Financial':
+            with st.form("financial_form"):
+                st.markdown('**Reading comprehension**')
+                st.markdown("Please select the right answer to the multiple-choice questions below. \
+                            A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+
+                question1 = st.radio(
+                    "Van welke organisatie is deze brief?",
+                    ["A) Gemeente Amsterdam",
+                    "B) Gemeente Rotterdam",
+                    "C) Gemeente Utrecht",
+                    "D) Gemeente Eindhoven",
+                    "E) Ik weet het niet"], index=4)
+                
+                question2 = st.radio(
+                    "Wat is het totaalbedrag van de aanslag?",
+                    ["A) €150,50",
+                    "B) €200,20",
+                    "C) €269,72 ",
+                    "D) €300,30",
+                    "E) Ik weet het niet"], index=4)
+                
+                question3 = st.radio(
+                    "Wat is de vervaldatum voor de betaling?",
+                    ["A) 15-02-2024",
+                    "B) 22-02-2024",
+                    "C) 31-03-2024",
+                    "D) 01-04-2024",
+                    "E) Ik weet het niet"], index=4)
+
+                question4 = st.radio(
+                    "Hoeveel termijnen kun je kiezen om in te betalen via automatische afschrijving?",
+                    ["A) 5 termijnen",
+                    "B) 8 termijnen",
+                    "C) 10 termijnen",
+                    "D) 12 termijnen",
+                    "E) Ik weet het niet"], index=4)
+                
+                question5 = st.radio(
+                    "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
+                    ["A) belastingbalie.amsterdam.nl",
+                    "B) belastingbalie.rotterdam.nl",
+                    "C) belastingbalie.utrecht.nl",
+                    "D) belastingbalie.eindhoven.nl",
+                    "E) Ik weet het niet"], index=4)
+                
+                question6 = st.radio(
+                    "Welke is de juiste contactinformatie?",
+                    ["A) 14 020",
+                    "B) 14 040",
+                    "C) 14 030",
+                    "D) 14 050",
+                    "E) Ik weet het niet"], index=4)
+                
+                submitted = st.form_submit_button("Submit")
+                if submitted:
+                    if 'page_start_time' in st.session_state:
+                        record_page_duration_and_send()    
+                    st.session_state.oocsi.send('Tool_answer', {
+                        'participant_ID': st.session_state.name,
+                        'q1': question1,
+                        'q2': question2,
+                        'q3': question3,
+                        'q4': question4,
+                        'q5': question5,
+                        'q6': question6,
+                        })
+                    switch_page("evaluation_tool")
 
 # if st.button("Next page"):
     

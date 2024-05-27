@@ -44,7 +44,7 @@ with header2:
 with body2:
     st.header('Explanation experiment')
     st.markdown('''Read carefully the letter related to the field you selected. Take as much time as you need and try to answer the questions following the letter. In case of a doubt, don't hesitate to answer the I don't know answer.''')
-    st.subheader(f'Letter - {st.session_state['topic']}')
+    st.subheader(f"Letter - {st.session_state['topic']}")
         # Assuming the URL is set correctly in your Streamlit app's session state
     pdf_url = st.session_state['uploaded_file']  # Ensure this is set correctly
     pdf_content = load_pdf_from_github(pdf_url)
@@ -61,15 +61,17 @@ with body2:
     # st.write("Readability Metrics:")
     # for metric, value in metrics.items():
     #     st.write(f"{metric}: {value}")
-    
+
+
+# Health Letter questions:
 with body2:
     st.write("Please answer the following questions:")
-
-    with st.form("my_form"):
-        st.markdown('**Reading comprehension**')
-        st.markdown("Please select the right answer to the multiple-choice questions below. \
-                    A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
-        if st.session_state['topic'] == 'Health':
+    if st.session_state['topic'] == 'Health':
+        with st.form("health_form2"):
+            st.markdown('**Reading comprehension**')
+            st.markdown("Please select the right answer to the multiple-choice questions below. \
+            ")
+            
 
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
@@ -118,70 +120,97 @@ with body2:
                 "C) www.coronavaccinatie.nl",
                 "D) www.kinderzorg.nl",
                 "E) Ik weet het niet"], index=4)
-        else:
-            question1 = st.radio(
-            "Van welke organisatie is deze brief?",
-            ["A) Gemeente Amsterdam",
-            "B) Gemeente Rotterdam",
-            "C) Gemeente Utrecht",
-            "D) Gemeente Eindhoven",
-            "E) Ik weet het niet"], index=4)
-        
-            question2 = st.radio(
-                "Wat is het hoofddoel van deze brief?",
-                ["A) Uitnodiging voor een evenement",
-                "B) Informatie over afvalstoffenheffing",
-                "C) Informatie over parkeervergunning ",
-                "D) Advies over gemeentelijke diensten",
-                "E) Ik weet het niet"], index=4)
+            submitted = st.form_submit_button("Submit")
+            if submitted:
+                if 'page_start_time' in st.session_state:
+                    record_page_duration_and_send()
+                st.session_state.oocsi.send('Baseline_text_question', {
+                        'participant_ID': st.session_state.name,
+                        'topic': st.session_state['topic'],
+                        'q1': question1,
+                        'q2': question2,
+                        'q3': question3,
+                        'q4': question4,
+                        'q5': question5,
+                        'q6': question6,
+                        })
+                st.session_state['form_submitted'] = True  # 标记表单已提交
+
+# Financial Letter questions:
+    elif    st.session_state['topic'] == 'Financial':
+            with st.form("financial_form2"):
+                st.markdown('**Reading comprehension**')
+                st.markdown("Please select the right answer to the multiple-choice questions below. \
+            ")
+                question1 = st.radio(
+                    "Van welke organisatie is deze brief?",
+                    ["A) Gemeente Amsterdam",
+                    "B) Gemeente Rotterdam",
+                    "C) Gemeente Utrecht",
+                    "D) Gemeente Eindhoven",
+                    "E) Ik weet het niet"], index=4)
+
+                question2 = st.radio(
+                    "Wat is het totaalbedrag van de aanslag?",
+                    ["A) €150,50",
+                    "B) €200,20",
+                    "C) €269,72 ",
+                    "D) €300,30",
+                    "E) Ik weet het niet"], index=4)
+
+                question3 = st.radio(
+                    "Wat is de vervaldatum voor de betaling?",
+                    ["A) 15-02-2024",
+                    "B) 22-02-2024",
+                    "C) 31-03-2024",
+                    "D) 01-04-2024",
+                    "E) Ik weet het niet"], index=4)
+
+                question4 = st.radio(
+                    "Hoeveel termijnen kun je kiezen om in te betalen via automatische afschrijving?",
+                    ["A) 5 termijnen",
+                    "B) 8 termijnen",
+                    "C) 10 termijnen",
+                    "D) 12 termijnen",
+                    "E) Ik weet het niet"], index=4)
+
+                question5 = st.radio(
+                    "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
+                    ["A) belastingbalie.amsterdam.nl",
+                    "B) belastingbalie.rotterdam.nl",
+                    "C) belastingbalie.utrecht.nl",
+                    "D) belastingbalie.eindhoven.nl",
+                    "E) Ik weet het niet"], index=4)
+
+                question6 = st.radio(
+                    "Welke is de juiste contactinformatie?",
+                    ["A) 14 020",
+                    "B) 14 040",
+                    "C) 14 030",
+                    "D) 14 050",
+                    "E) Ik weet het niet"], index=4)
+                submitted = st.form_submit_button("Submit")
+                if submitted:
+                    if 'page_start_time' in st.session_state:
+                        record_page_duration_and_send()
+                    st.session_state.oocsi.send('Baseline_text_question', {
+                            'participant_ID': st.session_state.name,
+                            'topic': st.session_state['topic'],
+                            'q1': question1,
+                            'q2': question2,
+                            'q3': question3,
+                            'q4': question4,
+                            'q5': question5,
+                            'q6': question6,
+                    })
+                    st.session_state['form_submitted'] = True  # 标记表单已提交
             
-            question3 = st.radio(
-                "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
-                ["A) Bel de belastingdienst",
-                "B) Zoek je paspoort",
-                "C) Ga naar de digitale belastingbalie",
-                "D) Schrijf je in bij de gemeente",
-                "E) Ik weet het niet"], index=4)
 
-            question4 = st.radio(
-                "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
-                ["A) NL00BANK0123456789",
-                "B) NL00RABO0987654321",
-                "C) NL00INGB8765432109 ",
-                "D) NL00ABNA1234567890",
-                "E) Ik weet het niet"], index=4)
 
-            question5 = st.radio(
-                "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
-                ["A) Betaal in 5 keer",
-                "B) Betaal in 10 keer via automatische afschrijving",
-                "C) Betaal in 12 keer",
-                "D) Betaal in 24 keer",
-                "E) Ik weet het niet"], index=4)
-
-            question6 = st.radio(
-                "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
-                ["A) amsterdam.nl/contact-belastingen",
-                "B)  rotterdam.nl/contact-belastingen",
-                "C) eindhoven.nl/contact-belastingen",
-                "D) utrecht.nl/contact-belastingen",
-                "E) Ik weet het niet"], index=4)
-            
-        submitted = st.form_submit_button("Submit")
-        if submitted:
-            if 'page_start_time' in st.session_state:
-                record_page_duration_and_send()    
-            st.session_state.oocsi.send('Baseline_text_question', {
-                'participant_ID': st.session_state.name,
-                'q1': question1,
-                'q2': question2,
-                'q3': question3,
-                'q4': question4,
-                'q5': question5,
-                'q6': question6,
-                'metrics': metrics,
-                })
-            switch_page("evaluation_baseline")
-# # if submitted: 
-# if st.button("Next page"):
-#     switch_page("evaluation_baseline")
+# 检查表单是否已提交，并显示 "Next page" 按钮
+if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
+    st.write("Please click the button below to proceed to the next page.")
+    if st.button("Next page"):
+        st.session_state['form_submitted'] = False  # 重置提交标记
+        print()
+        switch_page("evaluation_baseline ")

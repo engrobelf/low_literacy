@@ -45,16 +45,18 @@ with header2:
 with body2:
     st.header("💡Scenario")
     
-    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a thick, blue envelope marked with a government seal. 
+    st.markdown('''Imagine it’s a quiet afternoon at home. As you sort through today’s mail, you find a :blue-background[thick, blue envelope] marked with a government seal. 
                 It stands out among the bills and flyers. Feeling a bit anxious about official documents, you carefully open the envelope. Inside, there’s a letter filled with dense text. Take your time to try and understand what the letter says. 
                 What information can you gather from it? After you've done your best to read through the text, please answer the questions related to the content. These questions are designed to help us understand how you handle and interpret official communications. ''')
-    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800)
+    st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=600,caption="Photo by Kate Macate on Unsplash")
+   
 
     st.header('Explanation experiment')
-    st.markdown('''You will have to select between 5 different letters from the dutch government which topic are realted to tax, health or even a typical check-up. 
-                Then you will compare the summarization tool with a baseline (no summarization) and will need to answer some questions on the text to see how well (or bad) 
-                you understood it. Do not worry about getting eerything correct! I you don't have the answer, an 'I don't know' will also be available. 
-                Good luck and thanks again for participating!''')
+    st.markdown('''You will have to read :orange[two letters] from the Dutch government. One letter realated to health whereas the other one is
+                a financial letter. Then, you will compare the summarization tool with a baseline (no summarization) and will need to answer
+                some questions on the text to see how well/bad you understood it. Do not worry about getting everything correct!
+                I you don't have the answer, an 'I don't know' will also be available. 
+                :rainbow[Good luck and thanks again for participating!]''')
     st.markdown("After answering the question, you will be asked to evaluate the method you have just seen.")
     
     st.subheader('Model')
@@ -80,22 +82,42 @@ with body2:
 
 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
-letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
+#letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
+
 with footer2:
-    input_method = st.radio("Select first topic", ('Health', 'Financial'))
-    selected_pdf = None
-    if input_method:
-        selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-        selected_pdf = selected_pdf.replace('\\', '/')
-        st.session_state['uploaded_file'] = letter_path_test
-        st.session_state['topic'] = input_method
-        st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
-        # st.session_state['uploaded_file'] = selected_pdf
+
+    if 'first_topic_selected' not in st.session_state:
+        input_method = st.radio("Select :orange-background[first] topic - **Health**", ('Health', 'Financial'))
+        selected_pdf = None
+        if input_method:
+            selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+            selected_pdf = selected_pdf.replace('\\', '/')
+            st.session_state['uploaded_file'] = selected_pdf
+            st.session_state['topic'] = input_method
+            st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+            st.session_state['first_topic_selected'] = True
+        else:
+            st.write("Please select a topic to proceed.")
+            
+    
     else:
-        st.write("Please select a topic to proceed.")
-          
+        if st.session_state['topic'] == 'Health':
+            input_method = st.radio("Select :orange-background[second] topic - **Financial**", ('Health', 'Financial'))
+            selected_pdf = None
+            if input_method:
+                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+                selected_pdf = selected_pdf.replace('\\', '/')
+                st.session_state['uploaded_file'] = selected_pdf
+                st.session_state['topic'] = input_method
+                st.session_state['second_topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+            else:
+                st.write("Please select a topic to proceed.")
+        else:
+            selected_pdf = st.session_state['uploaded_file']
+            
     if st.button("Next page") and selected_pdf is not None:
+        
                     # if page_start_time:
                         # record_page_duration_and_send()
                     # record_page_start_time()
@@ -105,4 +127,5 @@ with footer2:
                     #     'consent': 'yes',
                     #     'consentForOSF': consentforOSF
                     # })
-        switch_page("Baseline")
+        if 'selected_pdf' in locals():
+            switch_page("Baseline")
