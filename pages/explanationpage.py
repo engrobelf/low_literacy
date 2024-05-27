@@ -63,7 +63,7 @@ with body2:
     st.markdown(''' A GPT4 model was finetune and prompt engineer to provide the most tailored summary possible. Typical lexical metrics were also used to validate the quality of the 
                 summary.''')
     
-    st.subheader('Letters')
+ 
 
     # st.subheader('Demographic information')
     # st.markdown("Before you start with the study we would like to ask you to first answer these questions")
@@ -85,47 +85,46 @@ url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/l
 #letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
 
-with footer2:
 
-    if 'first_topic_selected' not in st.session_state:
-        input_method = st.radio("Select :orange-background[first] topic - **Health**", ('Health', 'Financial'))
-        selected_pdf = None
-        if input_method:
-            selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-            selected_pdf = selected_pdf.replace('\\', '/')
-            st.session_state['uploaded_file'] = selected_pdf
-            st.session_state['topic'] = input_method
-            st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
-            st.session_state['first_topic_selected'] = True
-        else:
-            st.write("Please select a topic to proceed.")
+
+# if 'first_topic_selected' not in st.session_state:
+# input_method = st.radio("Select :orange-background[first] topic - **Health**", ('Health', 'Financial'))
+input_method = 'Health'
+selected_pdf = None
+selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+selected_pdf = selected_pdf.replace('\\', '/')
+st.session_state['uploaded_file'] = selected_pdf
+st.session_state['topic'] = input_method
+st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+st.session_state['first_topic_selected'] = True
+
             
     
-    else:
-        if st.session_state['topic'] == 'Health':
-            input_method = st.radio("Select :orange-background[second] topic - **Financial**", ('Health', 'Financial'))
-            selected_pdf = None
-            if input_method:
-                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-                selected_pdf = selected_pdf.replace('\\', '/')
-                st.session_state['uploaded_file'] = selected_pdf
-                st.session_state['topic'] = input_method
-                st.session_state['second_topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
-            else:
-                st.write("Please select a topic to proceed.")
-        else:
-            selected_pdf = st.session_state['uploaded_file']
+    # else:
+    #     if st.session_state['topic'] == 'Health':
+    #         input_method = st.radio("Select :orange-background[second] topic - **Financial**", ('Health', 'Financial'))
+    #         selected_pdf = None
+    #         if input_method:
+    #             selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+    #             selected_pdf = selected_pdf.replace('\\', '/')
+    #             st.session_state['uploaded_file'] = selected_pdf
+    #             st.session_state['topic'] = input_method
+    #             st.session_state['second_topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+    #         else:
+    #             st.write("Please select a topic to proceed.")
+    #     else:
+    #         selected_pdf = st.session_state['uploaded_file']
             
-    if st.button("Next page") and selected_pdf is not None:
-        
-                    # if page_start_time:
-                        # record_page_duration_and_send()
-                    # record_page_start_time()
-                    # st.session_state.oocsi.send('XAI_consent', {
-                    #     'participant_ID': st.session_state.participantID,
-                    #     'expert': "yes",
-                    #     'consent': 'yes',
-                    #     'consentForOSF': consentforOSF
-                    # })
-        if 'selected_pdf' in locals():
-            switch_page("Baseline")
+if st.button("Next page") and selected_pdf is not None:
+    
+                # if page_start_time:
+                    # record_page_duration_and_send()
+                # record_page_start_time()
+                # st.session_state.oocsi.send('XAI_consent', {
+                #     'participant_ID': st.session_state.participantID,
+                #     'expert': "yes",
+                #     'consent': 'yes',
+                #     'consentForOSF': consentforOSF
+                # })
+    if 'selected_pdf' in locals():
+        switch_page("Baseline")
