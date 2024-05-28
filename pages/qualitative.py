@@ -54,6 +54,7 @@ with body2:
         why_4 = st.text_area('**What instruction or support might be necessary for new users to learn how to interact with this system effectively?**')
         why_5 = st.text_area('**What opportunities do you believe this tool could create for users with low literacy?**')
         why_6 = st.text_area('**What risks or challenges might arise from using this system?**')
+        why_7 = st.text_area('**Any feedback for the tool and the whole evaluation in general?**')
 
         word_count_1 = check_input_length(why)
         word_count_2 = check_input_length(why_2)
@@ -61,6 +62,7 @@ with body2:
         word_count_4 = check_input_length(why_4)
         word_count_5 = check_input_length(why_5)
         word_count_6 = check_input_length(why_6)
+        word_count_7 = check_input_length(why_7)
 
         submitted = st.form_submit_button("Submit")
 
@@ -76,6 +78,8 @@ with body2:
             elif word_count_5 < 7:
                 st.warning('Please explain more extensively your answer (+7 words)')
             elif word_count_6 < 7:
+                st.warning('Please explain more extensively your answer (+7 words)')
+            elif word_count_7 < 7:
                 st.warning('Please explain more extensively your answer (+7 words)')
             else:
                 st.success('Thank you!')
@@ -98,5 +102,10 @@ with body2:
                 time.sleep(1)  # Add delay between calls
 
                 record_why(participant_id, why_6, 6)
+                time.sleep(1)  # Add delay between calls
+
+                record_why(participant_id, why_7, 7)
+                
+
 
                 switch_page('thankyou')

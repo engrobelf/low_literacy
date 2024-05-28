@@ -136,7 +136,7 @@ with body2:
                             📞 14 040
                             📝 Online contactformulier
                         
-                        📢 Voor vragen, bezoek eindhoven.nl.''')
+                        📢 Voor vragen, bezoek belastingbalie.eindhoven.nl.''')
 
         else: 
             st.markdown('''
