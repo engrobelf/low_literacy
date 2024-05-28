@@ -4,6 +4,8 @@ from streamlit_extras.switch_page_button import switch_page
 from oocsi_source import OOCSI
 import datetime
 from datetime import datetime
+import time
+
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
@@ -79,12 +81,22 @@ with body2:
                 st.success('Thank you!')
 
                 participant_id = st.session_state.name
+                
+                record_why(participant_id, why_2, 2)
+                time.sleep(1)  # Add delay between calls
 
                 record_why(participant_id, why, 1)
-                record_why(participant_id, why_2, 2)
+                time.sleep(1)  # Add delay between calls
+
                 record_why(participant_id, why_3, 3)
+                time.sleep(1)  # Add delay between calls
+
                 record_why(participant_id, why_4, 4)
+                time.sleep(1)  # Add delay between calls
+
                 record_why(participant_id, why_5, 5)
+                time.sleep(1)  # Add delay between calls
+
                 record_why(participant_id, why_6, 6)
 
                 switch_page('thankyou')
