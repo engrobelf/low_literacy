@@ -42,7 +42,7 @@ with body2:
     if True:         #st.session_state['topic'] == 'Health':
         with st.form("health_form3", clear_on_submit=True):
             st.subheader("Evaluation")
-            st.write("These questions only ask for your opinion about :orange-background[:orange[** the letter you just read**]] ")
+            st.write("These questions only ask for your opinion about :orange-background[:orange[** the letter you just**]] ")
             st.subheader('Effectiveness')
             q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                         options=["Totally disagree", "disagree", 

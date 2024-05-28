@@ -98,6 +98,7 @@ st.session_state['topic'] = input_method
 st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
 st.session_state['first_topic_selected'] = True
 
+
             
     
     # else:

@@ -45,7 +45,7 @@ with body2:
     if st.session_state['topic'] == 'Health':
         with st.form("health_form3", clear_on_submit=True):
             st.subheader("Evaluation")
-            st.write("These questions only ask for your opinion about the method you just used the :orange-background[:orange[**Summarization tool**]] ")
+            st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
             st.subheader('Effectiveness')
             q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
                                         options=["Totally disagree", "disagree", 
@@ -120,6 +120,8 @@ with body2:
                     'q9': q9,
                     
                     })
+                st.session_state['topic'] = 'Financial'
+                # st.session_state['sel']
                 switch_page('explanationpage')
 
 # Financial Letter questions:
@@ -202,7 +204,7 @@ with body2:
                         
                         })
             
-                    switch_page("thankyou")
+                    switch_page("qualitative")
 
     # Execute your app
     # embed streamlit docs in a streamlit app
