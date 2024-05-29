@@ -43,7 +43,7 @@ def check_input_length(text):
 
 with header2:
     st.title("Comparing the different methods")
-    st.markdown("In this section, we ask you to give you feedback regarding the summarization tool presented in the experiment.")
+    st.markdown("In this section, we ask you to give feedback regarding the summarization tool presented in the experiment.")
 
 
 with body2:
