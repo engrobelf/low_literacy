@@ -237,11 +237,11 @@ Participation is entirely voluntary, with no associated physical, legal, or econ
         ('do', 'do not'), index=1)
 
     consent_for_osf = "yes" if OSF == 'do' else 'no'
-    agree = st.radio(
-            '5️⃣ I consent to my real name being mentioned in the quotes as described under 4',
-            ('do', 'do not'), index=1)
+    # agree = st.radio(
+    #         '5️⃣ I consent to my real name being mentioned in the quotes as described under 4',
+    #         ('do', 'do not'), index=1)
 
-    consent_for_osf = "yes" if OSF == 'do' else 'no'
+    # consent_for_osf = "yes" if OSF == 'do' else 'no'
 
 if 'level' not in st.session_state:
     st.session_state['level'] = ''
@@ -277,7 +277,6 @@ if st.session_state.name and st.session_state.level:
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
                 'participant_level': st.session_state.level,
-                'expert': "yes",
                 'consent': 'yes',
                 'consentForOSF': consent_for_osf
             })
@@ -286,7 +285,6 @@ if st.session_state.name and st.session_state.level:
         if st.button("Next page"):
             st.session_state.oocsi.send('Lowl_consent', {
                 'participant_ID': st.session_state.name,
-                'expert': "yes",
                 'consent': 'no',
                 'consentForOSF': consent_for_osf
             })
