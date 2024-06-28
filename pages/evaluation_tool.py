@@ -120,9 +120,9 @@ with body2:
                     'q9': q9,
                     
                     })
-                st.session_state['topic'] = 'Financial'
+                # st.session_state['topic'] = 'Financial'
                 # st.session_state['sel']
-                switch_page('explanationpage')
+                switch_page("qualitative")
 
 # Financial Letter questions:
     elif st.session_state['topic'] == 'Financial':
@@ -203,8 +203,8 @@ with body2:
                         'q9': q9,
                         
                         })
-            
-                    switch_page("qualitative")
+                    st.session_state['topic'] = 'Health'  
+                    switch_page("explanationpage")
 
     # Execute your app
     # embed streamlit docs in a streamlit app
