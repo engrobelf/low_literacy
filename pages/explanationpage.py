@@ -89,7 +89,7 @@ url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/l
 
 # if 'first_topic_selected' not in st.session_state:
 # input_method = st.radio("Select :orange-background[first] topic - **Health**", ('Health', 'Financial'))
-input_method = 'Health'
+input_method = 'Financial'
 selected_pdf = None
 selected_pdf = os.path.join(url_directory, input_method + '.pdf')
 selected_pdf = selected_pdf.replace('\\', '/')
