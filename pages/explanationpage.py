@@ -71,23 +71,13 @@ url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/l
 # Get the list of PDF files in the directory
 
 input_method = 'Financial'
-if not st.session_state.get('topic'):
-    st.session_state['topic'] = input_method
-    selected_pdf = None
-    selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-    selected_pdf = selected_pdf.replace('\\', '/')
-    st.session_state['uploaded_file'] = selected_pdf
-else: 
-    input_method = 'Health'
-    selected_pdf = None
-    selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-    selected_pdf = selected_pdf.replace('\\', '/')
-    st.session_state['uploaded_file'] = selected_pdf
-
+selected_pdf = None
+selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+selected_pdf = selected_pdf.replace('\\', '/')
+st.session_state['uploaded_file'] = selected_pdf
+st.session_state['topic'] = input_method
 st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
 st.session_state['first_topic_selected'] = True
-# st.markdown(st.session_state['topic'])
-
 
           
 if st.button("Volgende pagina") and selected_pdf is not None:
