@@ -135,7 +135,7 @@ with body2:
     elif st.session_state['topic'] == 'Financial':
         with st.form("financial_form2"):
             st.markdown('**Reading comprehension**')
-            st.markdown("Please select the right answer to the multiple-choice questions below. \
+            st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder. \
         ")
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
@@ -202,7 +202,7 @@ with body2:
                 st.session_state['form_submitted'] = True  
         
 if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
-    st.write("Please click the button below to proceed to the next page.")
+    st.write("Klik op de knop hieronder om naar de volgende pagina te gaan.")
     if st.button("Next page"):
         st.session_state['form_submitted'] = False  # 重置提交标记
         print()

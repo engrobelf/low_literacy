@@ -60,7 +60,7 @@ with body2:
     st.markdown(''' Een GPT-4-model is fijn afgestemd en prompt-engineered om de meest op maat gemaakte samenvatting mogelijk te maken. Typische lexicale metrics werden ook gebruikt om de kwaliteit van de 
                 samenvatting te valideren.''')
     
-    st.subheader('Brieven')
+    # st.subheader('Brieven')
 
     # st.subheader('Demografische informatie')
     # st.markdown("Voordat u met de studie begint, willen we u vragen eerst deze vragen te beantwoorden")
@@ -86,7 +86,7 @@ else:
 
 st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
 st.session_state['first_topic_selected'] = True
-st.markdown(st.session_state['topic'])
+# st.markdown(st.session_state['topic'])
 
 
           
