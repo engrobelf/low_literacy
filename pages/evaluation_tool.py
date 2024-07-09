@@ -37,82 +37,171 @@ with header2:
     st.write("Dit is het laatste deel van dit experiment.")
 
 with body2:
-    with st.form("my_form3", clear_on_submit=True):
-        st.subheader("Evaluatie")
-        st.write("Deze vragen vragen alleen om uw mening over de methode die u zojuist hebt gebruikt (Samenvatting of Geen hulpmiddel)")
-        st.subheader('Effectiviteit')
-        q1 = st.select_slider('**1**- Ik kon de belangrijkste ideeën van de tekst snel begrijpen',
-                                    options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens", "Eens", 
-                            "Helemaal eens"])
+    if st.session_state['topic'] == 'Health':
+        with st.form("health_form3", clear_on_submit=True):
+            st.subheader("Evaluation")
+            st.write("These questions only ask for your opinion about the method you just used (Summarization or No tool)")
+            st.subheader('Effectiveness')
+            q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
+                                        options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
 
-        q2 = st.select_slider(
-        '**2**- Uit de tekst voelde ik me zeker over het begrijpen van de inhoud van de brieven:',
-        options=["Helemaal oneens", "Oneens",
-                            "Noch eens noch oneens",  "Eens", 
-                            "Helemaal eens"])
+            q2 = st.select_slider(
+            '**2**- From the text, I felt confident understanding the content of the letters:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
 
-        q3 = st.select_slider(
-        '**3**- Het proces hielp me de **belangrijke informatie** uit de brieven te onthouden:',
-        options=["Helemaal oneens", "Oneens",
-                            "Noch eens noch oneens",  "Eens", 
-                            "Helemaal eens"])
-        st.subheader('Efficiëntie')
-        q4 = st.select_slider(
-        '**1**- Ik kon mijn lezen binnen een redelijke tijd voltooien:',
-        options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens","Eens", 
-                            "Helemaal eens"])
+            q3 = st.select_slider(
+            '**3**- The process helped me retain the **important information** from the letters:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+            st.subheader('Efficiency')
+            q4 = st.select_slider(
+            '**1**- I was able to complete my reading in a timely manner:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree","agree", 
+                                "Totally agree"])
 
-        q5 = st.select_slider(
-        '**2**- Ik kon de belangrijkste informatie binnen een redelijke tijd begrijpen',
-        options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens", "Eens", 
-                            "Helemaal eens"])
-        st.subheader('Cognitieve belasting')
-        q6 = st.select_slider(
-        '**1**- Ik vond dat de hoeveelheid inspanning die nodig was om de algemene tekst te begrijpen redelijk was:',
-        options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens", "Eens", 
-                            "Helemaal eens"])
+            q5 = st.select_slider(
+            '**2**- I was able to understand the key information in a timely manner',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
+            st.subheader('Cognitive load')
+            q6 = st.select_slider(
+            '**1**- I felt the amount of effort required to understand the general text was reasonable:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
 
-        q7 = st.select_slider(
-        '**2**- De taal/terminologie die werd gebruikt was erg gemakkelijk:',
-        options=["Helemaal oneens", "Oneens",
-                            "Noch eens noch oneens", "Eens", 
-                            "Helemaal eens"])
+            q7 = st.select_slider(
+            '**2**- The language/ terminology used was very easy:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
 
-        q8 = st.select_slider(
-        '**3**- Ik investeerde een zeer lage mentale inspanning om de inhoud te begrijpen:',
-        options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens",  "Eens", 
-                            "Helemaal eens"])
+            q8 = st.select_slider(
+            '**3**- I invested a very low mental effort to understand the content:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
 
-        q9 = st.select_slider(
-        '**4**- De structuur van de tekst was erg duidelijk:',
-        options=["Helemaal oneens", "Oneens", 
-                            "Noch eens noch oneens",  "Eens", 
-                            "Helemaal eens"])
-        # Every form must have a submit button.
-        submitted = st.form_submit_button("Indienen")
-        if submitted:
-            if page_start_time:
-                record_page_duration_and_send()    
-            st.session_state.oocsi.send('Tool_feedback', {
-                'participant_ID': st.session_state.name,
-                'type of method': 'Baseline',
-                'q1': q1,
-                'q2': q2,
-                'q3': q3,
-                'q4': q4,
-                'q5': q5,
-                'q6': q6,
-                'q7': q7,
-                'q8': q8,
-                'q9': q9,
+            q9 = st.select_slider(
+            '**4**- The structure of the text was very clear:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+            # Every form must have a submit button.
+            submitted = st.form_submit_button("Submit")
+            if submitted:
+                if page_start_time:
+                    record_page_duration_and_send()    
+                # record_page_start_time()
+                # st.write("question 1", q1)
+                st.session_state.oocsi.send('Tool_feedback', {
+                    'participant_ID': st.session_state.name,
+                    'topic': st.session_state['topic'],
+                    'q1': q1,
+                    'q2': q2,
+                    'q3': q3,
+                    'q4': q4,
+                    'q5': q5,
+                    'q6': q6,
+                    'q7': q7,
+                    'q8': q8,
+                    'q9': q9,
+                    
+                    })
+                st.session_state['topic'] = 'Financial'
+                # st.session_state['sel']
+                switch_page('qualitative')
+
+# Financial Letter questions:
+    elif st.session_state['topic'] == 'Financial':
+        with st.form("financial_form3", clear_on_submit=True):
+            st.subheader("Evaluation")
+            st.write("These questions only ask for your opinion about the method you just used  :orange-background[:orange[**Summarization tool**]]")
+            st.subheader('Effectiveness')
+            q1 = st.select_slider('**1**- I was able to grasp the main ideas of the text quickly',
+                                        options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
+
+            q2 = st.select_slider(
+            '**2**- From the text, I felt confident understanding the content of the letters:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+
+            q3 = st.select_slider(
+            '**3**- The process helped me retain the **important information** from the letters:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+            st.subheader('Efficiency')
+            q4 = st.select_slider(
+            '**1**- I was able to complete my reading in a timely manner:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree","agree", 
+                                "Totally agree"])
+
+            q5 = st.select_slider(
+            '**2**- I was able to understand the key information in a timely manner',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
+            st.subheader('Cognitive load')
+            q6 = st.select_slider(
+            '**1**- I felt the amount of effort required to understand the general text was reasonable:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
+
+            q7 = st.select_slider(
+            '**2**- The language/ terminology used was very easy:',
+            options=["Totally disagree", "disagree",
+                                "Neither agree or disagree", "agree", 
+                                "Totally agree"])
+
+            q8 = st.select_slider(
+            '**3**- I invested a very low mental effort to understand the content:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+
+            q9 = st.select_slider(
+            '**4**- The structure of the text was very clear:',
+            options=["Totally disagree", "disagree", 
+                                "Neither agree or disagree",  "agree", 
+                                "Totally agree"])
+            # Every form must have a submit button.
+            submitted = st.form_submit_button("Submit")
+            if submitted:
+                if page_start_time:
+                    record_page_duration_and_send()    
+                # record_page_start_time()
+                # st.write("question 1", q1)
+                st.session_state.oocsi.send('Tool_feedback', {
+                    'participant_ID': st.session_state.name,
+                    'topic': st.session_state['topic'],
+                    'q1': q1,
+                    'q2': q2,
+                    'q3': q3,
+                    'q4': q4,
+                    'q5': q5,
+                    'q6': q6,
+                    'q7': q7,
+                    'q8': q8,
+                    'q9': q9,
+                    
+                    })
                 
-                })
-            switch_page('thankyou')
+                st.session_state['topic'] = 'Health'
+                switch_page("qualitative")
+
 
     # Execute your app
     # embed streamlit docs in a streamlit app
