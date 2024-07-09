@@ -19,6 +19,8 @@ hideSidebarNav = true
 import os
 from datetime import datetime
 import streamlit as st
+# from gtts import gTTS
+import base64
 from oocsi_source import OOCSI
 from streamlit_extras.switch_page_button import switch_page
 from utils import (
@@ -36,7 +38,6 @@ from streamlit_app_utils import (
     token_limit,
     token_minimum
 )
-
 # Constants
 find_clusters = False
 
@@ -140,15 +141,21 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
         ('doe ik', 'doe ik niet'), index=1)
 
     consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
-    agree = st.radio(
-            '5️⃣ Ik stem ermee in dat mijn echte naam wordt vermeld in de citaten zoals beschreven onder 4',
-            ('doe ik', 'doe ik niet'), index=1)
+    # agree = st.radio(
+    #         '5️⃣ Ik stem ermee in dat mijn echte naam wordt vermeld in de citaten zoals beschreven onder 4',
+    #         ('doe ik', 'doe ik niet'), index=1)
 
-    consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
+    # consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
 
-    nameID = st.text_input(
-        "Voer hier uw naam in")
-    st.session_state.name = nameID
+    if 'name' not in st.session_state:
+        st.session_state['name'] = ''
+
+    if not st.session_state.name:
+        nameID = nameID = st.text_input("Voer hier uw ProlificID in")
+        if nameID.strip():
+            st.session_state.name = nameID
+        else:
+            st.write("De invoer kan niet leeg zijn. Probeer het opnieuw.")
 
     if agree == "doe ik":
         st.write('Bedankt! Ga verder naar de volgende pagina om het experiment te starten')

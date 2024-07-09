@@ -50,7 +50,7 @@ with body2:
     st.image('https://images.unsplash.com/photo-1566125882500-87e10f726cdc?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', width=800)
 
     st.header('Uitleg experiment')
-    st.markdown('''Je moet kiezen tussen 5 verschillende brieven van de Nederlandse overheid met onderwerpen die te maken hebben met belastingen, gezondheid of zelfs een typische controle. 
+    st.markdown('''Je moet kiezen tussen 2 verschillende brieven van de Nederlandse overheid met onderwerpen die te maken hebben met belastingen, gezondheid of zelfs een typische controle. 
                 Daarna vergelijk je de samenvattingstool met een basislijn (geen samenvatting) en moet je enkele vragen over de tekst beantwoorden om te zien hoe goed (of slecht) 
                 je het begrepen hebt. Maak je geen zorgen over het correct krijgen van alles! Als je het antwoord niet weet, is er ook een 'Ik weet het niet' beschikbaar. 
                 Veel succes en nogmaals bedankt voor je deelname!''')
@@ -67,27 +67,38 @@ with body2:
 
 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
 
-letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
+# letter_path_test = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters/Health.pdf"
 # Get the list of PDF files in the directory
-with footer2:
-    input_method = st.radio("Selecteer voorkeurs onderwerp", ('Gezondheid', 'Werk', 'Digitale gegevensbescherming', 'Relatie', 'Financieel'))
-    selected_pdf = None
-    if input_method:
-        selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-        selected_pdf = selected_pdf.replace('\\', '/')
-        st.session_state['uploaded_file'] = letter_path_test
-        # st.session_state['uploaded_file'] = selected_pdf
-    else:
-        st.write("Selecteer een onderwerp om verder te gaan.")
+
+input_method = 'Health'
+selected_pdf = None
+selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+selected_pdf = selected_pdf.replace('\\', '/')
+st.session_state['uploaded_file'] = selected_pdf
+st.session_state['topic'] = input_method
+st.session_state['second topic'] = 'Health' if st.session_state['topic'] == 'Financial' else 'Financial'
+st.session_state['first_topic_selected'] = True
+
+# with footer2:
+#     input_method = st.radio("Selecteer voorkeurs onderwerp", ('Gezondheid', 'Werk', 'Digitale gegevensbescherming', 'Relatie', 'Financieel'))
+#     selected_pdf = None
+#     if input_method:
+#         selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+#         selected_pdf = selected_pdf.replace('\\', '/')
+#         st.session_state['uploaded_file'] = letter_path_test
+#         # st.session_state['uploaded_file'] = selected_pdf
+#     else:
+#         st.write("Selecteer een onderwerp om verder te gaan.")
           
-    if st.button("Volgende pagina") and selected_pdf is not None:
-                    # if page_start_time:
-                        # record_page_duration_and_send()
-                    # record_page_start_time()
-                    # st.session_state.oocsi.send('XAI_consent', {
-                    #     'participant_ID': st.session_state.participantID,
-                    #     'expert': "yes",
-                    #     'consent': 'yes',
-                    #     'consentForOSF': consentforOSF
-                    # })
+if st.button("Volgende pagina") and selected_pdf is not None:
+                # if page_start_time:
+                    # record_page_duration_and_send()
+                # record_page_start_time()
+                # st.session_state.oocsi.send('XAI_consent', {
+                #     'participant_ID': st.session_state.participantID,
+                #     'expert': "yes",
+                #     'consent': 'yes',
+                #     'consentForOSF': consentforOSF
+                # })
+    if 'selected_pdf' in locals():
         switch_page("Baseline")
