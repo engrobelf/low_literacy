@@ -206,4 +206,4 @@ if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
     if st.button("Next page"):
         st.session_state['form_submitted'] = False  # 重置提交标记
         print()
-        switch_page("evaluation_baseline ")
+        switch_page("evaluationbaseline ")
