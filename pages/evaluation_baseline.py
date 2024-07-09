@@ -112,6 +112,3 @@ with body2:
                 
                 })
             switch_page('Summarization')
-
-    # Execute your app
-    # embed streamlit docs in a streamlit app
