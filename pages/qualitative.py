@@ -67,20 +67,20 @@ with body2:
         submitted = st.form_submit_button("Verstuur")
 
         if submitted:
-            if word_count_1 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_2 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_3 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_4 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_5 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_6 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
-            elif word_count_7 < 7:
-                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 7 woorden)')
+            if word_count_1 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_2 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_3 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_4 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_5 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_6 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
+            elif word_count_7 < 5:
+                st.warning('Geef alsjeblieft een uitgebreidere uitleg (meer dan 5 woorden)')
             else:
                 st.success('Dank je wel!')
 
