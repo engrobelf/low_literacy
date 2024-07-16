@@ -112,7 +112,7 @@ with body2:
                 'q9': q9,
                 
                 })
-            switch_page('thankyou')
+            switch_page('qualitative')
 
     # Execute your app
     # embed streamlit docs in a streamlit app
