@@ -134,7 +134,7 @@ with body2:
 
     elif st.session_state['topic'] == 'Financial':
         with st.form("financial_form2"):
-            st.markdown('**Reading comprehension**')
+            st.markdown('**Begrijpend lezen**')
             st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder. \
         ")
             question1 = st.radio(
@@ -185,7 +185,7 @@ with body2:
                 "D) 14 050",
                 "E) Ik weet het niet"], index=4)
             
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Indienen")
             if submitted:
                 if 'page_start_time' in st.session_state:
                     record_page_duration_and_send()
@@ -203,6 +203,6 @@ with body2:
         
 if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
     st.write("Klik op de knop hieronder om naar de volgende pagina te gaan.")
-    if st.button("Next page"):
+    if st.button("Volgende pagin"):
         st.session_state['form_submitted'] = False 
         switch_page("evaluation_baseline")

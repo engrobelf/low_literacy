@@ -100,6 +100,7 @@ with body2:
                             Belastingaanslag uitleggen
                         
                         🔑 Actiepunten:
+                            
                             💸 Betaal €269,72
                         
                             📅 Voor 31-03-2024
@@ -109,11 +110,13 @@ with body2:
                             📆 10 termijnen mogelijk
                         
                             📨 Maak bezwaar mogelijk
+                        
                         📞 Contactinformatie:
+                            
                             📞 14 040
                             📝 Online contactformulier
                         
-                        📢 Voor vragen, bezoek belastingbalie.eindhoven.nl.''')
+                        📢 Voor vragen, bezoek :blue[belastingbalie.eindhoven.nl].''')
 
         else: 
             st.markdown('''
@@ -240,9 +243,9 @@ with body2:
 # Financial Letter questions:
     elif st.session_state['topic'] == 'Financial':
         with st.form("financial_form"):
-            st.markdown('**Reading comprehension**')
-            st.markdown("Please select the right answer to the multiple-choice questions below. \
-                        A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+            st.markdown('**Begrijpend lezen**')
+            st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
+                        Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
 
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
