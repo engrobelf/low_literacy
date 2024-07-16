@@ -68,6 +68,53 @@ def record_page_duration_and_send():
         }
         st.session_state.oocsi.send('Time_XAI', data)
 
+import streamlit as st
+from gtts import gTTS
+import os
+import base64
+
+# Function to convert text to speech and save it as an mp3 file
+def text_to_speech(text, lang='nl'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("text.mp3")
+
+# Function to embed the audio in the Streamlit app
+def audio_player(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        st.markdown(f"""
+            <audio controls autoplay>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+            """, unsafe_allow_html=True)
+
+
+
+# Audios
+text = """
+Hallo en bedankt voor het overwegen om deel te nemen aan ons onderzoeksproject aan de Technische Universiteit Eindhoven, waarbij we een innovatieve GPT-4 samenvattingstool evalueren, deelname volledig vrijwillig is, zonder risico's, en gegevens vertrouwelijk worden behandeld.
+"""
+st.markdown('''
+   :rainbow[ Press 🔊 to listen to the text being read aloud] ''')
+# Add a button with a speaker icon
+if st.button("🔊",key="button1"):
+    text_to_speech(text)
+    audio_player("text.mp3")
+
+# Clean up the mp3 file after use
+if os.path.exists("text.mp3"):
+    os.remove("text.mp3")
+# Text to be read aloud
+
+# Display the text
+#st.write(text)
+
+
+
+
+
 # Set up page configuration
 st.sidebar.markdown('# Gemaakt door: [François en Sichen ](https://github.com/engrobelf?tab=repositories)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
@@ -80,8 +127,11 @@ record_page_start_time()
 with st.container():
     st.title("🤖AI Doc Assistant")
 
+
+
 with st.container():
     st.header('📄 Informatievorm voor deelnemers')
+
     st.write('''Hallo en bedankt voor het overwegen om deel te nemen aan ons onderzoeksproject aan de Technische Universiteit Eindhoven. Deze studie omvat een innovatieve GPT-4 samenvattingstool, en uw betrokkenheid zou van onschatbare waarde zijn, vooral gezien uw interesse of expertise in dit veld.
 
 Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico's. U heeft volledige vrijheid om te kiezen welke vragen u beantwoordt en de mogelijkheid om op elk moment te stoppen, zonder negatieve gevolgen. Als u na het lezen over de studie vragen heeft of meer informatie wilt, neem dan contact op met Sichen Guo.''')
@@ -91,13 +141,40 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
     st.write('''Deze studie wordt uitgevoerd door François Leborgne en Sichen Guo, allen Engineering Doctorate (EngD) stagiairs van het programma Designing Human-System Interaction en voor deze studie onder supervisie van Jun Hu van de afdeling Industrial Design.''')
 
     st.subheader('🧗 Procedure')
-    st.markdown('''Tijdens dit project vragen we u om:
-    1. Een brief te kiezen om te uploaden 
-    2. De inhoud en informatie te kiezen die u uit deze brief kent
-    3. De gekozen brief in het nieuw ontworpen samenvattingssysteem te plaatsen 
-    4. De actiepunten of hoogtepunten te kiezen die u uit deze brief kent 
-    5. Een enquête met 9 vragen in te vullen 
-    6. Aan het eind wordt u uitgenodigd voor een semi-gestructureerd interview
+    
+    # Audios
+    text = """
+        Tijdens dit project vragen we u om:
+        1. Een brief te kiezen om te uploaden 
+        2. De inhoud en informatie te kiezen die u uit deze brief kent
+        3. De gekozen brief in het nieuw ontworpen samenvattingssysteem te plaatsen 
+        4. De actiepunten of hoogtepunten te kiezen die u uit deze brief kent 
+        5. Een enquête met 9 vragen in te vullen 
+        6. Aan het eind wordt u uitgenodigd voor een semi-gestructureerd interview
+        """
+        # Add a button with a speaker icon
+        
+    if st.button("🔊",key="button2"):
+            text_to_speech(text)
+            audio_player("text.mp3")
+
+        # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+            os.remove("text.mp3")
+        # Text to be read aloud
+
+        # Display the text
+        #st.write(text)
+
+    st.markdown('''
+            Tijdens dit project vragen we u om:
+                
+            1. Een brief te kiezen om te uploaden 
+            2. De inhoud en informatie te kiezen die u uit deze brief kent
+            3. De gekozen brief in het nieuw ontworpen samenvattingssysteem te plaatsen 
+            4. De actiepunten of hoogtepunten te kiezen die u uit deze brief kent 
+            5. Een enquête met 9 vragen in te vullen 
+            6. Aan het eind wordt u uitgenodigd voor een semi-gestructureerd interview
     ''')
 
     st.subheader('⚠️ Risico\'s')
@@ -123,12 +200,35 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
     ''')
 
     st.subheader("📝 Informed consent form")
+    
+    # Audios
+    text = """
+    1️⃣ Ik heb voldoende informatie over het onderzoeksproject van het aparte informatieblad. Ik heb het gelezen en ik heb de kans gehad om vragen te stellen, die naar tevredenheid zijn beantwoord.
+                    
+    2️⃣ Ik neem vrijwillig deel aan dit onderzoeksproject. Er is geen expliciete of impliciete druk om deel te nemen aan dit onderzoeksproject, en ik begrijp dat ik mijn deelname op elk moment kan stoppen zonder uit te leggen waarom. Ik hoef geen enkele vraag te beantwoorden die ik niet wil beantwoorden.
+                    
+    3️⃣ Ik weet dat mijn persoonlijke gegevens zullen worden verzameld en gebruikt voor het onderzoek, zoals uitgelegd in het informatieblad. '4️⃣ Ik stem ermee in dat mijn antwoorden worden gebruikt voor citaten in de onderzoeksresultaten – zonder mijn naam te vermelden.
+        """
+        # Add a button with a speaker icon
+        
+    if st.button("🔊",key="button3"):
+            text_to_speech(text)
+            audio_player("text.mp3")
+
+        # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+            os.remove("text.mp3")
+        # Text to be read aloud
+
+        # Display the text
+        #st.write(text)
+
     st.markdown('''
-1️⃣ Ik heb voldoende informatie over het onderzoeksproject van het aparte informatieblad. Ik heb het gelezen en ik heb de kans gehad om vragen te stellen, die naar tevredenheid zijn beantwoord.
-                
-2️⃣ Ik neem vrijwillig deel aan dit onderzoeksproject. Er is geen expliciete of impliciete druk om deel te nemen aan dit onderzoeksproject, en ik begrijp dat ik mijn deelname op elk moment kan stoppen zonder uit te leggen waarom. Ik hoef geen enkele vraag te beantwoorden die ik niet wil beantwoorden.
-                
-3️⃣ Ik weet dat mijn persoonlijke gegevens zullen worden verzameld en gebruikt voor het onderzoek, zoals uitgelegd in het informatieblad.
+    1️⃣ Ik heb voldoende informatie over het onderzoeksproject van het aparte informatieblad. Ik heb het gelezen en ik heb de kans gehad om vragen te stellen, die naar tevredenheid zijn beantwoord.
+                    
+    2️⃣ Ik neem vrijwillig deel aan dit onderzoeksproject. Er is geen expliciete of impliciete druk om deel te nemen aan dit onderzoeksproject, en ik begrijp dat ik mijn deelname op elk moment kan stoppen zonder uit te leggen waarom. Ik hoef geen enkele vraag te beantwoorden die ik niet wil beantwoorden.
+                    
+    3️⃣ Ik weet dat mijn persoonlijke gegevens zullen worden verzameld en gebruikt voor het onderzoek, zoals uitgelegd in het informatieblad.
 
     ''')
 
