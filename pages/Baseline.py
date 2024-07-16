@@ -202,8 +202,8 @@ with body2:
                 st.session_state['form_submitted'] = True  
         
 if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
-    st.write("Please click the button below to proceed to the next page.")
-    if st.button("Next page"):
+    st.write("Klik op de knop hieronder om naar de volgende pagina te gaan.")
+    if st.button("Volgende pagina"):
         st.session_state['form_submitted'] = False  # 重置提交标记
         print()
         switch_page("evaluation_baseline ")

@@ -175,4 +175,4 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
                 'consent': 'nee',
                 'consentForOSF': consent_for_osf
             })
-            switch_page('noconsent')
+            switch_page('no_consent')

@@ -101,4 +101,4 @@ if st.button("Volgende pagina") and selected_pdf is not None:
                 #     'consentForOSF': consentforOSF
                 # })
     if 'selected_pdf' in locals():
-        switch_page("Baseline")
+        switch_page("baseline")
