@@ -69,7 +69,7 @@ with header2:
 with body2:
         # Audios
     text = """
-In what situations and contexts do you foresee using this summarizing tool?
+In welke situaties en contexten denk je dit samenvattingshulpmiddel te gebruiken?
 
 Hoe zou je het systeem gebruiken om te helpen met het lezen en begrijpen van teksten?
 
@@ -97,7 +97,7 @@ Heb je feedback voor het hulpmiddel en de evaluatie in het algemeen?
         # Display the text
         #st.write(text)
     with st.form("mijn formulier"):
-        why = st.text_area('**In what situations and contexts do you foresee using this summarizing tool?**', "")
+        why = st.text_area('**In welke situaties en contexten denk je dit samenvattingshulpmiddel te gebruiken?**', "")
         why_2 = st.text_area('**Hoe zou je het systeem gebruiken om te helpen met het lezen en begrijpen van teksten?**')
         why_3 = st.text_area('**Welke functies zouden het systeem gemakkelijk maken voor mensen met lage leesvaardigheid?**')
         why_4 = st.text_area('**Welke instructie of hulp is nodig om nieuwe gebruikers het systeem goed te laten gebruiken?**')
