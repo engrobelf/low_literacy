@@ -4,10 +4,30 @@ from streamlit_extras.switch_page_button import switch_page
 from oocsi_source import OOCSI
 import datetime
 from datetime import datetime
+from gtts import gTTS
+import base64
+import os
 
 header1, header2, header3 = st.columns([1,4,1])
 body1, body2, body3 = st.columns([1,50,1])
 
+# Function to convert text to speech and save it as an mp3 file
+def text_to_speech(text, lang='nl'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("text.mp3")
+
+# Function to embed the audio in the Streamlit app
+def audio_player(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        st.markdown(f"""
+            <audio controls autoplay>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+            """, unsafe_allow_html=True)
+        
 def record_page_start_time():
     global page_start_time
     page_start_time = datetime.now()
@@ -37,6 +57,49 @@ with header2:
     st.write("Dit is het laatste deel van dit experiment.")
 
 with body2:
+
+       # Audios
+    text = """
+    Evaluatie
+    Deze vragen vragen alleen om uw mening over de methode die u zojuist hebt gebruikt (Geen hulpmiddel)
+    Effectiviteit
+    1- Ik kon de belangrijkste ideeën van de tekst snel begrijpen
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    2- Uit de tekst voelde ik me zeker over het begrijpen van de inhoud van de brieven:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    3- Het proces hielp me de belangrijke informatie uit de brieven te onthouden:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    Efficiëntie
+    1- Ik kon mijn lezen binnen een redelijke tijd voltooien:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    2- Ik kon de belangrijkste informatie binnen een redelijke tijd begrijpen
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    Cognitieve belasting
+    1- Ik vond dat de hoeveelheid inspanning die nodig was om de algemene tekst te begrijpen redelijk was:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    2- De taal/terminologie die werd gebruikt was erg gemakkelijk:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    3- Ik investeerde een zeer lage mentale inspanning om de inhoud te begrijpen:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+    4- De structuur van de tekst was erg duidelijk:
+    "Helemaal oneens", "Oneens", "Noch eens noch oneens",  "Eens", "Helemaal eens
+        """
+        # Add a button with a speaker icon
+
+    if st.button("🔊",key="button6"):
+            text_to_speech(text)
+            audio_player("text.mp3")
+
+        # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+            os.remove("text.mp3")
+        # Text to be read aloud
+
+        # Display the text
+        #st.write(text)
+
+
+
     with st.form("my_form3", clear_on_submit=True):
         st.subheader("Evaluatie")
         st.write("Deze vragen vragen alleen om uw mening over de methode die u zojuist hebt gebruikt (Geen hulpmiddel)")

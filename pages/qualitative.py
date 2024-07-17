@@ -5,11 +5,31 @@ from oocsi_source import OOCSI
 import datetime
 from datetime import datetime
 import time
+from gtts import gTTS
+import base64
+import os
 
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
+
+# Function to convert text to speech and save it as an mp3 file
+def text_to_speech(text, lang='nl'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("text.mp3")
+
+# Function to embed the audio in the Streamlit app
+def audio_player(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        st.markdown(f"""
+            <audio controls autoplay>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+            """, unsafe_allow_html=True)
 
 def record_page_start_time():
     st.session_state['page_start_time'] = datetime.now()
@@ -42,11 +62,40 @@ def check_input_length(text):
 
 
 with header2:
-    st.title("Comparing the different methods")
-    st.markdown("In this section, we ask you to give feedback regarding the summarization tool presented in the experiment.")
+    st.title("Vergelijking van de verschillende methoden")
+    st.markdown("In deze sectie vragen we u om feedback te geven over de samenvattingstool die in het experiment wordt gepresenteerd.")
 
 
 with body2:
+        # Audios
+    text = """
+In what situations and contexts do you foresee using this summarizing tool?
+
+Hoe zou je het systeem gebruiken om te helpen met het lezen en begrijpen van teksten?
+
+Welke functies zouden het systeem gemakkelijk maken voor mensen met lage leesvaardigheid?
+
+Welke instructie of hulp is nodig om nieuwe gebruikers het systeem goed te laten gebruiken?
+
+Welke kansen kan dit hulpmiddel bieden voor mensen met lage leesvaardigheid?
+
+Welke risicos of problemen kunnen ontstaan door het gebruik van dit systeem?
+
+Heb je feedback voor het hulpmiddel en de evaluatie in het algemeen?
+        """
+        # Add a button with a speaker icon
+
+    if st.button("🔊",key="button6"):
+            text_to_speech(text)
+            audio_player("text.mp3")
+
+        # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+            os.remove("text.mp3")
+        # Text to be read aloud
+
+        # Display the text
+        #st.write(text)
     with st.form("mijn formulier"):
         why = st.text_area('**In what situations and contexts do you foresee using this summarizing tool?**', "")
         why_2 = st.text_area('**Hoe zou je het systeem gebruiken om te helpen met het lezen en begrijpen van teksten?**')

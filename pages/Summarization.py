@@ -6,11 +6,33 @@ from utils import doc_loader, summary_prompt_creator, doc_to_final_summary, vali
 from my_prompts import file_map, file_combine
 from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, load_pdf_from_github
 from pathlib import Path
-
+from gtts import gTTS
+import base64
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
+
+# Function to convert text to speech and save it as an mp3 file
+def text_to_speech(text, lang='nl'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("text.mp3")
+
+# Function to embed the audio in the Streamlit app
+def audio_player(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        st.markdown(f"""
+            <audio controls autoplay>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+            """, unsafe_allow_html=True)
+def record_page_start_time():
+    global page_start_time
+    page_start_time = datetime.now()
+
 
 def record_page_start_time():
     st.session_state['page_start_time'] = datetime.now()
@@ -63,13 +85,32 @@ with header2:
 
 with body2:
     st.header('Uitleg experiment')
-    st.markdown('''Je ziet nu het hulpmiddel voor samenvatten. Klik op de knop "Samenvatten" en lees de tekst goed door.\
-                 Probeer daarna alle vragen goed te beantwoorden.''')
-    st.image('https://github.com/engrobelf/low_literacy/blob/francois/picture/LL_pic.png?raw=True', width=700, caption='Overzicht laaggeletterdheid')
 
-    st.subheader('Model')
-    st.markdown('''Hetzelfde ML-model wordt gebruikt om de voorspellingen te genereren van wie heeft overleefd en wie niet.
-                Dit model wordt gebruikt om alle vier de typen uitleg te genereren die je tijdens het experiment zult zien.''')
+        # Audios
+    text = """Je ziet nu het hulpmiddel voor samenvatten. Klik op de knop "Samenvatten" en lees de tekst goed door.\
+                 Probeer daarna alle vragen goed te beantwoorden.
+        """
+        # Add a button with a speaker icon
+
+    if st.button("🔊",key="button6"):
+            text_to_speech(text)
+            audio_player("text.mp3")
+
+        # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+            os.remove("text.mp3")
+        # Text to be read aloud
+
+        # Display the text
+        #st.write(text)
+
+    st.markdown('''Je ziet nu het hulpmiddel voor samenvatten. :orange-background[🖱 **Klik op de knop "Samenvatten"**] en lees de tekst goed door.\
+                 Probeer daarna alle vragen goed te beantwoorden.''')
+                
+    left_co, cent_co,last_co = st.columns(3)
+    with cent_co:
+        st.image('https://i.pinimg.com/564x/1f/12/6d/1f126d5cf25d9a942f5af9debe1eab4a.jpg', width=200)
+
     use_gpt_4 = True
     find_clusters = False
 
@@ -100,6 +141,7 @@ with body2:
                             Belastingaanslag uitleggen
                         
                         🔑 Actiepunten:
+                            
                             💸 Betaal €269,72
                         
                             📅 Voor 31-03-2024
@@ -109,11 +151,13 @@ with body2:
                             📆 10 termijnen mogelijk
                         
                             📨 Maak bezwaar mogelijk
+                       
                         📞 Contactinformatie:
+                            
                             📞 14 040
                             📝 Online contactformulier
                         
-                        📢 Voor vragen, bezoek belastingbalie.eindhoven.nl.''')
+                        📢 Voor vragen, bezoek :blue[www.eindhoven.nl/contact-belastingen]''')
 
         else: 
             st.markdown('''
@@ -126,6 +170,7 @@ with body2:
                             Coronaprik voor kinderen
 
                         🔑 Actiepunten:
+                            
                             💉 Informatie coronaprik
                         
                             🧒 Kinderen vanaf 5 jaar
@@ -137,11 +182,10 @@ with body2:
                             🆔 Neem ID en brief
                         
                         📞 Contactinformatie:
+                        
                             0800 7070 (gratis)
                         
-                        📢 Call to Action:
-                            
-                            Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
+                        📢 Voor vragen, Als je vragen hebt, bezoek :blue[www.coronavaccinatie.nl.].''')
             
 st.sidebar.markdown('# Gemaakt door: [François en Sichen](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')
@@ -166,9 +210,9 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 with body2:
     if st.session_state['topic'] == 'Health':
         with st.form("health_form"):
-            st.markdown('**AI literacy**')
-            st.markdown("Please select the right answer to the multiple-choice questions below. \
-                        A correct answer is awarded +1 point, an incorrect answer -1 point and the \"I don't know option\" 0 points.")
+            st.markdown('**Leesbegrip**')
+            st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
+                        Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
 
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
@@ -176,7 +220,7 @@ with body2:
                 "B) RIVM",
                 "C) Ministerie van Volksgezondheid",
                 "D) Gemeentehuis",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
             question2 = st.radio(
                 "Wat is het hoofddoel van deze brief?",
@@ -184,7 +228,7 @@ with body2:
                 "B) Informatie over een coronaprik voor kinderen",
                 "C) Advies over schoolbezoeken ",
                 "D) Registratie voor een sportevenement",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
             question3 = st.radio(
                 "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
@@ -192,7 +236,7 @@ with body2:
                 "B) Zoek het BSN van je kind ",
                 "C) Bezoek de lokale kliniek",
                 "D) Schrijf je in op een website",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
 
             question4 = st.radio(
                 "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
@@ -200,7 +244,7 @@ with body2:
                 "B) 112",
                 "C) 0800 1234",
                 "D) 0900 2020",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
 
             question5 = st.radio(
@@ -209,7 +253,7 @@ with body2:
                 "B) Een pasfoto",
                 "C) De uitnodigingsbrief en een ID",
                 "D) Een medische geschiedenisrapport",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
 
 
             question6 = st.radio(
@@ -218,9 +262,9 @@ with body2:
                 "B) www.rivm.nl",
                 "C) www.coronavaccinatie.nl",
                 "D) www.kinderzorg.nl",
-                "E) I don't know"], index=4)
+                "E) Ik weet het niet"], index=4)
             
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Indienen")
         if submitted:
             if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()    
@@ -246,9 +290,9 @@ with body2:
 # Financial Letter questions:
     elif st.session_state['topic'] == 'Financial':
         with st.form("financial_form"):
-            st.markdown('**Reading comprehension**')
-            st.markdown("Please select the right answer to the multiple-choice questions below. \
-                        A correct answer is awarded +1 point, an incorrect answer -1 point and the \"Ik weet het niet\" 0 points.")
+            st.markdown('**Leesbegrip**')
+            st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
+                        Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
 
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
@@ -284,10 +328,10 @@ with body2:
             
             question5 = st.radio(
                 "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
-                ["A) belastingbalie.amsterdam.nl",
-                "B) belastingbalie.rotterdam.nl",
-                "C) belastingbalie.utrecht.nl",
-                "D) belastingbalie.eindhoven.nl",
+                ["A) www.amsterdam.nl/contact-belastingen",
+                "B) www.rotterdam.nl/contact-belastingen",
+                "C) www.utrecht.nl/contact-belastingen",
+                "D) www.eindhoven.nl/contact-belastingen",
                 "E) Ik weet het niet"], index=4)
             
             question6 = st.radio(
@@ -298,7 +342,7 @@ with body2:
                 "D) 14 050",
                 "E) Ik weet het niet"], index=4)
             
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Indienen")
             if submitted:
                 if 'page_start_time' in st.session_state:
                     record_page_duration_and_send()    

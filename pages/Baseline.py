@@ -14,10 +14,30 @@ import numpy as np
 
 import requests
 import streamlit as st
+import os
+from gtts import gTTS
+import base64
 
 header1, header2, header3 = st.columns([1,12,1])
 body1, body2, body3 =st.columns([1,12,1])
 footer1, footer2, footer3 =st.columns([1,12,1])
+
+# Function to convert text to speech and save it as an mp3 file
+def text_to_speech(text, lang='nl'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save("text.mp3")
+
+# Function to embed the audio in the Streamlit app
+def audio_player(file_path):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        st.markdown(f"""
+            <audio controls autoplay>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+            """, unsafe_allow_html=True)
 
 # Record page start time function
 def record_page_start_time():
@@ -40,6 +60,22 @@ with header2:
 
 with body2:
     st.header('Uitleg experiment')
+    # Audios
+    text = """Lees zorgvuldig de brief met betrekking tot het door jou gekozen veld. Neem de tijd die je nodig hebt en probeer de vragen na de brief te beantwoorden. Bij twijfel, aarzel niet om het antwoord 'Ik weet het niet' te kiezen.
+    """
+    # Add a button with a speaker icon
+
+    if st.button("🔊",key="button6"):
+        text_to_speech(text)
+        audio_player("text.mp3")
+
+    # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+        os.remove("text.mp3")
+    # Text to be read aloud
+
+    # Display the text
+    #st.write(text)
     st.markdown('''Lees zorgvuldig de brief met betrekking tot het door jou gekozen veld. Neem de tijd die je nodig hebt en probeer de vragen na de brief te beantwoorden. Bij twijfel, aarzel niet om het antwoord 'Ik weet het niet' te kiezen.''')
     st.subheader('Brief')
         # Assuming the URL is set correctly in your Streamlit app's session state
@@ -115,7 +151,7 @@ with body2:
                 "D) www.kinderzorg.nl",
                 "E) Ik weet het niet"], index=4)
             
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Indienen")
 
             if submitted:
                 if 'page_start_time' in st.session_state:
@@ -134,8 +170,8 @@ with body2:
 
     elif st.session_state['topic'] == 'Financial':
         with st.form("financial_form2"):
-            st.markdown('**Reading comprehension**')
-            st.markdown("Please select the right answer to the multiple-choice questions below. \
+            st.markdown('**Leesbegri**')
+            st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder. \
         ")
             question1 = st.radio(
                 "Van welke organisatie is deze brief?",
@@ -171,10 +207,10 @@ with body2:
 
             question5 = st.radio(
                 "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
-                ["A) belastingbalie.amsterdam.nl",
-                "B) belastingbalie.rotterdam.nl",
-                "C) belastingbalie.utrecht.nl",
-                "D) belastingbalie.eindhoven.nl",
+                ["A) www.amsterdam.nl/contact-belastingen",
+                "B) www.rotterdam.nl/contact-belastingen",
+                "C) www.utrecht.nl/contact-belastingen",
+                "D) www.eindhoven.nl/contact-belastingen",
                 "E) Ik weet het niet"], index=4)
 
             question6 = st.radio(
@@ -185,7 +221,7 @@ with body2:
                 "D) 14 050",
                 "E) Ik weet het niet"], index=4)
             
-            submitted = st.form_submit_button("Submit")
+            submitted = st.form_submit_button("Indienen")
             if submitted:
                 if 'page_start_time' in st.session_state:
                     record_page_duration_and_send()
