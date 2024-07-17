@@ -187,6 +187,29 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
     st.markdown('''Uw deelname is volledig vrijwillig. U kunt weigeren deel te nemen zonder een reden op te geven en u kunt uw deelname op elk moment tijdens de studie stoppen. U kunt ook uw toestemming om uw gegevens te gebruiken onmiddellijk na het voltooien van de studie intrekken. Dit zal geen negatieve gevolgen voor u hebben.''')
 
     st.subheader("📊 Vertrouwelijkheid en gebruik, opslag en delen van gegevens")
+
+    # Audios
+    text = """
+    De verzamelde gegevens worden opgeslagen op door de TU/e ondersteunde opslagfaciliteiten.              
+                        We zullen ervoor zorgen dat eventuele gepubliceerde onderzoeksresultaten geen vertrouwelijke of identificeerbare informatie over u bevatten, tenzij u hier expliciet mee instemt, bijvoorbeeld als u wilt dat uw naam in publicaties wordt vermeld.
+                        Uw persoonlijke gegevens kunnen worden gebruikt voor toekomstig onderzoek, maar alleen als uw gegevens echt nodig zijn, als de erkende ethische normen voor wetenschappelijk onderzoek worden gevolgd, en als de nieuwe onderzoeksdoelen overeenkomen met de huidige onderzoeksdoelen. Als uw persoonlijke gegevens in toekomstig onderzoek worden gebruikt, zullen we alle redelijke stappen ondernemen om u hierover te informeren. U kunt bezwaar maken tegen het gebruik van uw gegevens voor nieuw onderzoek.                    We kunnen geanonimiseerde gegevens gebruiken voor nieuwe doeleinden zoals onderzoek of onderwijs. We zullen ervoor zorgen dat de gegevens niet aan u kunnen worden gekoppeld en we zullen niets bekendmaken dat u identificeerbaar maakt.
+                        Dit onderzoek is beoordeeld en goedgekeurd door de ethische commissie van de Technische Universiteit Eindhoven.
+                        Het scherm en de tijd zullen worden opgenomen tijdens het interactieproces, en het interviewscript zal worden opgenomen door middel van audio-opname.
+    """
+    
+    # Add a button with a speaker icon
+    if st.button("🔊",key="button4"):
+        text_to_speech(text)
+        audio_player("text.mp3")
+
+    # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+        os.remove("text.mp3")
+    # Text to be read aloud
+
+    # Display the text
+    #st.write(text)
+
     st.markdown('''De verzamelde gegevens worden opgeslagen op door de TU/e ondersteunde opslagfaciliteiten.              
                     We zullen ervoor zorgen dat eventuele gepubliceerde onderzoeksresultaten geen vertrouwelijke of identificeerbare informatie over u bevatten, tenzij u hier expliciet mee instemt, bijvoorbeeld als u wilt dat uw naam in publicaties wordt vermeld.
                     Uw persoonlijke gegevens kunnen worden gebruikt voor toekomstig onderzoek, maar alleen als uw gegevens echt nodig zijn, als de erkende ethische normen voor wetenschappelijk onderzoek worden gevolgd, en als de nieuwe onderzoeksdoelen overeenkomen met de huidige onderzoeksdoelen. Als uw persoonlijke gegevens in toekomstig onderzoek worden gebruikt, zullen we alle redelijke stappen ondernemen om u hierover te informeren. U kunt bezwaar maken tegen het gebruik van uw gegevens voor nieuw onderzoek.                    We kunnen geanonimiseerde gegevens gebruiken voor nieuwe doeleinden zoals onderzoek of onderwijs. We zullen ervoor zorgen dat de gegevens niet aan u kunnen worden gekoppeld en we zullen niets bekendmaken dat u identificeerbaar maakt.
@@ -195,6 +218,26 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
     ''')
 
     st.subheader("📰 Verdere informatie")
+
+        # Audios
+    text = """
+    Als u meer informatie wilt over deze studie, het onderzoeksontwerp of de resultaten, kunt u contact opnemen met François Leborgne (contact email: f.m.g.leborgne@tue.nl ) of Sichen Guo (contact email: s.guo3@tue.nl). 
+    Als u klachten heeft over deze studie, neem dan contact op met de supervisor, Jun Hu (j.hu@tue.nl). U kunt onregelmatigheden met betrekking tot wetenschappelijke integriteit melden bij vertrouwenspersonen van de TU/e.
+    """
+    
+    # Add a button with a speaker icon
+    if st.button("🔊",key="button5"):
+        text_to_speech(text)
+        audio_player("text.mp3")
+
+    # Clean up the mp3 file after use
+    if os.path.exists("text.mp3"):
+        os.remove("text.mp3")
+    # Text to be read aloud
+
+    # Display the text
+    #st.write(text)
+
     st.markdown('''Als u meer informatie wilt over deze studie, het onderzoeksontwerp of de resultaten, kunt u contact opnemen met François Leborgne (contact email: f.m.g.leborgne@tue.nl ) of Sichen Guo (contact email: s.guo3@tue.nl). 
     Als u klachten heeft over deze studie, neem dan contact op met de supervisor, Jun Hu (j.hu@tue.nl). U kunt onregelmatigheden met betrekking tot wetenschappelijke integriteit melden bij vertrouwenspersonen van de TU/e.
     ''')
