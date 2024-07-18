@@ -53,8 +53,8 @@ page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("Demografische informatie")
-    st.write("Dit is het laatste deel van dit experiment.")
+    st.title("evaluatievragen")
+    # st.write("Dit is het laatste deel van dit experiment.")
 
 with body2:
         # Audios
