@@ -279,13 +279,7 @@ with body2:
                 'q5': question5,
                 'q6': question6,
                 })
-            url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
-            input_method = 'Financial'
-            selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-            selected_pdf = selected_pdf.replace('\\', '/')
-            st.session_state['uploaded_file'] = selected_pdf
-            st.session_state['topic'] = 'Financial'
-            switch_page("Baseline")
+            switch_page("evaluation_tool")
 
 # Financial Letter questions:
     elif st.session_state['topic'] == 'Financial':
@@ -343,17 +337,17 @@ with body2:
                 "E) Ik weet het niet"], index=4)
             
             submitted = st.form_submit_button("Indienen")
-            if submitted:
-                if 'page_start_time' in st.session_state:
-                    record_page_duration_and_send()    
-                st.session_state.oocsi.send('Baseline_text_question', {
-                    'participant_ID': st.session_state.name,
-                    'topic': st.session_state['topic'],
-                    'q1': question1,
-                    'q2': question2,
-                    'q3': question3,
-                    'q4': question4,
-                    'q5': question5,
-                    'q6': question6,
-                    })
-                switch_page("evaluation_tool")
+        if submitted:
+            if 'page_start_time' in st.session_state:
+                record_page_duration_and_send()    
+            st.session_state.oocsi.send('Baseline_text_question', {
+                'participant_ID': st.session_state.name,
+                'topic': st.session_state['topic'],
+                'q1': question1,
+                'q2': question2,
+                'q3': question3,
+                'q4': question4,
+                'q5': question5,
+                'q6': question6,
+                })
+            switch_page("evaluation_tool")
