@@ -173,7 +173,7 @@ with body2:
                 'q9': q9,
                 
                 })
-            if st.session_state['Topic'] == 'Health': 
+            if st.session_state['topic'] == 'Health': 
                 url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
                 input_method = 'Financial'
                 selected_pdf = os.path.join(url_directory, input_method + '.pdf')
