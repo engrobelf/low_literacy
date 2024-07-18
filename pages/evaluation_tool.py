@@ -155,7 +155,6 @@ with body2:
                             "Helemaal eens"])
         # Every form must have a submit button.
         submitted = st.form_submit_button("Indienen")
-        st.markdown(st.session_state['topic'])
         if submitted:
             if page_start_time:
                 record_page_duration_and_send()    

@@ -335,17 +335,17 @@ with body2:
                 "E) Ik weet het niet"], index=4)
             
             submitted = st.form_submit_button("Indienen")
-            if submitted:
-                if 'page_start_time' in st.session_state:
-                    record_page_duration_and_send()    
-                st.session_state.oocsi.send('Baseline_text_question', {
-                    'participant_ID': st.session_state.name,
-                    'topic': st.session_state['topic'],
-                    'q1': question1,
-                    'q2': question2,
-                    'q3': question3,
-                    'q4': question4,
-                    'q5': question5,
-                    'q6': question6,
-                    })
-                switch_page("evaluation_tool")
+        if submitted:
+            if 'page_start_time' in st.session_state:
+                record_page_duration_and_send()    
+            st.session_state.oocsi.send('Baseline_text_question', {
+                'participant_ID': st.session_state.name,
+                'topic': st.session_state['topic'],
+                'q1': question1,
+                'q2': question2,
+                'q3': question3,
+                'q4': question4,
+                'q5': question5,
+                'q6': question6,
+                })
+            switch_page("evaluation_tool")
