@@ -53,8 +53,8 @@ page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("Demografische informatie")
-    st.write("Dit is het laatste deel van dit experiment.")
+    st.title("Evaluatie - Basislijn")
+    # st.write("Dit is het laatste deel van dit experiment.")
 
 with body2:
 
@@ -163,6 +163,7 @@ with body2:
             st.session_state.oocsi.send('Baseline_feedback', {
                 'participant_ID': st.session_state.name,
                 'type of method': 'Baseline',
+                'topic': st.session_state['topic'],
                 'q1': q1,
                 'q2': q2,
                 'q3': q3,
