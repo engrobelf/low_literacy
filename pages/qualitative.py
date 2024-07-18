@@ -48,11 +48,13 @@ def record_why(participant_id, why, question_id):
     st.session_state.oocsi.send('LL_qualitative', {
         'participant_ID': participant_id,
         f'why_{question_id}': why[:900],
+        'topic': st.session_state['topic'],
     })
     if len(why) > 900:
         st.session_state.oocsi.send('LL_qualitative', {
             'participant_ID': participant_id,
             f'why_{question_id}_bis': why[900:1800],
+            'topic': st.session_state['topic'],
         })
 
 def check_input_length(text):
