@@ -53,7 +53,7 @@ page_start_time = None
 record_page_start_time()
 
 with header2:
-    st.title("evaluatievragen")
+    st.title("Evaluatie - Basislijn")
     # st.write("Dit is het laatste deel van dit experiment.")
 
 with body2:
@@ -170,6 +170,7 @@ Cognitieve belasting
                 record_page_duration_and_send()    
             st.session_state.oocsi.send('Baseline_feedback', {
                 'participant_ID': st.session_state.name,
+                'topic': st.session_state['topic'],
                 'type of method': 'Baseline',
                 'q1': q1,
                 'q2': q2,

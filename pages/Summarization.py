@@ -348,10 +348,4 @@ with body2:
                     'q5': question5,
                     'q6': question6,
                     })
-                url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
-                input_method = 'Health'
-                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-                selected_pdf = selected_pdf.replace('\\', '/')
-                st.session_state['uploaded_file'] = selected_pdf
-                st.session_state['topic'] = 'Health'
-                switch_page("Baseline")
+                switch_page("evaluation_tool")

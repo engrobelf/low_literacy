@@ -155,12 +155,14 @@ with body2:
                             "Helemaal eens"])
         # Every form must have a submit button.
         submitted = st.form_submit_button("Indienen")
+        st.markdown(st.session_state['topic'])
         if submitted:
             if page_start_time:
                 record_page_duration_and_send()    
             st.session_state.oocsi.send('Tool_feedback', {
                 'participant_ID': st.session_state.name,
-                'type of method': 'Baseline',
+                'type of method': 'Tool',
+                'topic': st.session_state['topic'],
                 'q1': q1,
                 'q2': q2,
                 'q3': q3,
@@ -172,7 +174,16 @@ with body2:
                 'q9': q9,
                 
                 })
-            switch_page('qualitative')
-
+            
+            if st.session_state['topic'] == 'Health':
+                switch_page('qualitative')
+            else: 
+                url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
+                input_method = 'Health'
+                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+                selected_pdf = selected_pdf.replace('\\', '/')
+                st.session_state['uploaded_file'] = selected_pdf
+                st.session_state['topic'] = 'Health'
+                switch_page('Baseline')
     # Execute your app
     # embed streamlit docs in a streamlit app
