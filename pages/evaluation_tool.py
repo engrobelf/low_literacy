@@ -161,6 +161,7 @@ with body2:
             st.session_state.oocsi.send('Tool_feedback', {
                 'participant_ID': st.session_state.name,
                 'type of method': 'Baseline',
+                'topic': st.session_state['topic'],
                 'q1': q1,
                 'q2': q2,
                 'q3': q3,
@@ -172,7 +173,16 @@ with body2:
                 'q9': q9,
                 
                 })
-            switch_page('qualitative')
+            if st.session_state['Topic'] == 'Health': 
+                url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
+                input_method = 'Financial'
+                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+                selected_pdf = selected_pdf.replace('\\', '/')
+                st.session_state['uploaded_file'] = selected_pdf
+                st.session_state['topic'] = 'Financial'
+                switch_page('Baseline')
+            else: 
+                switch_page('qualitative')
 
     # Execute your app
     # embed streamlit docs in a streamlit app
