@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 import os
+import random
 from streamlit_extras.switch_page_button import switch_page
 from utils import doc_loader, summary_prompt_creator, doc_to_final_summary, validate_doc_size
 from my_prompts import file_map, file_combine
@@ -79,12 +80,16 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)
 
 record_page_start_time()
-st.session_state.pages.remove("Tool_financial")
+if 'T_financial' not in st.session_state:
+    st.session_state.pages.remove("Tool_financial")
+    st.session_state.T_financial= 'deleted'
+
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
     st.session_state.lastQuestion= 'no'
 else:
     st.session_state.lastQuestion= 'yes'
+
 with header2:
     st.title("Samenvatting")
 
@@ -135,60 +140,35 @@ with body2:
     #     else:
     #         st.warning('Upload je bestand alstublieft.')
     if st.button('Samenvatten (klik eenmaal en wacht)', key='summarize_button'):
-        if st.session_state['topic'] == 'Financial': 
-            st.markdown('''
-                        📩 Afzender: 
+        st.markdown('''
+                    📩 Afzender: 
+                    
+                        🏛️ Gemeente Eindhoven
+                    
+                    🎯 Doel: 
                         
-                            🏛️ Gemeente Eindhoven
+                        Belastingaanslag uitleggen
+                    
+                    🔑 Actiepunten:
                         
-                        🎯 Doel: 
-                            
-                            Belastingaanslag uitleggen
+                        💸 Betaal €269,72
+                    
+                        📅 Voor 31-03-2024
+                    
+                        🖥️ Betaal online
+                    
+                        📆 10 termijnen mogelijk
+                    
+                        📨 Maak bezwaar mogelijk
+                    
+                    📞 Contactinformatie:
                         
-                        🔑 Actiepunten:
-                            
-                            💸 Betaal €269,72
-                        
-                            📅 Voor 31-03-2024
-                        
-                            🖥️ Betaal online
-                        
-                            📆 10 termijnen mogelijk
-                        
-                            📨 Maak bezwaar mogelijk
-                        
-                        📞 Contactinformatie:
-                            
-                            📞 14 040
-                            📝 Online contactformulier
-                        
-                        📢 Voor vragen, bezoek :blue[www.eindhoven.nl/contact-belastingen]''')
+                        📞 14 040
+                        📝 Online contactformulier
+                    
+                    📢 Voor vragen, bezoek :blue[www.eindhoven.nl/contact-belastingen]''')
 
-        else: 
-            st.markdown('''
-                        📩 Afzender: 
-                        
-                            RIVM
-
-                        🎯 Doel: 
-                        
-                            Coronaprik voor kinderen
-
-                        🔑 Actiepunten:
-                            💉 Informatie coronaprik
-                        
-                            🧒 Kinderen vanaf 5 jaar
-                        
-                            📄 Maak afspraak
-                        
-                            📞 Bel 0800 7070
-                        
-                            🆔 Neem ID en brief
-                        
-                        📞 Contactinformatie:
-                            0800 7070 (gratis)
-                        
-                        📢 Voor vragen, Als je vragen hebt, bezoek :blue[www.coronavaccinatie.nl.]''')
+       
             
 st.sidebar.markdown('# Gemaakt door: [François en Sichen](https://github.com/engrobelf)')
 st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/engrobelf/low_literacy.git)')

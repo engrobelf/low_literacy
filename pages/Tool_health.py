@@ -80,7 +80,10 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)
 
 record_page_start_time()
-st.session_state.pages.remove("Tool_health")
+if 'T_financial' not in st.session_state:
+    st.session_state.pages.remove("Tool_health")
+    st.session_state.T_financial= 'deleted'
+
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
     st.session_state.lastQuestion= 'no'

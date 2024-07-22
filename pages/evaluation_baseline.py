@@ -183,4 +183,8 @@ Cognitieve belasting
                 'q9': q9,
                 
                 })
-            switch_page('Summarization')
+            if (st.session_state.lastQuestion =='yes'): 
+                switch_page('qualitative')
+            else: 
+                st.session_state['form_submitted'] = False 
+                switch_page(st.session_state.pages[st.session_state.nextPage1])

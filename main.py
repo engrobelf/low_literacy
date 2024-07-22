@@ -290,6 +290,8 @@ Deelname is geheel vrijwillig, zonder fysieke, juridische of economische risico'
 
     # consent_for_osf = "ja" if OSF == 'doe ik' else 'nee'
 
+    st.session_state.pages = ['Baseline_health', 'Baseline_financial', 'Tool_health', 'Tool_Financial']
+
     if 'name' not in st.session_state:
         st.session_state['name'] = ''
 

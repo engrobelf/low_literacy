@@ -6,6 +6,7 @@ import random
 import pandas as pd
 import datetime
 import xgboost as xgb
+import random
 import copy
 from PIL import Image
 from datetime import datetime, timedelta
@@ -53,7 +54,9 @@ def record_page_duration_and_send():
         })
 
 record_page_start_time()
-st.session_state.pages.remove("Baseline_Health")
+if 'B_health' not in st.session_state:
+    st.session_state.pages.remove("Baseline_Health")
+    st.session_state.B_health= 'deleted'
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
     st.session_state.lastQuestion= 'no'
@@ -162,7 +165,7 @@ with body2:
                 record_page_duration_and_send()
             st.session_state.oocsi.send('Baseline_text_question', {
                     'participant_ID': st.session_state.name,
-                    'topic': st.session_state['topic'],
+                    'topic': 'Health',
                     'q1': question1,
                     'q2': question2,
                     'q3': question3,
@@ -175,10 +178,7 @@ with body2:
 if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
     st.write("Klik op de knop hieronder om naar de volgende pagina te gaan.")
     if st.button("Volgende pagin"):
+        switch_page('evaluation_baseline')
 
-        if (st.session_state.lastQuestion =='yes'): 
-            switch_page('finalPage')
-        else: 
-            st.session_state['form_submitted'] = False 
-            switch_page(st.session_state.pages[st.session_state.nextPage1])
+
 

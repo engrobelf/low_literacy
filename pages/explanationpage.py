@@ -57,6 +57,9 @@ def audio_player(file_path):
 
 st.session_state.current_page_title = "Verklaring Pagina"
 page_start_time = None
+
+st.session_state.pages = [
+    'Baseline_financial', 'Baseline_Health', 'Tool_financial', 'Tool_health']
 record_page_start_time()
 
 if 'nextPage' not in st.session_state:

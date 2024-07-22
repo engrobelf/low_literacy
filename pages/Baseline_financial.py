@@ -54,7 +54,10 @@ def record_page_duration_and_send():
         })
 
 record_page_start_time()
-st.session_state.pages.remove("Baseline_financial")
+if 'B_financial' not in st.session_state:
+    st.session_state.pages.remove("Baseline_financial")
+    st.session_state.B_financial= 'deleted'
+
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
     st.session_state.lastQuestion= 'no'
@@ -63,7 +66,7 @@ else:
 
 
 with header2: 
-    st.title("Baseline - Geen hulpmiddel")
+    st.title(f"Baseline - {st.session_state.name}")
 
 with body2:
     st.header('Uitleg experiment')
