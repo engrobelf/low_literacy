@@ -173,16 +173,19 @@ with body2:
                 'q9': q9,
                 
                 })
-            
-            if st.session_state['topic'] == 'Health':
+            if (st.session_state.lastQuestion =='yes'): 
                 switch_page('qualitative')
             else: 
-                url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
-                input_method = 'Health'
-                selected_pdf = os.path.join(url_directory, input_method + '.pdf')
-                selected_pdf = selected_pdf.replace('\\', '/')
-                st.session_state['uploaded_file'] = selected_pdf
-                st.session_state['topic'] = 'Health'
-                switch_page('Baseline')
+                st.session_state['form_submitted'] = False 
+                switch_page(st.session_state.pages[st.session_state.nextPage1])
+
+            # else: 
+            #     url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
+            #     input_method = 'Health'
+            #     selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+            #     selected_pdf = selected_pdf.replace('\\', '/')
+            #     st.session_state['uploaded_file'] = selected_pdf
+            #     st.session_state['topic'] = 'Health'
+            #     switch_page('Baseline')
     # Execute your app
     # embed streamlit docs in a streamlit app

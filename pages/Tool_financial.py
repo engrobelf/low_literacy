@@ -79,7 +79,12 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)
 
 record_page_start_time()
-
+st.session_state.pages.remove("Tool_financial")
+if (len(st.session_state.pages)>0):
+    st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
+    st.session_state.lastQuestion= 'no'
+else:
+    st.session_state.lastQuestion= 'yes'
 with header2:
     st.title("Samenvatting")
 
@@ -206,146 +211,71 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
     return True
 
 with body2:
-    if st.session_state['topic'] == 'Health':
-        with st.form("health_form"):
-            st.markdown('**Leesbegrip**')
-            st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
-                        Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
+    with st.form("financial_form"):
+        st.markdown('**Leesbegrip**')
+        st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
+                    Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
 
-            question1 = st.radio(
-                "Van welke organisatie is deze brief?",
-                ["A) Gezondheidsraad",
-                "B) RIVM",
-                "C) Ministerie van Volksgezondheid",
-                "D) Gemeentehuis",
-                "E) Ik weet het niet"], index=4)
-            
-            question2 = st.radio(
-                "Wat is het hoofddoel van deze brief?",
-                ["A) Uitnodiging voor een feest",
-                "B) Informatie over een coronaprik voor kinderen",
-                "C) Advies over schoolbezoeken ",
-                "D) Registratie voor een sportevenement",
-                "E) Ik weet het niet"], index=4)
-            
-            question3 = st.radio(
-                "Welke actie moet als eerste worden ondernomen om een afspraak te maken?",
-                ["A) Bel de huisarts",
-                "B) Zoek het BSN van je kind ",
-                "C) Bezoek de lokale kliniek",
-                "D) Schrijf je in op een website",
-                "E) Ik weet het niet"], index=4)
+        question1 = st.radio(
+            "Van welke organisatie is deze brief?",
+            ["A) Gemeente Amsterdam",
+            "B) Gemeente Rotterdam",
+            "C) Gemeente Utrecht",
+            "D) Gemeente Eindhoven",
+            "E) Ik weet het niet"], index=4)
+        
+        question2 = st.radio(
+            "Wat is het totaalbedrag van de aanslag?",
+            ["A) €150,50",
+            "B) €200,20",
+            "C) €269,72 ",
+            "D) €300,30",
+            "E) Ik weet het niet"], index=4)
+        
+        question3 = st.radio(
+            "Wat is de vervaldatum voor de betaling?",
+            ["A) 15-02-2024",
+            "B) 22-02-2024",
+            "C) 31-03-2024",
+            "D) 01-04-2024",
+            "E) Ik weet het niet"], index=4)
 
-            question4 = st.radio(
-                "Op welk nummer moet je bellen om een vaccinatieafspraak te maken?",
-                ["A) 0800 7070",
-                "B) 112",
-                "C) 0800 1234",
-                "D) 0900 2020",
-                "E) Ik weet het niet"], index=4)
-            
-
-            question5 = st.radio(
-                "Wat is een vereiste om mee te nemen naar de vaccinatieafspraak?",
-                ["A) Een waterfles",
-                "B) Een pasfoto",
-                "C) De uitnodigingsbrief en een ID",
-                "D) Een medische geschiedenisrapport",
-                "E) Ik weet het niet"], index=4)
-
-
-            question6 = st.radio(
-                "Waar kun je meer informatie vinden over de coronavaccinatie voor kinderen?",
-                ["A) www.gezondheid.nl",
-                "B) www.rivm.nl",
-                "C) www.coronavaccinatie.nl",
-                "D) www.kinderzorg.nl",
-                "E) Ik weet het niet"], index=4)
-            
-            submitted = st.form_submit_button("Indienen")
-        if submitted:
-            if 'page_start_time' in st.session_state:
-                record_page_duration_and_send()    
-            # st.write("question 1", q1)
-            st.session_state.oocsi.send('Tool_answer', {
-                'participant_ID': st.session_state.name,
-                'topic': st.session_state['topic'],
-                'q1': question1,
-                'q2': question2,
-                'q3': question3,
-                'q4': question4,
-                'q5': question5,
-                'q6': question6,
-                })
-            switch_page("evaluation_tool")
-
-# Financial Letter questions:
-    elif st.session_state['topic'] == 'Financial':
-        with st.form("financial_form"):
-            st.markdown('**Leesbegrip**')
-            st.markdown("Selecteer het juiste antwoord op de onderstaande meerkeuzevragen. \
-                        Een goed antwoord krijgt +1 punt, een fout antwoord -1 punt en de \"Ik weet het niet\" 0 punten")
-
-            question1 = st.radio(
-                "Van welke organisatie is deze brief?",
-                ["A) Gemeente Amsterdam",
-                "B) Gemeente Rotterdam",
-                "C) Gemeente Utrecht",
-                "D) Gemeente Eindhoven",
-                "E) Ik weet het niet"], index=4)
-            
-            question2 = st.radio(
-                "Wat is het totaalbedrag van de aanslag?",
-                ["A) €150,50",
-                "B) €200,20",
-                "C) €269,72 ",
-                "D) €300,30",
-                "E) Ik weet het niet"], index=4)
-            
-            question3 = st.radio(
-                "Wat is de vervaldatum voor de betaling?",
-                ["A) 15-02-2024",
-                "B) 22-02-2024",
-                "C) 31-03-2024",
-                "D) 01-04-2024",
-                "E) Ik weet het niet"], index=4)
-
-            question4 = st.radio(
-                "Hoeveel termijnen kun je kiezen om in te betalen via automatische afschrijving?",
-                ["A) 5 termijnen",
-                "B) 8 termijnen",
-                "C) 10 termijnen",
-                "D) 12 termijnen",
-                "E) Ik weet het niet"], index=4)
-            
-            question5 = st.radio(
-                "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
-                ["A) www.amsterdam.nl/contact-belastingen",
-                "B) www.rotterdam.nl/contact-belastingen",
-                "C) www.utrecht.nl/contact-belastingen",
-                "D) www.eindhoven.nl/contact-belastingen",
-                "E) Ik weet het niet"], index=4)
-            
-            question6 = st.radio(
-                "Welke is de juiste contactinformatie?",
-                ["A) 14 020",
-                "B) 14 040",
-                "C) 14 030",
-                "D) 14 050",
-                "E) Ik weet het niet"], index=4)
-            
-            submitted = st.form_submit_button("Indienen")
-        if submitted:
-            if 'page_start_time' in st.session_state:
-                record_page_duration_and_send()    
-            st.session_state.oocsi.send('Baseline_text_question', {
-                'participant_ID': st.session_state.name,
-                'topic': st.session_state['topic'],
-                'q1': question1,
-                'q2': question2,
-                'q3': question3,
-                'q4': question4,
-                'q5': question5,
-                'q6': question6,
-                })
-            switch_page("evaluation_tool")
+        question4 = st.radio(
+            "Hoeveel termijnen kun je kiezen om in te betalen via automatische afschrijving?",
+            ["A) 5 termijnen",
+            "B) 8 termijnen",
+            "C) 10 termijnen",
+            "D) 12 termijnen",
+            "E) Ik weet het niet"], index=4)
+        
+        question5 = st.radio(
+            "Waar kun je contact opnemen voor meer informatie of bezwaar maken?",
+            ["A) www.amsterdam.nl/contact-belastingen",
+            "B) www.rotterdam.nl/contact-belastingen",
+            "C) www.utrecht.nl/contact-belastingen",
+            "D) www.eindhoven.nl/contact-belastingen",
+            "E) Ik weet het niet"], index=4)
+        
+        question6 = st.radio(
+            "Welke is de juiste contactinformatie?",
+            ["A) 14 020",
+            "B) 14 040",
+            "C) 14 030",
+            "D) 14 050",
+            "E) Ik weet het niet"], index=4)
+        
+        submitted = st.form_submit_button("Indienen")
+    if submitted:
+        if 'page_start_time' in st.session_state:
+            record_page_duration_and_send()    
+        st.session_state.oocsi.send('Baseline_text_question', {
+            'participant_ID': st.session_state.name,
+            'topic': st.session_state['topic'],
+            'q1': question1,
+            'q2': question2,
+            'q3': question3,
+            'q4': question4,
+            'q5': question5,
+            'q6': question6,
+            })
+        switch_page("evaluation_tool")
