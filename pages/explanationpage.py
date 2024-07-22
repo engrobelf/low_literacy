@@ -59,6 +59,9 @@ st.session_state.current_page_title = "Verklaring Pagina"
 page_start_time = None
 record_page_start_time()
 
+if 'nextPage' not in st.session_state:
+    st.session_state.nextPage = random.randint(0, len(st.session_state.pages)-1)
+
 with header2:
     st.title("Brief Selectie")
 
@@ -156,4 +159,4 @@ if st.button("Volgende pagina") and selected_pdf is not None:
                 #     'consentForOSF': consentforOSF
                 # })
     if 'selected_pdf' in locals():
-        switch_page("Baseline")
+        switch_page(st.session_state.pages[st.session_state.nextPage])
