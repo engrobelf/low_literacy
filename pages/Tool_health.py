@@ -82,7 +82,7 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
 record_page_start_time()
 if 'T_health' not in st.session_state:
     st.session_state.pages.remove("Tool_health")
-    st.session_state.T_= 'deleted'
+    st.session_state.T_health= 'deleted'
 
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
