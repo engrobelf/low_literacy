@@ -64,9 +64,15 @@ if (len(st.session_state.pages)>0):
 else:
     st.session_state.lastQuestion= 'yes'
 
+url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
+input_method = 'Financial'
+selected_pdf = None
+selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+selected_pdf = selected_pdf.replace('\\', '/')
+st.session_state['uploaded_file'] = selected_pdf
 
 with header2: 
-    st.title(f"Baseline - {st.session_state.name}")
+    st.title(f"Baseline - {input_method}")
 
 with body2:
     st.header('Uitleg experiment')
@@ -109,8 +115,8 @@ with body2:
     st.write("Beantwoord alstublieft de volgende vragen:")
     with st.form("financial_form2"):
         st.markdown('**Leesbegrip**')
-        st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder. \
-    ")
+        st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder.\
+                    Een correct antwoord levert +1 punt op, een fout antwoord -1 punt en 'Ik weet het niet' 0 punten.")
         question1 = st.radio(
             "Van welke organisatie is deze brief?",
             ["A) Gemeente Amsterdam",
@@ -160,6 +166,8 @@ with body2:
             "E) Ik weet het niet"], index=4)
         
         submitted = st.form_submit_button("Indienen")
+        st.markdown(st.session_state.pages)
+
         if submitted:
             if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()
@@ -179,9 +187,3 @@ if 'form_submitted' in st.session_state and st.session_state['form_submitted']:
     st.write("Klik op de knop hieronder om naar de volgende pagina te gaan.")
     if st.button("Volgende pagin"):
         switch_page('evaluation_baseline')
-
-        # if (st.session_state.lastQuestion =='yes'): 
-        #     switch_page('finalPage')
-        # else: 
-        #     st.session_state['form_submitted'] = False 
-        #     switch_page(st.session_state.pages[st.session_state.nextPage1])

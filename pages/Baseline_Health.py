@@ -63,6 +63,13 @@ if (len(st.session_state.pages)>0):
 else:
     st.session_state.lastQuestion= 'yes'
 
+url_directory = "https://raw.githubusercontent.com/engrobelf/low_literacy/main/letters"
+input_method = 'Health'
+selected_pdf = None
+selected_pdf = os.path.join(url_directory, input_method + '.pdf')
+selected_pdf = selected_pdf.replace('\\', '/')
+st.session_state['uploaded_file'] = selected_pdf
+
 with header2: 
     st.title("Baseline - Geen hulpmiddel")
 
@@ -159,6 +166,8 @@ with body2:
             "E) Ik weet het niet"], index=4)
         
         submitted = st.form_submit_button("Indienen")
+        st.markdown(st.session_state.pages)
+
 
         if submitted:
             if 'page_start_time' in st.session_state:
