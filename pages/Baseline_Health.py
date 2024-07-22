@@ -57,6 +57,7 @@ record_page_start_time()
 if 'B_health' not in st.session_state:
     st.session_state.pages.remove("Baseline_Health")
     st.session_state.B_health= 'deleted'
+
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
     st.session_state.lastQuestion= 'no'
@@ -71,7 +72,7 @@ selected_pdf = selected_pdf.replace('\\', '/')
 st.session_state['uploaded_file'] = selected_pdf
 
 with header2: 
-    st.title("Baseline - Geen hulpmiddel")
+    st.title("Baseline - Health letter")
 
 with body2:
     st.header('Uitleg experiment')
@@ -167,8 +168,6 @@ with body2:
         
         submitted = st.form_submit_button("Indienen")
         st.markdown(st.session_state.pages)
-
-
         if submitted:
             if 'page_start_time' in st.session_state:
                 record_page_duration_and_send()

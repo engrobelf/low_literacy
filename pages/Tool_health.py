@@ -80,9 +80,9 @@ def process_summarize_button(url, api_key, use_gpt_4, find_clusters):
                 os.unlink(temp_file_path)
 
 record_page_start_time()
-if 'T_financial' not in st.session_state:
+if 'T_health' not in st.session_state:
     st.session_state.pages.remove("Tool_health")
-    st.session_state.T_financial= 'deleted'
+    st.session_state.T_= 'deleted'
 
 if (len(st.session_state.pages)>0):
     st.session_state.nextPage1 = random.randint(0, len(st.session_state.pages)-1)
@@ -91,7 +91,7 @@ else:
     st.session_state.lastQuestion= 'yes'
 
 with header2:
-    st.title("Samenvatting")
+    st.title("Samenvatting - Health letter")
 
 with body2:
     st.header('Uitleg experiment')

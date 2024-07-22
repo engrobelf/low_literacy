@@ -91,7 +91,7 @@ else:
     st.session_state.lastQuestion= 'yes'
 
 with header2:
-    st.title("Samenvatting")
+    st.title("Samenvatting - Financial Letter")
 
 with body2:
     st.header('Uitleg experiment')
@@ -245,6 +245,7 @@ with body2:
             "E) Ik weet het niet"], index=4)
         
         submitted = st.form_submit_button("Indienen")
+    st.markdown(st.session_state.pages)
     if submitted:
         if 'page_start_time' in st.session_state:
             record_page_duration_and_send()    

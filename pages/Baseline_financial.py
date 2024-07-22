@@ -72,7 +72,7 @@ selected_pdf = selected_pdf.replace('\\', '/')
 st.session_state['uploaded_file'] = selected_pdf
 
 with header2: 
-    st.title(f"Baseline - {input_method}")
+    st.title(f"Baseline - Financial Letter")
 
 with body2:
     st.header('Uitleg experiment')
@@ -117,6 +117,7 @@ with body2:
         st.markdown('**Leesbegrip**')
         st.markdown("Selecteer het juiste antwoord op de meerkeuzevragen hieronder.\
                     Een correct antwoord levert +1 punt op, een fout antwoord -1 punt en 'Ik weet het niet' 0 punten.")
+       
         question1 = st.radio(
             "Van welke organisatie is deze brief?",
             ["A) Gemeente Amsterdam",
