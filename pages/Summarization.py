@@ -111,7 +111,7 @@ with body2:
     #     else:
     #         st.error("Please enter a valid API Key.")
 
-    if st.button('Summarize (click once and wait)', key='summarize_button'):
+    if st.button('Samenvatten? Eén klik.', key='summarize_button'):
         if st.session_state['topic'] == 'Financial': 
             st.markdown('''
                         📩 Afzender: 
@@ -123,6 +123,7 @@ with body2:
                             Belastingaanslag uitleggen
                         
                         🔑 Actiepunten:
+                            
                             💸 Betaal €269,72
                         
                             📅 Voor 31-03-2024
@@ -132,7 +133,9 @@ with body2:
                             📆 10 termijnen mogelijk
                         
                             📨 Maak bezwaar mogelijk
+                        
                         📞 Contactinformatie:
+                            
                             📞 14 040
                             📝 Online contactformulier
                         
@@ -149,6 +152,7 @@ with body2:
                             Coronaprik voor kinderen
 
                         🔑 Actiepunten:
+                            
                             💉 Informatie coronaprik
                         
                             🧒 Kinderen vanaf 5 jaar
@@ -160,6 +164,7 @@ with body2:
                             🆔 Neem ID en brief
                         
                         📞 Contactinformatie:
+                            
                             0800 7070 (gratis)
                         
                         📢 Call to Action:
