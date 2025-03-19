@@ -167,7 +167,7 @@ with body2:
                             
                             0800 7070 (gratis)
                         
-                        📢 Call to Action:
+                        📢 Neem actie:
                             
                             Als je vragen hebt, bel 0800-7070 of bezoek www.coronavaccinatie.nl.''')
                                                 
